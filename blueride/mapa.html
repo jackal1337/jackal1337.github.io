@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <title>BlueRide</title>
+  <link rel="stylesheet" href="assets/web/assets/mobirise-icons/mobirise-icons.css">
+  <link rel="stylesheet" href="assets/web/assets/mobirise-icons2/mobirise2.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
+  <link rel="stylesheet" href="assets/dropdown/css/style.css">
+  <link rel="stylesheet" href="assets/theme/css/style.css">
+  <link rel="preload"
+    href="https://fonts.googleapis.com/css?family=Jost:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap"
+    as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Jost:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap">
+    </noscript>
+  <link rel="preload"
+    href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap"
+    as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap">
+    </noscript>
+  <link rel="preload" href="https://fonts.googleapis.com/css?family=Anton:400&display=swap" as="style"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anton:400&display=swap"></noscript>
+  <link rel="preload" as="style" href="assets/additional/css/br-additional.css">
+  <link rel="stylesheet" href="assets/additional/css/br-additional.css" type="text/css">
+  <style>
+    html, body, #map-canvas {
+        height: 100%;
+        margin: 0
+    }
+</style>
+</head>
+<body>
+  <section data-bs-version="5.1" class="menu cid-tGMzoGOZnt" once="menu" id="menu1-16">
+
+    <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
+      <div class="container">
+        <div class="navbar-brand">
+
+          <span class="navbar-caption-wrap"><a class="navbar-caption text-primary display-5"
+              href="index.html">BlueRide</a></span>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-toggle="collapse"
+          data-target="#navbarSupportedContent" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link link text-primary display-7" href="index.html">Zpět na hlavní
+                stránku</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+  </section>
+<div id="map-canvas"></div>
+
+<script src="https://maps.google.com/maps/api/js?key=AIzaSyAKRgvfHxV3as4LYILTsb8nUHbM"></script>
+<script src="https://artic.leosight.cz/design/mapa/js/SanMap.min.js"></script>
+<script>
+var currentSearch = window.location.search;
+
+var mapType = new SanMapType(1, 3, function (zoom, x, y) {
+    return x == -1 && y == -1 ? "https://artic.leosight.cz/design/mapa/tiles/map.outer.png" : "https://artic.leosight.cz/design/mapa/tiles/map." + zoom + "." + x + "." + y + ".png";
+});
+
+var map = SanMap.createMap(document.getElementById('map-canvas'),
+    {mapType}, -1, null, false);
+var Marker = new google.maps.Marker({
+    position: {lat: -2.8, lng: -63.8},
+    map: map,
+    icon: "https://i.imgur.com/SvKvhVs.png"
+});
+var blueride = [{
+      lat: -8.43615,
+      lng: -62.8884
+    }, {
+      lat: -2.256738,
+      lng: -62.8941
+    }, {
+      lat: -2.249706,
+      lng: -64.7148
+    }, {
+      lat: -4.79829,
+      lng: -64.7112
+    }, {
+      lat: -5.25255,
+      lng: -64.8081
+    }, {
+      lat: -5.64,
+      lng: -65.067
+    }, {
+      lat: -5.90322,
+      lng: -65.454
+    }, {
+      lat: -5.9946,
+      lng: -65.913
+    }, {
+      lat: -5.99718,
+      lng: -66.0627
+    }, {
+      lat: -8.43861,
+      lng: -66.0639
+    }, ];
+    var blueride = new google.maps.Polygon({
+      paths: blueride,
+      strokeColor: '#ffffff',
+      strokeOpacity: 1,
+      strokeWeight: 2,
+      fillColor: '#6592e6',
+      fillOpacity: 0.5
+    });
+    blueride.setMap(map);
+</script>
+</body>
