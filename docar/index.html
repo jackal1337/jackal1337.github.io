@@ -1,25 +1,124 @@
 <!DOCTYPE html>
-<html>
+<html lang="cs">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style>
         body {
-            background-color: #fe8ae6;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
+            background-color: #f8f9fa;
+            margin-top: 0;
         }
 
-        img {
-            max-width: 100%;
-            max-height: 100%;
+        .jumbotron {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .jumbotron h1 {
+            font-size: 2.5em;
+        }
+
+        .card {
+            margin: 20px 0;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .embed-responsive {
+            overflow: hidden;
+            padding-bottom: 75%;
+            position: relative;
+        }
+
+        .embed-responsive iframe {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        q {
+            position: relative;
+            left: 20px;
         }
     </style>
 </head>
+
 <body>
-    <img src="https://media2.giphy.com/media/Td2qFdGIOgPWG0qoEc/giphy.gif" alt="GIF">
+    <div class="jumbotron text-center">
+        <h1 class="display-4"><strong>Bojujme za svobodu na internetu</strong></h1>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="text-center">
+                    Web docar.ic, jenž je provozován PO Tixor, IČ 581, vyjadřuje plnou podporu kongresmance Robyns.
+                </h5>
+                <hr>
+                <h4 class="text-center">Proč je to špatně?</h4>
+                <p>Nový zákon nejenže postrádá hlavu a patu, zároveň doslovně povoluje odcizení cizí domény jen na
+                    základě toho, že si někdo podá podnět k
+                    soudu.<p>
+                        <q>§16 Uživateli je zakázáno vydávat se za jinou fyzickou osobu nebo právnickou osobu, kterou
+                            není
+                            oprávněn zastupovat. Tímto se rozumí vydávání se za státní i soukromé instituce a to v
+                            podobě
+                            falešných profilů, emailových adres, domény, webových stránek a dalších internetových
+                            služeb, u
+                            kterých může na základě obsahu či názvu dané internetové služby dojít k záměně s danou
+                            institucí. V
+                            takovém případě je <strong>vyžádáno smazání dané internetové služby v případě podnětu ze
+                                strany poškozené
+                                instituce.</strong></q>
+                        <p>Nikde ani zmínka o finanční náhradě za ztrátu domény, kterou si osoba zaplatí za 1.000.000Kč.
+                        </p>
+                        <hr>
+                        <p>Celý zákon je špatně sepsaný a obsahuje jednu zásadní chybu, díky které se dá u soudu lehce
+                            zneplatnit. Nicméně i kdyby byl zákon sepsán správně, tak není v pořádku. Je snadno
+                            zneužitelný a cizí doménu si tak může přivlastnit kde kdo.</p>
+                    </p>
+                    <hr>
+                    <a href=https://artic.leosight.cz/svobodnyinternet.ic target="_top">
+                        <h3 class=text-center>#svobodnyinternet</h3>
+                    </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container d-flex justify-content-center">
+        <div class="embed-responsive" style="width:1000px; height: 500px;">
+            <iframe src="https://jnovakdev.github.io/svobodnyinternet.ic" frameborder="0"
+                allowfullscreen></iframe>
+        </div>
+    </div>
+    <footer>
+        <div class="container px-lg-5 my-5">
+            <p class="text-muted text-center">
+                Provozovatel webové stránky docar.ic je PO Tixor, IČ 581
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
 </body>
+
 </html>
