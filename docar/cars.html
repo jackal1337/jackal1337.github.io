@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <a href="index.html" class="mt-2 btn btn-outline-primary"><i class="bi bi-arrow-left"></i> Jít zpět</a>
+
+        <div class="text-center mt-3">
+            <div id="carTitle" class="h1 mb-5">Název</div>
+            <div id="carouselExampleControls" class="owl-carousel owl-theme">
+            </div>
+            <div class="mt-5">
+                <div class="row">
+                    <div class="col-md-6">
+                        <table id="carDetails" class="table table-striped text-left">
+                            <tr>
+                                <td><i class="bi bi-calendar"></i> Rok výroby</td>
+                                <td class="text-end" id="rok_vyroby">-</td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-gear"></i> Převodovka</td>
+                                <td class="text-end" id="prevodovka">-</td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-speedometer"></i> Motor</td>
+                                <td class="text-end" id="motor">-</td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-lightning"></i> Výkon</td>
+                                <td class="text-end" id="vykon">-</td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-droplet"></i> Palivo</td>
+                                <td class="text-end" id="palivo">-</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <table id="carDetails" class="table table-striped text-left">
+                            <tr>
+                                <td><i class="bi bi-image"></i> Polep</td>
+                                <td class="text-end" id="polep">-</td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-tools"></i> Úpravy</td>
+                                <td class="text-end">
+                                    <span class="initial-row" id="upravy"></span>
+                                    <span class="collapsed-row" id="upravy2" style="display: none;"></span>
+                                    <span id="toggleDetails" class="text-primary toggle-details"><i
+                                            class="bi-arrow-down-circle"></i></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-speedometer2"></i> Maximální rychlost</td>
+                                <td class="text-end" id="maximalni_rychlost">-</td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-upc"></i> VIN</td>
+                                <td class="text-end" id="vin">-</td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-cash"></i> Cena</td>
+                                <td class="text-end" id="cena">-</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="alert alert-primary text-center" role="alert">
+                        Cena není pevná, nebráním se rozumné dohodě.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <footer>
+        <div class="px-lg-5 my-5">
+            <p class="text-muted text-center">
+                Provozovatel webové stránky docar.ic je PO Tixor, IČ 581
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
