@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,100..900;1,100..900&family=Quicksand:wght@300..700&display=swap');
+
+body {
+    background-color: #ebebeb;
+    font-family: "Quicksand", sans-serif;
+    font-optical-sizing: auto;
+}
+
+tr {
+    text-align: left;
+}
+
+.collapsed-row {
+    display: none;
+}
+
+.toggle-details {
+    cursor: pointer;
+}
+
+.owl-theme .owl-dots .owl-dot.active span,
+.owl-theme .owl-dots .owl-dot:hover span {
+    background: #0d6efd !important;
+}
+
+.owl-carousel .owl-item img {
+    border-radius: 15px;
+}
+
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    scale: 1.05;
+}
+
+.container {
+    min-height: 100vh;
+}
+
+@media (min-width: 768px) {
+    .col-md-4 {
+        flex: 0 0 33.33333%;
+        max-width: 33.33333%;
+    }
+}
+
+.row>.col-md-4 {
+    margin-top: 20px;
+}
+
+strong {
+    font-size: larger;
+}
