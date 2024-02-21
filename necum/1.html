@@ -44,10 +44,53 @@
             position: absolute;
         }
 
+        .loader {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 9999;
+            transition: opacity 0.3s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #3f51b5;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-text {
+            margin-top: 10px;
+            font-size: 18px;
+            color: #3f51b5;
+        }
+
         .btn {
             position: absolute;
-            top: 10px;
-            left: 10px;
             z-index: 1;
         }
     </style>
@@ -55,15 +98,24 @@
 
 <body>
     <canvas id="renderCanvas"></canvas>
-    <a href="cars.html?id=1" class="mt-2 btn btn-outline-primary"><i class="bi bi-arrow-left"></i> Jít zpět</a>
+    <div class="container">
+        <a href="cars.html?id=1" class="mt-2 btn btn-outline-primary"><i class="bi bi-arrow-left"></i> Jít zpět</a>
+    </div>
+
+    <div class="loader" id="loader">
+        <div class="spinner"></div>
+        <div class="loading-text">Měj chvíli strpení, právě se ti načítá 3D model</div>
+    </div>
 
     <script>
         var canvas = document.getElementById("renderCanvas");
+        var loader = document.getElementById("loader");
 
         var startRenderLoop = function (engine, canvas) {
             engine.runRenderLoop(function () {
                 if (sceneToRender && sceneToRender.activeCamera) {
                     sceneToRender.render();
+                    loader.classList.add("hidden");
                 }
             });
         }
@@ -79,9 +131,8 @@
             });
         };
         var delayCreateScene = function () {
-
             var scene = new BABYLON.Scene(engine);
-            scene.clearColor = new BABYLON.Color4(235, 235, 235, 1);
+            scene.clearColor = new BABYLON.Color4(0.92156862745098, 0.92156862745098, 0.92156862745098);
 
             BABYLON.SceneLoader.ImportMesh("", "", "model.glb", scene, function (meshes) {
                 scene.createDefaultCameraOrLight(true, true, true);
@@ -91,14 +142,11 @@
         };
 
         window.initFunction = async function () {
-
             var asyncEngineCreation = async function () {
                 try {
                     return createDefaultEngine();
                 } catch (e) {
-                    console.log(
-                        "the available createEngine function failed. Creating the default engine instead"
-                    );
+                    console.log("the available createEngine function failed. Creating the default engine instead");
                     return createDefaultEngine();
                 }
             }
@@ -109,7 +157,7 @@
             window.scene = delayCreateScene();
         };
         initFunction().then(() => {
-            sceneToRender = scene
+            sceneToRender = scene;
         });
 
         window.addEventListener("resize", function () {
