@@ -1,0 +1,165 @@
+* {
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #F1FAFF !important;
+    color: #fff;
+}
+
+.header {
+    padding: 3rem 0 7rem;
+    position: relative;
+    background-image: url('assets/img/map.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    height: 100vh;
+    width: auto;
+    padding: 0;
+}
+
+.mg {
+    background: url('assets/img/img-montgomery/montgomery.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.pc {
+    background: url('assets/img/img-palomino/palomino.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.bb {
+    background: url('assets/img/img-blueberry/blueberry.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+
+.header h1 {
+    color: #fff;
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 1.1;
+    z-index: 1;
+}
+
+.header h2 {
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 600;
+    z-index: 1;
+    font-size: 1.2rem;
+    font-style: italic;
+}
+
+.header a {
+    color: rgba(255, 255, 255, .8);
+    text-decoration: underline;
+    z-index: 1;
+}
+
+@media(min-width:992px) {
+    .header h1 {
+        font-size: 3rem;
+    }
+
+    .header h2 {
+        font-size: 1.5rem;
+    }
+}
+
+.header .header-cards {
+    position: relative;
+    z-index: 1;
+}
+
+.header .header-cards .shape {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.58);
+    top: 0;
+    left: 0;
+    z-index: -1;
+    border-radius: 30% 70% 70% 30%/30% 30% 70% 70%;
+}
+
+.header .header-cards .card {
+    opacity: 1;
+    font-size: .8rem;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: .05rem;
+    color: #212529;
+    transition: .15s all;
+}
+
+.header .header-cards .card:hover {
+    margin-top: -.25rem;
+    margin-bottom: .25rem;
+}
+
+.card-transparent i,
+.card-transparent {
+    transition: all ease-in-out 0.3s;
+}
+
+.card-transparent:hover i {
+    color: #0055aa;
+}
+
+.card-transparent:hover {
+    scale: 1.02;
+}
+
+.header-texts {
+    padding: 3rem 0;
+    background: #00000041;
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.card-transparent {
+    background: #00000041 !important;
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    color: white !important;
+}
+
+@media (max-width: 375px) {
+    .header .card {
+        bottom: 80px;
+    }
+}
+
+
+main .card {
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.8));
+    border: 0 !important;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+.card hr {
+    border-top: 1px solid #fff;
+
+}
+
+a.card_link {
+    color: #212529;
+}
+
+.span, .mista{
+    text-decoration: black wavy underline;
+    font-weight: bolder;
+}
