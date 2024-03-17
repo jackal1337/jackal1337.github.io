@@ -101,11 +101,12 @@
     </footer>
 
     <script type="module">
+        const firebaseApiKey = '${{ secrets.FIREBASE_API_KEY }}';
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
     const firebaseConfig = {
-  apiKey: process.env.FIREBASE_API_KEY,
+  apiKey: firebaseApiKey,
   authDomain: "doprava-cc160.firebaseapp.com",
   projectId: "doprava-cc160",
   storageBucket: "doprava-cc160.appspot.com",
