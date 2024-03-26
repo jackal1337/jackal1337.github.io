@@ -1,0 +1,304 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+
+*, ::before, ::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Lexend", sans-serif;
+    background-color: #F1FAFF;
+}
+
+span {
+    font-family: "Anton", sans-serif;
+    color: #6592e6;
+}
+
+.fullscreen-bg {
+    background-image: url('assets/img/Header_img.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.wave svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 150px;
+}
+
+.wave .shape-fill {
+    fill: #F1FAFF;
+}
+
+.text-overlay {
+    text-align: center;
+    color: #F1FAFF;
+    padding: 0 20px;
+}
+
+.text-overlay h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.text-overlay h5 {
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+@media (max-width: 768px) {
+    .text-overlay h1 {
+        font-size: 36px;
+    }
+
+    .text-overlay h5 {
+        font-size: 20px;
+    }
+}
+
+.onas {
+    padding: 80px 0;
+}
+
+.onas .container {
+    margin: 0 auto;
+    padding: 50px 20px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+}
+
+.vozy {
+    padding: 80px 0;
+    background-color: #f8f9fa;
+}
+
+.vozy h2 {
+    margin-bottom: 40px;
+}
+
+.vozy .card {
+    transition: transform 0.3s ease-in-out; /* Přidání efektu přechodu */
+}
+
+.vozy .card:hover {
+    transform: translateY(-5px); /* Efekt zvednutí karty při najetí myší */
+}
+
+.vozy .card-img-top {
+    height: 250px; /* Zvýšení výšky obrázku */
+    object-fit: cover;
+}
+
+.vozy .card-title {
+    font-size: 24px;
+    margin-bottom: 20px; /* Zvýšení mezery pod nadpisem */
+}
+
+.vozy .card-text {
+    margin-bottom: 10px; /* Zmenšení mezery pod textem */
+}
+
+.vozy .card-text li {
+    font-size: 18px; /* Zvětšení velikosti textu */
+    color: #495057; /* Změna barvy textu */
+}
+
+.vozy .card-text a {
+    color: #007bff; /* Změna barvy odkazů */
+    text-decoration: none; /* Zrušení vlnité podtržení odkazů */
+}
+
+.cenik {
+    padding: 80px 0;
+    background-color: #F1FAFF;
+}
+
+.cenik h2 {
+    margin-bottom: 40px;
+}
+
+.cenik .card {
+    padding: 20px;
+}
+
+.cenik .card-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.spoluprace {
+    padding: 80px 0;
+    background-color: #f8f9fa;
+}
+
+.spoluprace .container {
+    margin: 0 auto;
+    padding: 50px 20px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+}
+
+.mapa {
+    padding: 80px 0;
+}
+
+.mapa h2 {
+    margin-bottom: 40px;
+}
+
+.objednavka {
+    padding: 50px 0;
+    background-color: #f8f9fa;
+}
+
+.objednavka h2 {
+    margin-bottom: 40px;
+}
+
+.objednavka .card {
+    margin-bottom: 30px;
+}
+
+.objednavka .card-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.objednavka .card-text {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #666;
+}
+
+.objednavka .card-text ol {
+    padding-left: 20px;
+}
+
+.objednavka .card-text li {
+    margin-bottom: 10px;
+}
+
+.form-check-label {
+    font-size: 16px;
+    color: #666;
+}
+
+.objednavka .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 30px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.objednavka .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.form-group label {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.form-control {
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+@media (max-width: 767px) {
+    .objednavka .card-title {
+        font-size: 20px;
+    }
+
+    .objednavka .card-text {
+        font-size: 14px;
+    }
+
+    .form-group label {
+        font-size: 16px;
+    }
+
+    .form-control {
+        font-size: 14px;
+    }
+
+    .objednavka .btn-primary {
+        font-size: 16px;
+        padding: 8px 20px;
+    }
+}
+
+.navbar {
+    position: fixed;
+    z-index: 1000;
+    width: 100%;
+    background-color: #F1FAFF !important;
+    filter: drop-shadow(0 0 0.75rem #2b2b2b);
+}
+
+.navbar-brand {
+    font-family: "Anton", sans-serif;
+    font-size: 36px;
+    font-weight: bold;
+    color: #6592e6 !important;
+}
+
+.navbar-nav .nav-link {
+    font-size: 18px;
+    margin-left: 20px;
+    color: #333;
+    transition: all 0.3s ease-in-out;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #6592e6 !important;
+}
+
+.btn-primary {
+    background-color: #6592e6 !important;
+    border-color: #466fbd !important;
+    font-size: 18px;
+    margin-left: 20px;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-primary:hover {
+    background-color: #466fbd !important;
+    border-color: #6592e6 !important;
+}
