@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    const discordWebhookUrl = '${{ secrets.DISCORD_WEBHOOK_URL }}';
+const discordWebhookUrl = '${{ secrets.DISCORD_WEBHOOK_URL }}';
 
     $('#nextBtn').click(function() {
         if ($('#terms').is(':checked')) {
