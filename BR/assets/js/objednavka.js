@@ -1,4 +1,6 @@
 $(document).ready(function() {
+    const discordWebhookUrl = '${{ secrets.DISCORD_WEBHOOK_URL }}';
+
     $('#nextBtn').click(function() {
         if ($('#terms').is(':checked')) {
             $('#termsCard').hide();
@@ -17,7 +19,6 @@ $(document).ready(function() {
         var email = $('#email').val();
         var duration = $('#duration').val();
 
-        var webhookUrl =  '${{ secrets.DISCORD_WEBHOOK_URL }}'
         var message = {
             embeds: [{
                 title: 'Nová objednávka',
@@ -33,7 +34,7 @@ $(document).ready(function() {
         };
 
         $.ajax({
-            url: webhookUrl,
+            url: discordWebhookUrl,
             type: 'POST',
             data: JSON.stringify(message),
             contentType: 'application/json',
