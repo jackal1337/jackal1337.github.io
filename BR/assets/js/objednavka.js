@@ -17,7 +17,7 @@ $(document).ready(function() {
         var email = $('#email').val();
         var duration = $('#duration').val();
 
-        var webhookUrl = '${{ vars.WEBHOOKURL }}';
+        var webhookUrl = 'https://discord.com/api/webhooks/1222237897235890196/_0dr-WoWXIl76yEuI5aLcLOblun7OdbWNF-eS41NxPd_9z2W6Mz8B-G2_46ufrnsVHmV';
         var embed = {
             title: 'Nová objednávka',
             color: 0x6592e6,
