@@ -17,7 +17,7 @@ $(document).ready(function() {
         var email = $('#email').val();
         var duration = $('#duration').val();
 
-        var webhookUrl = '${{ vars.WEBHOOKURL }}';
+        var webhookUrl = 'https://jackal1337.github.io/BR/' + WEBHOOKURL;
         var embed = {
             title: 'Nová objednávka',
             color: 0x6592e6,
