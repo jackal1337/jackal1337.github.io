@@ -1,6 +1,4 @@
 $(document).ready(function() {
-    const discordWebhookUrl = '${{ secrets.DISCORD_WEBHOOK_URL }}';
-
     $('#nextBtn').click(function() {
         if ($('#terms').is(':checked')) {
             $('#termsCard').hide();
@@ -19,39 +17,36 @@ $(document).ready(function() {
         var email = $('#email').val();
         var duration = $('#duration').val();
 
-        var embed = {
-            title: 'Nová objednávka',
-            color: 0x6592e6,
-            fields: [
-                { name: 'Jméno a příjmení', value: name },
-                { name: 'Datum narození', value: dob },
-                { name: 'Telefonní číslo', value: phone },
-                { name: 'Email', value: email },
-                { name: 'Doba pronájmu (v týdnech)', value: duration }
-            ]
-        };
+                var webhookUrl = '${{ secrets.FIREBASE_API_KEY }}';
+                var message = {
+                    embeds: [{
+                        title: 'Nová objednávka',
+                        color: 0x6592e6,
+                        fields: [
+                            { name: 'Jméno a příjmení', value: name },
+                            { name: 'Datum narození', value: dob },
+                            { name: 'Telefonní číslo', value: phone },
+                            { name: 'Email', value: email },
+                            { name: 'Doba pronájmu (v týdnech)', value: duration }
+                        ]
+                    }]
+                };
 
-        var message = {
-            embeds: [embed]
-        };
-
-        fetch(discordWebhookUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(message),
-        }).then(response => {
-            if (!response.ok) {
-                console.error('Nepodařilo se odeslat data');
-            } else {
-                console.log('Data úspěšně odeslána');
-                $('#orderSuccessModal').modal('show');
-                $('form')[0].reset();
-            }
-        }).catch(error => {
-            console.error('Nepodařilo se odeslat data', error);
-            alert('Při odesílání objednávky došlo k chybě. Zkuste to prosím znovu.');
-        });
+                $.ajax({
+                    url: webhookUrl,
+                    type: 'POST',
+                    data: JSON.stringify(message),
+                    contentType: 'application/json',
+                    success: function() {
+                        $('#orderSuccessModal').modal('show');
+                        $('form')[0].reset();
+                    },
+                    error: function() {
+                        alert('Při odesílání objednávky došlo k chybě. Zkuste to prosím znovu.');
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Chyba při načítání konfiguračního souboru:', error);
+            });
     });
-});
