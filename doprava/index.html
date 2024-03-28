@@ -3,180 +3,97 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Doprava.ic</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-
-        form {
-            max-width: 600px;
-            margin: auto;
-        }
-
-        section {
-            margin-bottom: 20px;
-        }
-
-        th,
-        td {
-            text-align: left;
-        }
-    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"
+        crossorigin="anonymous"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        referrerpolicy="no-referrer">
+    <link href="assets/css/style.css" rel="stylesheet">
 </head>
 
 <body>
+    <div class="text-center mb-4 p-2">
+        <h1 class="text-primary text-uppercase"><i class="fas fa-car"></i> Doprava.ic</h1>
+        <!-- Button to trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+            Open Modal
+        </button>
+    </div>
 
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">Dopravní Informace a Hlídky</a>
-        </nav>
-    </header>
+    <!-- The Modal -->
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
 
-    <section class="container mt-4">
-        <h2>Záznam Dopravní Situace</h2>
-        <form>
-            <div class="form-group">
-                <label for="location">Lokace:</label>
-                <input type="text" class="form-control" id="location" name="location" required>
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Podmínky užití služby</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    Modal content goes here...
+                </div>
+
             </div>
-
-            <div class="form-group">
-                <label for="description">Popis situace:</label>
-                <textarea class="form-control" id="description" name="description" required></textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="police_presence">Policie přítomna:</label>
-                <select class="form-control" id="police_presence" name="police_presence">
+        </div>
+    </div>
+    <section class="container">
+        <h2 class="text-primary"><i class="fas fa-pencil-alt"></i> Záznam události</h2>
+        <form id="recordForm">
+            <div class="form-group"><input class="form-control" id="location" name="location" placeholder="Lokace"
+                    required></div>
+            <div class="form-group"><textarea class="form-control" id="description" name="description"
+                    placeholder="Popis situace" required></textarea></div>
+            <div class="form-group"><select class="form-control" id="police_presence" name="police_presence" required>
+                    <option value="" disabled hidden selected>Policie přítomna</option>
                     <option value="yes">Ano</option>
                     <option value="no">Ne</option>
-                </select>
+                </select></div>
+            <div class="form-group"><select class="form-control" id="event_type" name="event_type" required>
+                    <option value="" disabled hidden selected>Typ události</option>
+                    <option value="nehoda">Dopravní nehoda</option>
+                    <option value="hlidka">Policejní hlídka</option>
+                    <option value="prekazka">Překážka na silnici</option>
+                </select></div>
+            <div class="form-group"><input class="form-control" id="imageLink" name="imageLink"
+                    placeholder="Fotografie (odkaz na Imgur)"></div>
+            <div class="form-group"><input class="form-control" id="name" name="name" placeholder="Jméno oznamovatele">
             </div>
-
-            <div class="form-group">
-                <label for="name">Jméno:</label>
-                <input type="text" class="form-control" id="name" name="name" required>
-            </div>
-
-            <div class="form-group">
-                <label for="event_type">Typ události:</label>
-                <select class="form-control" id="event_type" name="event_type">
-                    <option value="accident">Dopravní nehoda</option>
-                    <option value="road_closure">Uzavření silnice</option>
-                    <option value="traffic_jam">Dopravní zácpa</option>
-                    <option value="injury">Dopravní nehoda se zraněním</option>
-                    <option value="police_patrol">Policejní hlídka</option>
-                    <option value="police_checkpoint">Policejní kontrola</option>
-                </select>
-            </div>
-
-            <button type="button" class="btn btn-primary" id="submitButton">Odeslat</button>
+            <button class="btn btn-primary" id="submitButton" type="submit">Odeslat</button>
         </form>
     </section>
-
-    <section class="container mt-4">
-        <h2>Seznam Záznamů</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Datum a čas</th>
-                    <th scope="col">Lokace</th>
-                    <th scope="col">Popis situace</th>
-                    <th scope="col">Policie přítomna</th>
-                    <th scope="col">Jméno</th>
-                    <th scope="col">Typ události</th>
-                </tr>
-            </thead>
-            <tbody id="recordListBody"></tbody>
-        </table>
-    </section>
-
-    <footer class="footer mt-auto py-3">
-        <div class="container text-center">
-            <span>&copy; 2024 Dopravní Informace</span>
+    <section class="container">
+        <h2 class="text-primary"><i class="fas fa-clipboard-list"></i> Seznam Záznamů</h2>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Datum a čas</th>
+                        <th scope="col">Lokace</th>
+                        <th scope="col">Popis situace</th>
+                        <th scope="col">Policie přítomna</th>
+                        <th scope="col">Typ události</th>
+                        <th scope="col">Jméno oznamovatele</th>
+                        <th scope="col">Obrázek</th>
+                    </tr>
+                </thead>
+                <tbody id="recordListBody">
+                </tbody>
+            </table>
+        </div>
+    </section>    
+    <footer>
+        <div class="my-5 px-lg-5">
+            <p class="text-center text-muted">Provozovatel webové stránky docar.ic je PO Tixor, IČ 581<br>Design&Code by
+                <a href="https://artic.leosight.cz/iris.ic/donnie" target="_top">Donato Ortiz</a>
+            </p>
         </div>
     </footer>
-
-    <script type="module">
-        const firebaseApiKey = '${{ secrets.FIREBASE_API_KEY }}';
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-
-    const firebaseConfig = {
-  apiKey: firebaseApiKey,
-  authDomain: "doprava-cc160.firebaseapp.com",
-  databaseURL: "https://doprava-cc160-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "doprava-cc160",
-  storageBucket: "doprava-cc160.appspot.com",
-  messagingSenderId: "415336428339",
-  appId: "1:415336428339:web:55299a4aede90007954446",
-  measurementId: "G-0Z2MRPH54B"
-};
-
-    const app = initializeApp(firebaseConfig);
-    const database = getDatabase(app);
-
-    function submitForm() {
-        const location = document.getElementById('location').value;
-        const description = document.getElementById('description').value;
-        const policePresence = document.getElementById('police_presence').value === 'yes' ? 'Ano' : 'Ne';
-        const name = document.getElementById('name').value;
-        const eventTypeElement = document.getElementById('event_type');
-        const eventType = eventTypeElement.options[eventTypeElement.selectedIndex].text;
-
-        const currentDate = new Date();
-        const date = currentDate.toLocaleDateString('cs-CZ');
-        const time = currentDate.toLocaleTimeString('cs-CZ', { hour: '2-digit', minute: '2-digit' });
-
-        const recordsRef = ref(database, 'records');
-        push(recordsRef, {
-            location,
-            description,
-            policePresence,
-            name,
-            eventType,
-            date,
-            time,
-        });
-
-        getRecords();
-    }
-
-    function getRecords() {
-        const recordsRef = ref(database, 'records');
-        onValue(recordsRef, (snapshot) => {
-            const records = [];
-            snapshot.forEach((childSnapshot) => {
-                records.push(childSnapshot.val());
-            });
-
-            const recordListBody = document.getElementById('recordListBody');
-            recordListBody.innerHTML = '';
-
-            records.forEach((record) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${record.date} ${record.time}</td>
-                    <td>${record.location}</td>
-                    <td>${record.description}</td>
-                    <td>${record.policePresence}</td>
-                    <td>${record.name}</td>
-                    <td>${record.eventType}</td>
-                `;
-                recordListBody.appendChild(row);
-            });
-        });
-    }
-
-    document.getElementById('submitButton').addEventListener('click', submitForm);
-
-    document.addEventListener("DOMContentLoaded", function() {
-        getRecords();
-    });
-</script>
-</body>
-
-</html>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="module" src="assets/js/main.js"></script>
