@@ -11,14 +11,15 @@ $(document).ready(function() {
     $('form').submit(function(e) {
         e.preventDefault();
 
-        var name = $('#name').val();
-        var dob = $('#dob').val();
-        var phone = $('#phone').val();
-        var email = $('#email').val();
-        var duration = $('#duration').val();
+        const name = $('#name').val();
+        const dob = $('#dob').val();
+        const phone = $('#phone').val();
+        const email = $('#email').val();
+        const duration = $('#duration').val();
 
-        var webhookUrl = 'https://discord.com/api/webhooks/1222237897235890196/_0dr-WoWXIl76yEuI5aLcLOblun7OdbWNF-eS41NxPd_9z2W6Mz8B-G2_46ufrnsVHmV';
-        var embed = {
+        const webhookSecret = process.env.DISCORD_WEBHOOK_URL; // Získáváme URL webhooku z GitHub tajemství
+
+        const embed = {
             title: 'Nová objednávka',
             color: 0x6592e6,
             fields: [
@@ -30,7 +31,7 @@ $(document).ready(function() {
             ]
         };
 
-        fetch(webhookUrl, {
+        fetch(webhookSecret, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
