@@ -1,6 +1,6 @@
-const copperPrice = 100;
-const tinPrice = 150;
-const goldPrice = 500;
+const copperPrice = 3500;
+const tinPrice = 10500;
+const goldPrice = 45000;
 
 let totalReward = 0;
 
