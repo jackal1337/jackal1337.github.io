@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1 class="text-center mt-4">Výkup surovin</h1>
+    <h5 class="text-center">Máte přespříliš surovin a nevíte co s nimi? Prodejte nám je a my je využijeme!</h5>
+    <p class="text-center">
+        <a class="btn btn-outline-dark" data-toggle="collapse" href="#collapseExample" role="button"
+            aria-expanded="false" aria-controls="collapseExample">
+            Postup objednávky
+        </a>
+    </p>
+    <div class="accordion">
+        <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+                <ol>
+                    <li>Přepočítáte své suroviny</li>
+                    <li>Zadáte počty do naší online kalkulačky</li>
+                    <li>Pokud jste spokojeni s odměnou, kliknete na tlačítko "Odeslat" pod odměnou</li>
+                    <li>Vyplníte své kontaktní údaje</li>
+                    <li>Ozveme se Vám a dohodneme předání</li>
+                    <li>Při předání od Vás převezmeme suroviny, Vy obdržíte odměnu</li>
+                    <li>Hotovo!</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="container border rounded mt-4">
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <form id="rewardForm">
+                    <div class="form-group">
+                        <label for="copper">Měď</label>
+                        <input type="number" class="form-control" id="copper" placeholder="Zadejte množství mědi"
+                            value="0" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="tin">Cín</label>
+                        <input type="number" class="form-control" id="tin" placeholder="Zadejte množství cínu" value="0"
+                            min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="gold">Zlato</label>
+                        <input type="number" class="form-control" id="gold" placeholder="Zadejte množství zlata"
+                            value="0" min="0">
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
+                <div id="totalReward" class="reward-display text-dark display-4">0 Kč</div>
+                <button type="button" class="btn btn-dark" id="orderButton" data-toggle="modal"
+                    data-target="#orderModal">Odeslat</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="orderModalLabel">Odeslání objednávky</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="orderForm">
+                        <div class="form-group">
+                            <label for="orderCopper">Měď (kg)</label>
+                            <input type="number" class="form-control" id="orderCopper" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="orderTin">Cín (kg)</label>
+                            <input type="number" class="form-control" id="orderTin" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="orderGold">Zlato (kg)</label>
+                            <input type="number" class="form-control" id="orderGold" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="orderTotalReward">Celková odměna (Kč)</label>
+                            <input type="number" class="form-control" id="orderTotalReward" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Jméno</label>
+                            <input type="text" class="form-control" id="name" placeholder="Zadejte své jméno" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact">Kontakt</label>
+                            <input type="text" class="form-control" id="contact" placeholder="Zadejte svůj kontakt"
+                                required>
+                        </div>
+                        <button type="submit" class="btn btn-success">Odeslat</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000"
+        style="position: absolute; top: 10px; right: 10px;">
+        <div class="toast-header">
+            <strong class="mr-auto">Odeslání objednávky</strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            Objednávka byla úspěšně odeslána.
+        </div>
+    </div>
+    
+    <footer>
+        <div class="px-lg-5 my-5">
+            <p class="text-muted text-center">
+                Provozovatel webové stránky docar.ic je PO Tixor, IČ 581<br>Design&Code by <a
+                    href="https://artic.leosight.cz/iris.ic/donnie" target="_top">Donato Ortiz</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
