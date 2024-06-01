@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/michalsnik/aos/2.3.4/dist/aos.css" />
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .custom-container {
+            margin-top: 80px;
+        }
+
+        .guard-photo {
+            width: 48px;
+        }
+
+        .table td,
+        .table th {
+            vertical-align: middle;
+        }
+
+        .availability .fa-check {
+            color: green;
+        }
+
+        .availability .fa-times {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top custom-navbar">
+        <a class="navbar-brand" href="#"><i class="fas fa-shield-alt"></i> Guard24</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active"><a class="nav-link" href="index.html">Jít zpět</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container custom-container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center">Jak fungují naši hlídači?</h2>
+                <p>Náš tým pečlivě vybírá profesionály, kteří mají jediný cíl: zajištění bezpečí a ochrany našich
+                    klientů. Každý hlídač prošel přísným výběrovým procesem a disponuje nejen odpovídajícím výcvikem,
+                    ale také platnými licencemi a bohatými zkušenostmi.
+                    <br>
+                    U nás máte možnost vybírat mezi různými hlídači podle jejich specializace, hodnocení a dostupnosti.
+                    Každý jednotlivý hlídač má svůj unikátní profil, který vám usnadní rozhodování a pomůže najít toho
+                    nejvhodnějšího právě pro vaše specifické potřeby.
+                    <br>
+                    S námi máte jistotu, že vaše bezpečí je v dobrýchrukou.</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center">Naši hlídači</h2>
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Jméno</th>
+                                <th>Hodnocení</th>
+                                <th>Psovod</th>
+                                <th>Zbraň</th>
+                                <th>Dostupný</th>
+                                <th class="text-end">Plat za směnu*</th>
+                            </tr>
+                        </thead>
+                        <tbody id="guards-table-body">
+
+                        </tbody>
+                    </table>
+                    <p class="text-muted">*Naši hlídači jsou k dispozici denně po dobu maximálně 12 hodin, přičemž
+                        pracovní doba je rozdělena do tří směn po čtyřech hodinách. Plat za každou směnu odpovídá práci
+                        čtyři hodiny. Pro udržení nepřetržitého dohledu nad vašimi nemovitostmi vám doporučujeme
+                        zaměstnat minimálně dva hlídače, kteří se pravidelně střídají. Kromě platby za směnu je
+                        zapotřebí také jednorázově uhradit poplatek ve výši 75 000 Kč za každého hlídače. Tento poplatek
+                        již není potřeba platit opakovaně po celou dobu, kdy využíváte naše služby.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="px-lg-5 my-5">
+            <p class="text-muted text-center">
+                Provozovatel webové stránky guard24.ic je PO Guard24, IČ 696<br>Design&Code by <a
+                    href="https://artic.leosight.cz/iris.ic/donnie" target="_top">Donato Ortiz</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.rawgit.com/michalsnik/aos/2.3.4/dist/aos.js"></script>
+    <script src="hlidaci.js"></script>
+</body>
+
+</html>
