@@ -1,30 +1,32 @@
-document.getElementById('orderForm').addEventListener('submit', function (e) {
-    e.preventDefault();
+$(document).ready(function() {
+    $('form').submit(function(e) {
+        e.preventDefault();
 
-    const name = document.getElementById('name').value;
-    const contact = document.getElementById('contact').value;
-    const message = document.getElementById('message').value;
+        const name = $('#name').val();
+        const email = $('#email').val();
+        const message=  $('#message').val();
 
-    const data = {
-        name,
-        contact,
-        message
-    };
-
-    fetch('https://jackal.studio/api/guard24.js', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => response.json())
-    .then(data => {
-        alert('Objednávka byla úspěšně odeslána!');
-        document.getElementById('orderForm').reset();
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Nastala chyba při odesílání objednávky.');
+        fetch("https://www.jackal.studio/api/guard24", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name: name,
+                email: email,
+                message: message,
+            }),
+        })
+        .then(response => {
+            if (!response.ok) {
+                console.error('Nepodařilo se odeslat data');
+            } else {
+                console.log('Data úspěšně odeslána');
+                $('#orderSuccessModal').modal('show'); 
+            }
+        })
+        .catch(error => {
+            console.error('Nepodařilo se odeslat data', error);
+        });
     });
 });
