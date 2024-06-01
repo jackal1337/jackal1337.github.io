@@ -5,7 +5,6 @@ html {
 }
 
 body {
-    color: #343a40;
     font-family: 'Poppins', sans-serif;
     overflow-x: hidden;
 }
@@ -156,4 +155,8 @@ hr {
 
 .service-box img:hover {
     transform: scale(1.1);
+}
+
+#contact, #about{
+    background-color: #ebebeb !important;
 }

@@ -37,7 +37,7 @@
             </div>
         </div>
         <svg class="wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-            <path fill="#ffffff" fill-opacity="1"
+            <path fill="#ebebeb" fill-opacity="1"
                 d="M0,320L48,303.3C96,287,192,263,288,258C384,253,480,265,576,270.7C672,276,768,264,864,258.7C960,253,1056,275,1152,258.7C1248,243,1344,209,1392,182.7L1440,156L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
             </path>
         </svg>        
@@ -138,28 +138,47 @@
     <section id="contact" class="py-5 bg-light">
         <div class="container">
             <h2 class="text-center" data-aos="fade-up">Kontaktujte Nás</h2>
+            <p>Do formuláře níže vyplňte prosím své kontaktní údaje a zboží/služby o které máte zájem. Po úspěšném obdržení objednávky se vám ozve náš zaměstnanec, který s vámi projedná nejvhodnější možnosti zabezpečení a vytvoří cenovou kalkulaci.</p>
             <form id="orderForm" class="mt-4" data-aos="fade-up">
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="name">Jméno a Příjmení</label>
-                        <input type="text" class="form-control" id="name" placeholder="Vyplňte vaše celé jméno"
-                            required>
+                        <input type="text" class="form-control" id="name" placeholder="Vyplňte vaše celé jméno" required>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email"
-                            placeholder="Vyplňte váš email ve formátu jméno.příjmení@post.ic" required>
+                        <label for="phone">Telefonní Číslo</label>
+                        <input type="tel" class="form-control" id="phone" placeholder="Vyplňte vaše telefonní číslo" required>
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="Vyplňte váš email ve formátu jméno.příjmení@post.ic" required>
+                </div>
+                <div class="form-group">
                     <label for="message">Objednávka</label>
-                    <textarea class="form-control" id="message" rows="4"
-                        placeholder="Popište o jaké zboží/služby máte zájem." required></textarea>
+                    <textarea class="form-control" id="message" rows="4" placeholder="Popište o jaké zboží/služby máte zájem." required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Odeslat</button>
             </form>
         </div>
+    
+        <div aria-live="polite" aria-atomic="true" style="position: relative;">
+            <div style="position: absolute; top: 0; right: 0;">
+                <div id="orderSuccessToast" class="toast" data-delay="5000">
+                    <div class="toast-header">
+                        <strong class="mr-auto">Úspěch</strong>
+                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="toast-body">
+                        Objednávka byla úspěšně odeslána.
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
+       
 
     <footer>
         <div class="px-lg-5 my-5">
