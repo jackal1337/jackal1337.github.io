@@ -59,7 +59,7 @@ const guards = [
         handlerPhoto: "https://cdn.leosight.cz/skimo/skins/297.png",
         weapon: "Glock 17",
         available: true,
-        pay: "9.465 Kč"
+        pay: "16.550 Kč"
     },
     {
         photo: "https://cdn.leosight.cz/skimo/skins/197.png",
