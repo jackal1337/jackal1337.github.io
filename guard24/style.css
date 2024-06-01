@@ -7,6 +7,7 @@ html {
 body {
     color: #343a40;
     font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
 }
 
 h1,
@@ -67,10 +68,10 @@ hr {
 
 .header .container {
     background-color: #007bff10;
-    padding: 10px;
     border-radius: 20px;
     backdrop-filter: blur(10px);
-    margin-top: -100px;
+    margin-top: -80px;
+    box-sizing: border-box;
 }
 
 .header p {
