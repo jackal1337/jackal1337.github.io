@@ -59,7 +59,7 @@ const guards = [
         handlerPhoto: "https://cdn.leosight.cz/skimo/skins/297.png",
         weapon: "Glock 17",
         available: true,
-        pay: "16.550 Kč"
+        pay: "16.600 Kč"
     },
     {
         photo: "https://cdn.leosight.cz/skimo/skins/197.png",
@@ -80,6 +80,26 @@ const guards = [
         weapon: "0",
         available: true,
         pay: "14.200 Kč"
+    },
+    {
+        photo: "https://cdn.leosight.cz/skimo/skins/164.png",
+        name: "Diego Sanchez",
+        rating: 4,
+        isHandler: false,
+        handlerPhoto: "https://cdn.leosight.cz/skimo/skins/297.png",
+        weapon: "0",
+        available: true,
+        pay: "11.900 Kč"
+    },
+    {
+        photo: "https://cdn.leosight.cz/skimo/skins/166.png",
+        name: "Alexander Wright",
+        rating: 4,
+        isHandler: false,
+        handlerPhoto: "https://cdn.leosight.cz/skimo/skins/297.png",
+        weapon: "0",
+        available: true,
+        pay: "11.900 Kč"
     },
 ];
 
