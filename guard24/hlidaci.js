@@ -101,6 +101,16 @@ const guards = [
         available: true,
         pay: "11.900 Kč"
     },
+        {
+        photo: "https://cdn.leosight.cz/skimo/skins/076.png",
+        name: "Ludmila Bláhová",
+        rating: 4,
+        isHandler: false,
+        handlerPhoto: "https://cdn.leosight.cz/skimo/skins/297.png",
+        weapon: "0",
+        available: true,
+        pay: "11.900 Kč"
+    },
 ];
 
 function generateStars(rating) {
