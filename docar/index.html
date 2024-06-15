@@ -59,6 +59,10 @@
                         <label for="scrapMetal">Kovový šrot</label>
                         <input type="number" class="form-control" id="scrapMetal" placeholder="Zadejte množství kovového šrotu" value="0" min="0">
                     </div>
+                    <div class="form-group">
+                        <label for="glass">Sklo</label>
+                        <input type="number" class="form-control" id="glass" placeholder="Zadejte množství skla" value="0" min="0">
+                    </div>
                 </form>
             </div>
             <div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
@@ -81,24 +85,28 @@
                 <div class="modal-body">
                     <form id="orderForm">
                         <div class="form-group">
-                            <label for="orderCopper">Měď (kg)</label>
+                            <label for="orderCopper">Měď</label>
                             <input type="number" class="form-control" id="orderCopper" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="orderTin">Cín (kg)</label>
+                            <label for="orderTin">Cín</label>
                             <input type="number" class="form-control" id="orderTin" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="orderGold">Zlato (kg)</label>
+                            <label for="orderGold">Zlato</label>
                             <input type="number" class="form-control" id="orderGold" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="orderIron">Železo (kg)</label>
+                            <label for="orderIron">Železo</label>
                             <input type="number" class="form-control" id="orderIron" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="orderScrapMetal">Kovový šrot (kg)</label>
+                            <label for="orderScrapMetal">Kovový šrot</label>
                             <input type="number" class="form-control" id="orderScrapMetal" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="orderGlass">Sklo</label>
+                            <input type="number" class="form-control" id="orderGlass" readonly>
                         </div>
                         <div class="form-group">
                             <label for="orderTotalReward">Celková odměna (Kč)</label>
@@ -132,7 +140,7 @@
             Objednávka byla úspěšně odeslána.
         </div>
     </div>
-    
+
     <footer>
         <div class="px-lg-5 my-5">
             <p class="text-muted text-center">

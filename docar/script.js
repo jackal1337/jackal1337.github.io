@@ -3,6 +3,7 @@ const tinPrice = 10500;
 const goldPrice = 45000;
 const ironPrice = 4000;
 const scrapMetalPrice = 75000;
+const glassPrice = 125000;
 
 let totalReward = 0;
 
@@ -31,7 +32,8 @@ function calculateReward() {
     const gold = parseFloat(document.getElementById('gold').value) || 0;
     const iron = parseFloat(document.getElementById('iron').value) || 0;
     const scrapMetal = parseFloat(document.getElementById('scrapMetal').value) || 0;
-    const newTotalReward = (copper * copperPrice) + (tin * tinPrice) + (gold * goldPrice) + (iron * ironPrice) + (scrapMetal * scrapMetalPrice);
+    const glass = parseFloat(document.getElementById('glass').value) || 0;
+    const newTotalReward = (copper * copperPrice) + (tin * tinPrice) + (gold * goldPrice) + (iron * ironPrice) + (scrapMetal * scrapMetalPrice) + (glass * glassPrice);
 
     animateValue('totalReward', totalReward, newTotalReward, 500);
     totalReward = newTotalReward;
@@ -48,6 +50,7 @@ document.getElementById('tin').addEventListener('input', calculateReward);
 document.getElementById('gold').addEventListener('input', calculateReward);
 document.getElementById('iron').addEventListener('input', calculateReward);
 document.getElementById('scrapMetal').addEventListener('input', calculateReward);
+document.getElementById('glass').addEventListener('input', calculateReward);
 
 $('#orderModal').on('show.bs.modal', function () {
     document.getElementById('orderCopper').value = document.getElementById('copper').value;
@@ -55,6 +58,7 @@ $('#orderModal').on('show.bs.modal', function () {
     document.getElementById('orderGold').value = document.getElementById('gold').value;
     document.getElementById('orderIron').value = document.getElementById('iron').value;
     document.getElementById('orderScrapMetal').value = document.getElementById('scrapMetal').value;
+    document.getElementById('orderGlass').value = document.getElementById('glass').value;
     document.getElementById('orderTotalReward').value = totalReward;
 });
 
@@ -67,6 +71,7 @@ document.getElementById('orderForm').addEventListener('submit', function (e) {
         goldCount: document.getElementById('orderGold').value,
         ironCount: document.getElementById('orderIron').value,
         scrapMetalCount: document.getElementById('orderScrapMetal').value,
+        glassCount: document.getElementById('orderGlass').value,
         totalReward: totalReward,
         name: document.getElementById('name').value,
         contact: document.getElementById('contact').value,
