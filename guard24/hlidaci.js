@@ -8,7 +8,7 @@ const guards = [
         isHandler: true,
         handlerPhoto: "https://cdn.leosight.cz/skimo/skins/311.png",
         weapon: "Taser M26",
-        available: false,
+        available: true,
         pay: "14.200 Kč"
     },
     {
