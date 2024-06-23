@@ -77,7 +77,7 @@ document.getElementById('orderForm').addEventListener('submit', function (e) {
         contact: document.getElementById('contact').value,
     };
 
-    fetch("https://www.api.jackal.studio/docar.js", {
+    fetch("https://www.api.jackal.studio/docar", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
