@@ -17,7 +17,7 @@ $(document).ready(function() {
         const email = $('#email').val();
         const duration = $('#duration').val();
 
-        fetch("https://www.jackal.studio/api/blueride.js", {
+        fetch("https://www.api.jackal.studio/blueride.js", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
