@@ -7,7 +7,7 @@ $(document).ready(function() {
         const phone = $('#phone').val();
         const message = $('#message').val();
 
-        fetch("https://www.jackal.studio/api/guard24", {
+        fetch("https://www.api.jackal.studio/guard24", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
