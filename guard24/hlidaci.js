@@ -111,6 +111,56 @@ const guards = [
         available: true,
         pay: "11.900 Kč"
     },
+        {
+        photo: "https://cdn.leosight.cz/skimo/skins/164.png",
+        name: "Luke Lewis",
+        rating: 4,
+        isHandler: false,
+        handlerPhoto: "https://cdn.leosight.cz/skimo/skins/297.png",
+        weapon: "0",
+        available: true,
+        pay: "12.630 Kč"
+    },
+        {
+        photo: "https://cdn.leosight.cz/skimo/skins/093.png",
+        name: "Diana Doležalová",
+        rating: 4,
+        isHandler: false,
+        handlerPhoto: "https://cdn.leosight.cz/skimo/skins/297.png",
+        weapon: "0",
+        available: true,
+        pay: "11.900 Kč"
+    },
+        {
+        photo: "https://cdn.leosight.cz/skimo/skins/151.png",
+        name: "Blanka Králíková",
+        rating: 4,
+        isHandler: false,
+        handlerPhoto: "https://cdn.leosight.cz/skimo/skins/297.png",
+        weapon: "0",
+        available: true,
+        pay: "11.900 Kč"
+    },
+        {
+        photo: "https://cdn.leosight.cz/skimo/skins/291.png",
+        name: "Sokratis Angelopoulos",
+        rating: 4,
+        isHandler: false,
+        handlerPhoto: "https://cdn.leosight.cz/skimo/skins/297.png",
+        weapon: "0",
+        available: true,
+        pay: "11.900 Kč"
+    },
+            {
+        photo: "https://cdn.leosight.cz/skimo/skins/179.png",
+        name: "Mikhail Orlov",
+        rating: 4,
+        isHandler: false,
+        handlerPhoto: "https://cdn.leosight.cz/skimo/skins/297.png",
+        weapon: "0",
+        available: true,
+        pay: "12.700 Kč"
+    },
 ];
 
 function generateStars(rating) {
