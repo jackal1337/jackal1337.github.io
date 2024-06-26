@@ -143,24 +143,27 @@
         <div class="container">
             <h2 class="text-center" data-aos="fade-up">Kontaktujte Nás</h2>
             <p>Do formuláře níže vyplňte prosím své kontaktní údaje a zboží/služby o které máte zájem. Po úspěšném obdržení objednávky se vám ozve náš zaměstnanec, který s vámi projedná nejvhodnější možnosti zabezpečení a vytvoří cenovou kalkulaci.</p>
+            <div class="alert alert-danger text-center" role="alert">
+                Webový formulář je z technických důvodů dočasně odstaven. Své objednávky prosím směřujte na email objednavky@guard24.ic a využijte 15% slevu jako kompenzaci. Za vzniklé komplikace se omlouváme.
+              </div
             <form id="orderForm" class="mt-4" data-aos="fade-up">
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="name">Jméno a Příjmení</label>
-                        <input type="text" class="form-control" id="name" placeholder="Vyplňte vaše celé jméno" required>
+                        <input type="text" class="form-control" id="name" placeholder="Vyplňte vaše celé jméno" required disabled>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="phone">Telefonní Číslo</label>
-                        <input type="tel" class="form-control" id="phone" placeholder="Vyplňte vaše telefonní číslo" required>
+                        <input type="tel" class="form-control" id="phone" placeholder="Vyplňte vaše telefonní číslo" required disabled>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" placeholder="Vyplňte váš email ve formátu jméno.příjmení@post.ic" required>
+                    <input type="email" class="form-control" id="email" placeholder="Vyplňte váš email ve formátu jméno.příjmení@post.ic" required disabled>
                 </div>
                 <div class="form-group">
                     <label for="message">Objednávka</label>
-                    <textarea class="form-control" id="message" rows="4" placeholder="Popište o jaké zboží/služby máte zájem." required></textarea>
+                    <textarea class="form-control" id="message" rows="4" placeholder="Popište o jaké zboží/služby máte zájem." required disabled></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Odeslat</button>
             </form>
