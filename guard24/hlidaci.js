@@ -28,7 +28,7 @@ const guards = [
         isHandler: true,
         handlerPhoto: "https://cdn.leosight.cz/skimo/skins/307.png",
         weapon: "Taser M26",
-        available: true,
+        available: false,
         pay: "18.000 Kč"
     },
     {
@@ -88,7 +88,7 @@ const guards = [
         isHandler: false,
         handlerPhoto: "https://cdn.leosight.cz/skimo/skins/297.png",
         weapon: "0",
-        available: true,
+        available: false,
         pay: "11.900 Kč"
     },
     {
