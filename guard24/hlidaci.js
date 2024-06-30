@@ -9,7 +9,7 @@ const guards = [
         handlerPhoto: "https://cdn.leosight.cz/skimo/skins/311.png",
         weapon: "Taser M26",
         available: true,
-        pay: "14.200 Kč"
+        pay: "16.200 Kč"
     },
     {
         photo: "https://cdn.leosight.cz/skimo/skins/163.png",
