@@ -111,6 +111,96 @@ const guards = [
         available: true,
         pay: "11.900 Kč"
     },
+    {
+        photo: "https://cdn.leosight.cz/skimo/skins/129.png",
+        name: "Helena Bartošová",
+        rating: 5,
+        isHandler: false,
+        handlerPhoto: "https://cdn.leosight.cz/skimo/skins/297.png",
+        weapon: "Glock 17",
+        available: true,
+        pay: "22.500 Kč"
+    },
+    {
+        photo: "https://cdn.leosight.cz/skimo/skins/166.png",
+        name: "Jakub Veselý",
+        rating: 5,
+        isHandler: false,
+        handlerPhoto: "https://cdn.leosight.cz/skimo/skins/297.png",
+        weapon: "Glock 17",
+        available: true,
+        pay: "22.500 Kč"
+    },
+    {
+        photo: "https://cdn.leosight.cz/skimo/skins/296.png",
+        name: "William Taylor",
+        rating: 5,
+        isHandler: true,
+        handlerPhoto: "https://cdn.leosight.cz/skimo/skins/307.png",
+        weapon: "0",
+        available: true,
+        pay: "21.000 Kč"
+    },
+    {
+        photo: "https://cdn.leosight.cz/skimo/skins/296.png",
+        name: "František Bláha",
+        rating: 5,
+        isHandler: false,
+        handlerPhoto: "https://cdn.leosight.cz/skimo/skins/307.png",
+        weapon: "Glock 17",
+        available: true,
+        pay: "22.500 Kč"
+    },
+    {
+        photo: "https://cdn.leosight.cz/skimo/skins/164.png",
+        name: "Luke Lewis",
+        rating: 4,
+        isHandler: false,
+        handlerPhoto: "https://cdn.leosight.cz/skimo/skins/307.png",
+        weapon: "0",
+        available: true,
+        pay: "14.500 Kč"
+    },
+    {
+        photo: "https://cdn.leosight.cz/skimo/skins/093.png",
+        name: "Diana Doležalová",
+        rating: 4,
+        isHandler: false,
+        handlerPhoto: "https://cdn.leosight.cz/skimo/skins/307.png",
+        weapon: "0",
+        available: true,
+        pay: "14.500 Kč"
+    },
+    {
+        photo: "https://cdn.leosight.cz/skimo/skins/151.png",
+        name: "Blanka Králíková",
+        rating: 4,
+        isHandler: false,
+        handlerPhoto: "https://cdn.leosight.cz/skimo/skins/307.png",
+        weapon: "0",
+        available: true,
+        pay: "14.500 Kč"
+    },
+    {
+        photo: "https://cdn.leosight.cz/skimo/skins/291.png",
+        name: "Sokratis Angelopoulos",
+        rating: 4,
+        isHandler: false,
+        handlerPhoto: "https://cdn.leosight.cz/skimo/skins/307.png",
+        weapon: "0",
+        available: true,
+        pay: "14.500 Kč"
+    },
+    {
+        photo: "https://cdn.leosight.cz/skimo/skins/179.png",
+        name: "Mikhail Orlov",
+        rating: 4,
+        isHandler: false,
+        handlerPhoto: "https://cdn.leosight.cz/skimo/skins/307.png",
+        weapon: "0",
+        available: true,
+        pay: "14.500 Kč"
+    },
 ];
 
 function generateStars(rating) {
