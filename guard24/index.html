@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    
+
     <nav class="navbar navbar-expand-lg navbar-light fixed-top custom-navbar">
         <a class="navbar-brand" href="#"><i class="fas fa-shield-alt"></i> Guard24</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -27,7 +27,7 @@
         </div>
     </nav>
 
-    
+
     <header class="header">
         <div class="container d-flex justify-content-center align-items-center">
             <div class="text-center" data-aos="fade-up">
@@ -46,7 +46,7 @@
         </svg>
     </header>
 
-    
+
     <section id="about" class="py-5 text-center bg-light">
         <div class="container">
             <h2>O nás</h2>
@@ -78,7 +78,7 @@
         </div>
     </section>
 
-    
+
     <section id="services" class="py-5 bg-light">
         <div class="container">
             <h2 class="text-center" data-aos="fade-up">Naše Služby</h2>
@@ -92,7 +92,7 @@
                         <p>Zajistěte svůj domov s našimi kvalitními bezpečnostními zámky. Nabízíme robustní a spolehlivé
                             zámky, které poskytují maximální ochranu proti neoprávněnému vstupu. Moderní technologie pro
                             váš klid a bezpečí.</p>
-                            <hr>
+                        <hr>
                         <h5>750.000Kč</h5>
                     </div>
                 </div>
@@ -104,7 +104,7 @@
                         <p>S naším pokročilým kamerovým systémem máte vždy přehled o dění kolem vašeho domova nebo
                             firmy. Vysoké rozlišení, noční vidění a snadná instalace – to vše pro vaši bezpečnost a
                             pohodlí.</p>
-                            <hr>
+                        <hr>
                         <h5>600.000Kč</h5>
                     </div>
                 </div>
@@ -116,7 +116,7 @@
                         <p>Nenechte nic náhodě a vybavte svůj domov spolehlivým alarmovým systémem. Naše alarmy rychle a
                             efektivně upozorní na jakékoli podezřelé aktivity, čímž zajišťují okamžitou ochranu pro vás
                             i vaše blízké.</p>
-                            <hr>
+                        <hr>
                         <h5>500.000Kč</h5>
                     </div>
                 </div>
@@ -138,37 +138,47 @@
         </div>
     </section>
 
-    
+
     <section id="contact" class="py-5 bg-light">
         <div class="container">
             <h2 class="text-center" data-aos="fade-up">Kontaktujte Nás</h2>
-            <p>Do formuláře níže vyplňte prosím své kontaktní údaje a zboží/služby o které máte zájem. Po úspěšném obdržení objednávky se vám ozve náš zaměstnanec, který s vámi projedná nejvhodnější možnosti zabezpečení a vytvoří cenovou kalkulaci.</p>
-            <div class="alert alert-danger text-center" role="alert">
-                Webový formulář je z technických důvodů dočasně odstaven. Své objednávky prosím směřujte na email objednavky@guard24.ic a využijte 15% slevu jako kompenzaci. Za vzniklé komplikace se omlouváme.
-              </div
+            <p>Do formuláře níže vyplňte prosím své kontaktní údaje a zboží/služby o které máte zájem. Po úspěšném
+                obdržení objednávky se vám ozve náš zaměstnanec, který s vámi projedná nejvhodnější možnosti zabezpečení
+                a vytvoří cenovou kalkulaci.</p>
             <form id="orderForm" class="mt-4" data-aos="fade-up">
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="name">Jméno a Příjmení</label>
-                        <input type="text" class="form-control" id="name" placeholder="Vyplňte vaše celé jméno" required disabled>
+                        <input type="text" class="form-control" id="name" placeholder="Vyplňte vaše celé jméno"
+                            required>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="phone">Telefonní Číslo</label>
-                        <input type="tel" class="form-control" id="phone" placeholder="Vyplňte vaše telefonní číslo" required disabled>
+                        <input type="tel" class="form-control" id="phone" placeholder="Vyplňte vaše telefonní číslo"
+                            required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" placeholder="Vyplňte váš email ve formátu jméno.příjmení@post.ic" required disabled>
+                    <input type="email" class="form-control" id="email"
+                        placeholder="Vyplňte váš email ve formátu jméno.příjmení@post.ic" required>
                 </div>
                 <div class="form-group">
                     <label for="message">Objednávka</label>
-                    <textarea class="form-control" id="message" rows="4" placeholder="Popište o jaké zboží/služby máte zájem." required disabled></textarea>
+                    <textarea class="form-control" id="message" rows="4"
+                        placeholder="Popište o jaké zboží/služby máte zájem." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="captcha">CAPTCHA</label>
+                    <div class="d-flex">
+                        <input type="text" class="form-control" id="captchaInput" placeholder="Opíšete kód" required>
+                        <canvas id="captcha" class="ml-3 border bg-light"></canvas>
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Odeslat</button>
             </form>
         </div>
-    
+
         <div aria-live="polite" aria-atomic="true" style="position: relative;">
             <div style="position: absolute; top: 0; right: 0;">
                 <div id="orderSuccessToast" class="toast" data-delay="5000">
@@ -185,7 +195,6 @@
             </div>
         </div>
     </section>
-       
 
     <footer>
         <div class="px-lg-5 my-5">
