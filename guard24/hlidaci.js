@@ -118,7 +118,7 @@ const guards = [
         isHandler: false,
         handlerPhoto: "https://cdn.leosight.cz/skimo/skins/297.png",
         weapon: "Glock 17",
-        available: true,
+        available: false,
         pay: "22.500 Kč"
     },
     {
@@ -148,7 +148,7 @@ const guards = [
         isHandler: false,
         handlerPhoto: "https://cdn.leosight.cz/skimo/skins/307.png",
         weapon: "Glock 17",
-        available: true,
+        available: false,
         pay: "22.500 Kč"
     },
     {
