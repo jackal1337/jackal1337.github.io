@@ -18,7 +18,7 @@ const guards = [
         isHandler: true,
         handlerPhoto: "https://cdn.leosight.cz/skimo/skins/307.png",
         weapon: "0",
-        available: true,
+        available: false,
         pay: "16.600 Kč"
     },
     {
@@ -138,7 +138,7 @@ const guards = [
         isHandler: true,
         handlerPhoto: "https://cdn.leosight.cz/skimo/skins/307.png",
         weapon: "0",
-        available: true,
+        available: false,
         pay: "21.000 Kč"
     },
     {
