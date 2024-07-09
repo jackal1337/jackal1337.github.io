@@ -1,0 +1,46 @@
+@charset "UTF-8";
+/* ============ GOOGEL FONTS ================= */
+/*
+  * ─── BODY TEXT */
+@import url("https://fonts.googleapis.com/css2?family=Concert+One&display=swap");
+/* ========= BASE ============== */
+
+html {
+  font-size: 62.5%;
+}
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  font-family: "Concert One", cursive;
+  font-size: 1.5rem;
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  text-transform: capitalize;
+  color: red;
+  background-image: url(https://storage.googleapis.com/goout-wordpress-uploads/rockcafecz/2019/11/68560323-churaqclique_promophoto19.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+b {
+  background: #ff08d6;
+}
+
+#canvas {
+  margin-top: 5rem;
+  width: 450px;
+  height: 660px;
+  box-shadow: 0 0 8rem 2rem rgba(66, 0, 248, 0.5);
+  border: 2px double #000000;
+}/*# sourceMappingURL=style.css.map */
