@@ -265,34 +265,34 @@ const UI = {
     canvasTx.font = "20px monospace";
     if (player.gamePlaying) {
       canvasTx.fillText(
-        Skóre:${this.score[0].current},
+        `Skóre:${this.score[0].current}`,
         canvas.width / 20,
         canvas.height - 60
       );
       canvasTx.strokeText(
-        Skóre:${this.score[0].current},
+        `Skóre:${this.score[0].current}`,
         canvas.width / 20,
         canvas.height - 60
       );
     } else if (player.gameActive) {
       canvasTx.fillText(
-        Největší skóre:${localStorage.getItem("best")},
+        `Největší skóre:${localStorage.getItem("best")}`,
         canvas.height / 20,
         canvas.height - 60
       );
       canvasTx.strokeText(
-        Největší skóre:${localStorage.getItem("best")},
+        `Největší skóre:${localStorage.getItem("best")}`,
         canvas.height / 20,
         canvas.height - 60
       );
     } else {
       canvasTx.fillText(
-        TVOJE SKÓRE:${this.score[0].current},
+        `TVOJE SKÓRE:${this.score[0].current}`,
         canvas.height / 20,
         canvas.height - 60
       );
       canvasTx.strokeText(
-        TVOJE SKÓRE:${this.score[0].current},
+        `TVOJE SKÓRE:${this.score[0].current}`,
         canvas.height / 20,
         canvas.height - 60
       );
