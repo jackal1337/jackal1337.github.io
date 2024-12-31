@@ -85,15 +85,16 @@
             </div>
         </div>
     </section>
-
-        <section class="vozy" id="vozy">
+    
+    <section class="vozy" id="vozy">
         <div class="container">
             <h2 class="text-center mb-5">Naše vozy</h2>
             <div class="row">
-                <!-- Dynamicky načtené vozy budou zobrazeny zde -->
+                <!-- Vozidla -->
             </div>
         </div>
     </section>
+    
     
     <section class="cenik" id="cenik">
         <div class="container">
@@ -270,6 +271,34 @@
     <script src="https://artic.leosight.cz/design/mapa/js/SanMap.min.js"></script>
     <script src="assets/js/mapa.js"></script>
     <script src="assets/js/objednavka.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+    fetch('https://notjackal.eu/BlueRide/cars.php')
+        .then(response => response.json())
+        .then(data => {
+            const carsContainer = document.querySelector('.vozy .container .row');
+            data.forEach(car => {
+                const carElement = document.createElement('div');
+                carElement.classList.add('col-md-6', 'col-lg-4', 'mb-4');
+
+                carElement.innerHTML = `
+                    <div class="card h-100 shadow-lg">
+                        <img src="${car.image}" alt="${car.title}" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">${car.title}</h5>
+                            <p>${car.description}</p>
+                        </div>
+                    </div>
+                `;
+
+                carsContainer.appendChild(carElement);
+            });
+        })
+        .catch(error => {
+            console.error('Chyba při načítání JSON souboru:', error);
+        });
+});
+    </script>    
 </body>
 
 </html>
