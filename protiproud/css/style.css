@@ -16,7 +16,7 @@ body {
     color: var(--text-color);
     background-color: var(--bg-color);
     line-height: 1.6;
-    background: linear-gradient(to bottom, #f9f9f9, #fff);
+    background: #f9f9f9;
     transition: background-color 0.3s ease, color 0.3s ease;
     height: 100vh;
 }
@@ -347,7 +347,7 @@ body.dark-mode {
     --bg-color: #222;
     --border-color: #444;
     --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    background: linear-gradient(to bottom, #1a1a1a, #222);
+    background: #1a1a1a;
 }
 
 body.dark-mode .article-content {
