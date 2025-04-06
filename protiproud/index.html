@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protiproud</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header class="container py-3 mb-4 border-bottom">
+        <div class="d-flex justify-content-between align-items-center">
+            <a href="index.html" class="d-flex align-items-center text-decoration-none">
+                <img src="logo.png" alt="Protiproud" height="40" class="logo">
+            </a>
+            <div id="tagline" style="font-style: italic; opacity: 0.8; white-space: nowrap;"></div>
+            <button id="theme-toggle" class="btn btn-outline-secondary">
+                <span class="light-mode-icon">🌙</span>
+                <span class="dark-mode-icon" style="display: none">☀️</span>
+            </button>
+        </div>
+    </header>
+    <main class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <h1 class="mb-4">Nejnovější články</h1>
+                <div id="article-list" class="row">
+                    <p>Načítání článků...</p>
+                </div>
+            </div>
+            <aside class="col-lg-4">
+                <div class="sidebar-box">
+                    <h3>O nás</h3>
+                    <p>Jsme nezávislý mediální projekt, který se nebojí jít proti proudu. V době, kdy mainstreamová
+                        média často fungují v zájmu politiky a korporací, nabízíme jiný pohled na svět. Naším cílem je
+                        poskytovat obsah, který jde hluboko pod povrch a neustupuje před pohodlnými narativy.
+                        <br>
+                        Nejsme vázáni žádnými vnějšími zájmy. Naše práce je postavena na odvaze, nezávislosti a víře, že
+                        pravda by měla být vždy na prvním místě. Přinášíme příběhy, které jiní ignorují, a názory, které
+                        většina nemá odvahu říct nahlas.
+                        <br>
+                        Pokud hledáte média, která nejsou ovlivněná politickými či korporátními tlaky, která se nebojí
+                        postavit těm, kdo manipulují veřejným míněním, jste na správném místě.</p>
+                </div>
+                <div class="sidebar-box">
+                    <h3><i class="fa-solid fa-fire"></i> Žhavé články</h3>
+                    <ul class="popular-articles">
+                        <li><a href="#">Manifest nezávislé žurnalistiky</a></li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+    </main>
+    <footer class="container mt-5 py-3 border-top text-center text-muted">
+        &copy; 2025 Protiproud<br>Provozovatel webové stránky protiproud.ic je PO Tixor, IČ 581
+    </footer>
+    <script src="js/script.js"></script>
+</body>
+
+</html>
