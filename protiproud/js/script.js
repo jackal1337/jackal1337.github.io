@@ -100,12 +100,15 @@ document.addEventListener('DOMContentLoaded', () => {
             articleDiv.innerHTML = `
                 <h2><a href="article.html?id=${article.id}">${escapeHTML(article.title)}</a></h2>
                 <div class="article-meta">
-                    ${article.author_avatar 
-                        ? `<img src="${getFullAssetPath(article.author_avatar)}" class="author-avatar" alt="Avatar autora" width="24" height="24">` 
-                        : '<i class="bi bi-person-circle"></i>'
-                    }
-                    Autor: ${escapeHTML(article.author)} | Publikováno: ${formattedDate}
-                    ${article.tags ? `| Štítky: ${escapeHTML(article.tags.join(', '))}` : ''}
+                    <span>Autor: 
+                        ${article.author_avatar 
+                            ? `<img src="${getFullAssetPath(article.author_avatar)}" class="author-avatar" alt="Avatar autora" width="24" height="24">` 
+                            : '<i class="bi bi-person-circle"></i>'
+                        }
+                        ${escapeHTML(article.author)}
+                    </span>
+                    <span>Publikováno: ${formattedDate}</span>
+                    ${article.tags ? `<span>Štítky: ${escapeHTML(article.tags.join(', '))}</span>` : ''}
                 </div>
                 <p class="article-perex">${escapeHTML(article.perex)}</p>
                 <a href="article.html?id=${article.id}" class="btn btn-sm btn-outline-secondary">Číst dále</a>
@@ -125,12 +128,12 @@ document.addEventListener('DOMContentLoaded', () => {
             <article>
                 <h1>${escapeHTML(article.title)}</h1>
                 <div class="article-meta">
-                    <span>
+                    <span>Autor: 
                         ${article.author_avatar 
                             ? `<img src="${getFullAssetPath(article.author_avatar)}" class="author-avatar" alt="Avatar autora" width="32" height="32">` 
                             : '<i class="bi bi-person-circle"></i>'
                         }
-                        Autor: ${escapeHTML(article.author)}
+                        ${escapeHTML(article.author)}
                     </span>
                     <span>Publikováno: ${formattedDate}</span>
                     ${article.tags ? `<span>Štítky: ${escapeHTML(article.tags.join(', '))}</span>` : ''}
