@@ -201,20 +201,22 @@ const taglines = [
     "Bez nátlaku. Bez cenzury. Bez lží.",
     "I když je to nepohodlné, je to pravda.",
     "Píšeme to, co jiní neřeknou.",
-    "Cenzura? Neexistuje. Nezávislost? Naše síla."
+    "Cenzura? Neexistuje. Nezávislost? Naše síla.",
+    "Nejdřív vás naštve nadpis. Pak zamrazí pravda.",
+    "Mainstream tě uklidní. My tě probudíme.",
+    "Nezávislost není luxus. Je to nutnost."
 ];
 let typingIndex = 0;
 let currentTagline = "";
-let currentTaglineIndex = -1; // To track the currently used tagline
+let currentTaglineIndex = -1;
 function typeTagline() {
-    // Randomly choose a new tagline only if the previous one is fully typed
     let randomIndex = Math.floor(Math.random() * taglines.length);
-    while (randomIndex === currentTaglineIndex) { // Ensure a different tagline is selected
+    while (randomIndex === currentTaglineIndex) {
         randomIndex = Math.floor(Math.random() * taglines.length);
     }
-    currentTagline = taglines[randomIndex]; // Set the new tagline
-    currentTaglineIndex = randomIndex; // Store the index of the chosen tagline
-    typingIndex = 0; // Reset typing index for the new tagline
+    currentTagline = taglines[randomIndex];
+    currentTaglineIndex = randomIndex;
+    typingIndex = 0;
     startTyping();
 }
 
@@ -222,9 +224,9 @@ function startTyping() {
     if (typingIndex < currentTagline.length) {
         document.getElementById("tagline").textContent += currentTagline.charAt(typingIndex);
         typingIndex++;
-        setTimeout(startTyping, 100); // typing speed
+        setTimeout(startTyping, 50);
     } else {
-        setTimeout(removeTagline, 1500); // pause before removing
+        setTimeout(removeTagline, 2000);
     }
 }
 
@@ -233,10 +235,9 @@ function removeTagline() {
         currentTagline = currentTagline.substring(0, typingIndex - 1);
         document.getElementById("tagline").textContent = currentTagline;
         typingIndex--;
-        setTimeout(removeTagline, 50); // removal speed
+        setTimeout(removeTagline, 25);
     } else {
-        setTimeout(typeTagline, 500); // wait before typing new tagline
+        setTimeout(typeTagline, 500);
     }
 }
-// Initialize typing animation
 typeTagline();
