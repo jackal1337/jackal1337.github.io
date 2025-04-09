@@ -100,6 +100,10 @@ document.addEventListener('DOMContentLoaded', () => {
             articleDiv.innerHTML = `
                 <h2><a href="article.html?id=${article.id}">${escapeHTML(article.title)}</a></h2>
                 <div class="article-meta">
+                    ${article.author_avatar 
+                        ? `<img src="${article.author_avatar}" class="author-avatar" alt="Avatar autora" width="24" height="24">` 
+                        : '<i class="bi bi-person-circle"></i>'
+                    }
                     Autor: ${escapeHTML(article.author)} | Publikováno: ${formattedDate}
                     ${article.tags ? `| Štítky: ${escapeHTML(article.tags.join(', '))}` : ''}
                 </div>
@@ -126,7 +130,13 @@ document.addEventListener('DOMContentLoaded', () => {
             <article>
                 <h1>${escapeHTML(article.title)}</h1>
                 <div class="article-meta">
-                    <span>Autor: ${escapeHTML(article.author)}</span>
+                    <span>
+                        ${article.author_avatar 
+                            ? `<img src="${article.author_avatar}" class="author-avatar" alt="Avatar autora" width="32" height="32">` 
+                            : '<i class="bi bi-person-circle"></i>'
+                        }
+                        Autor: ${escapeHTML(article.author)}
+                    </span>
                     <span>Publikováno: ${formattedDate}</span>
                     ${article.tags ? `<span>Štítky: ${escapeHTML(article.tags.join(', '))}</span>` : ''}
                 </div>

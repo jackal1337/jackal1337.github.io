@@ -662,3 +662,30 @@ body.dark-mode .tag:hover {
         height: 40px;
     }
 }
+
+.author-avatar {
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+    border: 1px solid var(--bs-border-color);
+}
+
+.article-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    color: var(--bs-secondary-color);
+}
+
+.article-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.bi-person-circle {
+    font-size: 1.2em;
+    opacity: 0.7;
+}
