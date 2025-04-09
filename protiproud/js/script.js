@@ -52,8 +52,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     ThemeManager.init();
 
+    const backendBaseUrl = 'https://notjackal.eu/protiproud';
+    const backendApiUrl = `${backendBaseUrl}/api/articles.json`;
+    
     const articleListElement = document.getElementById('article-list');
-    const backendApiUrl = 'https://notjackal.eu/protiproud/api/articles.json';
+
+    function getFullAssetPath(relativePath) {
+        if (!relativePath) return null;
+        if (relativePath.startsWith('http://') || relativePath.startsWith('https://')) {
+            return relativePath;
+        }
+        return `${backendBaseUrl}/${relativePath.replace(/^\//, '')}`;
+    }
 
     async function fetchArticles() {
         try {
@@ -61,8 +71,16 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            const articles = await response.json();
-            displayArticles(articles);
+            const text = await response.text();
+            try {
+                const articles = JSON.parse(text);
+                const publishedArticles = articles.filter(article => article.status !== 'draft');
+                displayArticles(publishedArticles);
+            } catch (parseError) {
+                console.error('JSON Parse Error:', parseError);
+                console.log('Raw response:', text);
+                throw new Error('Invalid JSON response');
+            }
         } catch (error) {
             console.error('Error fetching articles:', error);
             if (articleListElement) {
@@ -73,35 +91,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function displayArticles(articles) {
         if (!articleListElement) return;
-
+        
         articleListElement.innerHTML = '';
-
-        if (!articles || articles.length === 0) {
-            articleListElement.innerHTML = '<p>Nebyly nalezeny žádné články.</p>';
-            return;
-        }
-
         articles.forEach(article => {
-
-            if (!article.id || !article.title || !article.author || !article.date || !article.perex) {
-                console.warn('Skipping invalid article data:', article);
-                return;
-            }
-
             const articleDiv = document.createElement('div');
-            articleDiv.className = 'col-md-12 article-item mb-4';
-
-            const formattedDate = new Date(article.date).toLocaleDateString('cs-CZ', {
-                day: 'numeric',
-                month: 'long',
-                year: 'numeric'
-            });
-
+            articleDiv.className = 'article-preview';
+            const formattedDate = new Date(article.date).toLocaleDateString('cs-CZ');
+            
             articleDiv.innerHTML = `
                 <h2><a href="article.html?id=${article.id}">${escapeHTML(article.title)}</a></h2>
                 <div class="article-meta">
                     ${article.author_avatar 
-                        ? `<img src="${article.author_avatar}" class="author-avatar" alt="Avatar autora" width="24" height="24">` 
+                        ? `<img src="${getFullAssetPath(article.author_avatar)}" class="author-avatar" alt="Avatar autora" width="24" height="24">` 
                         : '<i class="bi bi-person-circle"></i>'
                     }
                     Autor: ${escapeHTML(article.author)} | Publikováno: ${formattedDate}
@@ -118,12 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const articleDetailElement = document.getElementById('article-detail');
         if (!articleDetailElement) return;
 
-        const formattedDate = new Date(article.date).toLocaleDateString('cs-CZ', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
-        });
-
+        const formattedDate = new Date(article.date).toLocaleDateString('cs-CZ');
         document.title = `${article.title} | Protiproud`;
 
         articleDetailElement.innerHTML = `
@@ -132,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="article-meta">
                     <span>
                         ${article.author_avatar 
-                            ? `<img src="${article.author_avatar}" class="author-avatar" alt="Avatar autora" width="32" height="32">` 
+                            ? `<img src="${getFullAssetPath(article.author_avatar)}" class="author-avatar" alt="Avatar autora" width="32" height="32">` 
                             : '<i class="bi bi-person-circle"></i>'
                         }
                         Autor: ${escapeHTML(article.author)}
@@ -157,13 +153,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!articleId) return;
 
         try {
-
             const response = await fetch(backendApiUrl);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const articles = await response.json();
-            const article = articles.find(a => a.id === articleId);
+            const article = articles.find(a => a.id === articleId && a.status !== 'draft');
 
             if (article) {
                 displayArticleDetail(article);
