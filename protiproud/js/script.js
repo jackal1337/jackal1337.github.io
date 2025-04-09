@@ -49,7 +49,6 @@ const ThemeManager = {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-
     ThemeManager.init();
 
     const backendBaseUrl = 'https://notjackal.eu/protiproud';
@@ -149,6 +148,8 @@ document.addEventListener('DOMContentLoaded', () => {
     async function fetchSingleArticle() {
         const urlParams = new URLSearchParams(window.location.search);
         const articleId = urlParams.get('id');
+        
+        console.log('Fetching article with ID:', articleId);
 
         if (!articleId) return;
 
@@ -158,7 +159,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const articles = await response.json();
-            const article = articles.find(a => a.id === articleId && a.status !== 'draft');
+            console.log('Received articles:', articles);
+            
+            const article = articles.find(a => String(a.id) === String(articleId) && a.status !== 'draft');
+            console.log('Found article:', article);
 
             if (article) {
                 displayArticleDetail(article);
@@ -188,7 +192,6 @@ document.addEventListener('DOMContentLoaded', () => {
     } else if (document.getElementById('article-detail')) {
         fetchSingleArticle();
     }
-
 });
 
 ThemeManager.applyTheme();
@@ -211,9 +214,11 @@ const taglines = [
     "Mainstream tě uklidní. My tě probudíme.",
     "Nezávislost není luxus. Je to nutnost."
 ];
+
 let typingIndex = 0;
 let currentTagline = "";
 let currentTaglineIndex = -1;
+
 function typeTagline() {
     let randomIndex = Math.floor(Math.random() * taglines.length);
     while (randomIndex === currentTaglineIndex) {
@@ -245,4 +250,5 @@ function removeTagline() {
         setTimeout(typeTagline, 500);
     }
 }
+
 typeTagline();
