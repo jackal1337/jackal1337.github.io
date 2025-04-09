@@ -88,7 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Pomocná funkce pro generování HTML tagů
     function generateTagsHtml(tags) {
         if (!tags || !tags.length) return '';
         return `<span class="tags-container">
@@ -96,7 +95,6 @@ document.addEventListener('DOMContentLoaded', () => {
         </span>`;
     }
 
-    // Upravená funkce pro zobrazení seznamu článků
     function displayArticles(articles) {
         const articleListElement = document.getElementById('article-list');
         if (!articleListElement) return;

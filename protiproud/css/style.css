@@ -711,7 +711,6 @@ body.dark-mode .tag:hover {
     }
 }
 
-/* Vylepšení článků v seznamu */
 .article-item {
     border-radius: var(--border-radius);
     padding: 2rem;
@@ -735,7 +734,6 @@ body.dark-mode .tag:hover {
     opacity: 1;
 }
 
-/* Vylepšení nadpisů */
 .article-item h2 a {
     color: var(--text-color);
     text-decoration: none;
@@ -752,7 +750,6 @@ body.dark-mode .tag:hover {
     background-size: 100% 0.1em, 100% 0.1em;
 }
 
-/* Vylepšení meta informací */
 .article-meta {
     background: rgba(0, 0, 0, 0.03);
     padding: 0.75rem 1rem;
@@ -775,7 +772,6 @@ body.dark-mode .article-meta {
     opacity: 0.5;
 }
 
-/* Vylepšení tagů */
 .tag {
     position: relative;
     overflow: hidden;
@@ -799,7 +795,6 @@ body.dark-mode .article-meta {
     transform: rotate(45deg) translateY(50%);
 }
 
-/* Vylepšení perexu */
 .article-perex {
     line-height: 1.8;
     margin: 1.5rem 0;
@@ -807,7 +802,6 @@ body.dark-mode .article-meta {
     opacity: 0.9;
 }
 
-/* Vylepšení tlačítek */
 .btn-outline-secondary {
     border-width: 2px;
     text-transform: uppercase;
@@ -822,7 +816,6 @@ body.dark-mode .article-meta {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Animace při načtení stránky */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -845,7 +838,6 @@ body.dark-mode .article-meta {
 .article-item:nth-child(4) { animation-delay: 0.4s; }
 .article-item:nth-child(5) { animation-delay: 0.5s; }
 
-/* Vylepšení pro tmavý režim */
 body.dark-mode .article-item {
     background: rgba(255, 255, 255, 0.03);
 }
@@ -859,7 +851,6 @@ body.dark-mode .btn-outline-secondary:hover {
     background: rgba(255, 87, 51, 0.1);
 }
 
-/* Responzivní úpravy */
 @media (max-width: 768px) {
     .article-item {
         padding: 1.5rem;
@@ -876,7 +867,6 @@ body.dark-mode .btn-outline-secondary:hover {
     }
 }
 
-/* Vylepšení přístupnosti */
 @media (prefers-reduced-motion: reduce) {
     .article-item,
     .btn-outline-secondary,
@@ -886,7 +876,6 @@ body.dark-mode .btn-outline-secondary:hover {
     }
 }
 
-/* Scrollbar styling */
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -904,7 +893,6 @@ body.dark-mode ::-webkit-scrollbar-track {
     background: rgba(255, 255, 255, 0.05);
 }
 
-/* Header a theme switch úpravy */
 header .container {
     display: flex;
     justify-content: space-between;
@@ -915,21 +903,19 @@ header .container {
     width: 100%;
 }
 
-/* Základní styly pro logo */
 .logo {
     flex: 0 0 auto;
     height: 40px;
     width: auto;
 }
 
-/* Styly pro tagline */
 .tagline-container {
     flex: 1;
     margin: 0 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-width: 0; /* Důležité pro správné zalamování */
+    min-width: 0;
 }
 
 .tagline {
@@ -941,7 +927,6 @@ header .container {
     display: block;
 }
 
-/* Styly pro theme toggle */
 #theme-toggle {
     flex: 0 0 auto;
     padding: 0.5rem;
@@ -952,7 +937,6 @@ header .container {
     width: auto;
 }
 
-/* Responzivní úpravy */
 @media (max-width: 768px) {
     header .container {
         padding: 0.5rem;
@@ -995,7 +979,6 @@ header .container {
     }
 }
 
-/* Úpravy pro article-meta na mobilech */
 @media (max-width: 768px) {
     .article-meta {
         flex-wrap: wrap;
