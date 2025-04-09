@@ -102,10 +102,17 @@ header .fs-4 {
 }
 
 .article-meta {
-    font-size: 1.0rem;
-    color: #6c757d;
-    margin-bottom: 0.75rem;
-    transition: color var(--transition-speed) ease-in-out;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .article-perex {
@@ -548,27 +555,30 @@ body.dark-mode .logo {
     color: var(--accent-color);
 }
 
-.tags {
+.tags-container {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
+    align-items: center;
 }
 
 .tag {
     display: inline-block;
-    padding: 0.3rem 0.8rem;
-    background: rgba(var(--accent-color-rgb), 0.1);
+    padding: 0.25rem 0.75rem;
+    background-color: var(--accent-color);
+    color: white;
     border-radius: 2rem;
-    color: var(--text-color);
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: all var(--transition-speed) ease;
+    font-size: 0.875rem;
+    transition: all 0.2s ease-in-out;
 }
 
 .tag:hover {
-    background: var(--accent-color);
-    color: white;
-    text-decoration: none;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode .tag {
+    background-color: rgba(255, 87, 51, 0.8);
 }
 
 .newsletter-form {
@@ -688,4 +698,320 @@ body.dark-mode .tag:hover {
 .bi-person-circle {
     font-size: 1.2em;
     opacity: 0.7;
+}
+
+@media (max-width: 768px) {
+    .article-meta {
+        gap: 0.75rem;
+    }
+    
+    .tag {
+        font-size: 0.8rem;
+        padding: 0.2rem 0.6rem;
+    }
+}
+
+/* Vylepšení článků v seznamu */
+.article-item {
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.article-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--accent-color);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.article-item:hover::before {
+    opacity: 1;
+}
+
+/* Vylepšení nadpisů */
+.article-item h2 a {
+    color: var(--text-color);
+    text-decoration: none;
+    background: 
+        linear-gradient(to right, var(--accent-color), var(--accent-color)),
+        linear-gradient(to right, rgba(255, 87, 51, 0.2), rgba(255, 87, 51, 0.2));
+    background-size: 0% 0.1em, 100% 0.1em;
+    background-position: 0 100%, 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.3s ease;
+}
+
+.article-item h2 a:hover {
+    background-size: 100% 0.1em, 100% 0.1em;
+}
+
+/* Vylepšení meta informací */
+.article-meta {
+    background: rgba(0, 0, 0, 0.03);
+    padding: 0.75rem 1rem;
+    border-radius: var(--border-radius);
+    margin: 1rem 0;
+}
+
+body.dark-mode .article-meta {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.meta-item {
+    position: relative;
+}
+
+.meta-item:not(:last-child)::after {
+    content: '•';
+    margin-left: 1rem;
+    color: var(--accent-color);
+    opacity: 0.5;
+}
+
+/* Vylepšení tagů */
+.tag {
+    position: relative;
+    overflow: hidden;
+}
+
+.tag::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: rotate(45deg);
+    transition: 0.5s;
+    opacity: 0;
+}
+
+.tag:hover::before {
+    opacity: 1;
+    transform: rotate(45deg) translateY(50%);
+}
+
+/* Vylepšení perexu */
+.article-perex {
+    line-height: 1.8;
+    margin: 1.5rem 0;
+    color: var(--text-color);
+    opacity: 0.9;
+}
+
+/* Vylepšení tlačítek */
+.btn-outline-secondary {
+    border-width: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.5rem 1.25rem;
+}
+
+.btn-outline-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Animace při načtení stránky */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.article-item {
+    animation: fadeInUp 0.5s ease forwards;
+    opacity: 0;
+}
+
+.article-item:nth-child(1) { animation-delay: 0.1s; }
+.article-item:nth-child(2) { animation-delay: 0.2s; }
+.article-item:nth-child(3) { animation-delay: 0.3s; }
+.article-item:nth-child(4) { animation-delay: 0.4s; }
+.article-item:nth-child(5) { animation-delay: 0.5s; }
+
+/* Vylepšení pro tmavý režim */
+body.dark-mode .article-item {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+body.dark-mode .btn-outline-secondary {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+body.dark-mode .btn-outline-secondary:hover {
+    border-color: var(--accent-color);
+    background: rgba(255, 87, 51, 0.1);
+}
+
+/* Responzivní úpravy */
+@media (max-width: 768px) {
+    .article-item {
+        padding: 1.5rem;
+    }
+
+    .article-meta {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9rem;
+    }
+
+    .btn-outline-secondary {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* Vylepšení přístupnosti */
+@media (prefers-reduced-motion: reduce) {
+    .article-item,
+    .btn-outline-secondary,
+    .tag {
+        animation: none;
+        transition: none;
+    }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent-color);
+    border-radius: 4px;
+}
+
+body.dark-mode ::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Header a theme switch úpravy */
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+/* Základní styly pro logo */
+.logo {
+    flex: 0 0 auto;
+    height: 40px;
+    width: auto;
+}
+
+/* Styly pro tagline */
+.tagline-container {
+    flex: 1;
+    margin: 0 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 0; /* Důležité pro správné zalamování */
+}
+
+.tagline {
+    font-style: italic;
+    opacity: 0.8;
+    text-align: center;
+    line-height: 1.2;
+    width: 100%;
+    display: block;
+}
+
+/* Styly pro theme toggle */
+#theme-toggle {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: auto;
+    width: auto;
+}
+
+/* Responzivní úpravy */
+@media (max-width: 768px) {
+    header .container {
+        padding: 0.5rem;
+    }
+
+    .logo {
+        height: 32px;
+    }
+
+    .tagline-container {
+        margin: 0 0.5rem;
+    }
+
+    .tagline {
+        font-size: 0.85rem;
+        white-space: normal;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    #theme-toggle {
+        padding: 0.4rem;
+    }
+}
+
+@media (max-width: 576px) {
+    header .container {
+        padding: 0.25rem;
+    }
+
+    .tagline {
+        font-size: 0.75rem;
+    }
+
+    .tagline-container {
+        margin: 0 0.25rem;
+    }
+}
+
+/* Úpravy pro article-meta na mobilech */
+@media (max-width: 768px) {
+    .article-meta {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .meta-item {
+        font-size: 0.9rem;
+    }
+
+    .meta-item:not(:last-child)::after {
+        display: none;
+    }
+
+    .tags-container {
+        width: 100%;
+        margin-top: 0.25rem;
+    }
 }

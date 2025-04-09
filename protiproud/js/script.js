@@ -88,27 +88,38 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Pomocná funkce pro generování HTML tagů
+    function generateTagsHtml(tags) {
+        if (!tags || !tags.length) return '';
+        return `<span class="tags-container">
+            ${tags.map(tag => `<span class="tag">${escapeHTML(tag)}</span>`).join('')}
+        </span>`;
+    }
+
+    // Upravená funkce pro zobrazení seznamu článků
     function displayArticles(articles) {
+        const articleListElement = document.getElementById('article-list');
         if (!articleListElement) return;
-        
+
         articleListElement.innerHTML = '';
+        
         articles.forEach(article => {
             const articleDiv = document.createElement('div');
-            articleDiv.className = 'article-preview';
+            articleDiv.className = 'article-item mb-5';
             const formattedDate = new Date(article.date).toLocaleDateString('cs-CZ');
             
             articleDiv.innerHTML = `
                 <h2><a href="article.html?id=${article.id}">${escapeHTML(article.title)}</a></h2>
                 <div class="article-meta">
-                    <span>Autor: 
+                    <span class="meta-item">Autor: 
                         ${article.author_avatar 
                             ? `<img src="${getFullAssetPath(article.author_avatar)}" class="author-avatar" alt="Avatar autora" width="24" height="24">` 
                             : '<i class="bi bi-person-circle"></i>'
                         }
                         ${escapeHTML(article.author)}
                     </span>
-                    <span>Publikováno: ${formattedDate}</span>
-                    ${article.tags ? `<span>Štítky: ${escapeHTML(article.tags.join(', '))}</span>` : ''}
+                    <span class="meta-item">Publikováno: ${formattedDate}</span>
+                    ${generateTagsHtml(article.tags)}
                 </div>
                 <p class="article-perex">${escapeHTML(article.perex)}</p>
                 <a href="article.html?id=${article.id}" class="btn btn-sm btn-outline-secondary">Číst dále</a>
@@ -136,8 +147,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         ${escapeHTML(article.author)}
                     </span>
                     <span>Publikováno: ${formattedDate}</span>
-                    ${article.tags ? `<span>Štítky: ${escapeHTML(article.tags.join(', '))}</span>` : ''}
                 </div>
+                ${generateTagsHtml(article.tags)}
                 <div class="article-content">
                     ${article.content}
                 </div>
