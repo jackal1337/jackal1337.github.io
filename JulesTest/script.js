@@ -28,7 +28,6 @@ document.addEventListener('DOMContentLoaded', function () {
             // Validate Name
             if (!nameField || nameField.value.trim() === '') {
                 errors.push('Name is required.');
-                // Optionally, display error near nameField
             }
 
             // Validate Email
@@ -46,6 +45,26 @@ document.addEventListener('DOMContentLoaded', function () {
             if (errors.length > 0) {
                 e.preventDefault(); // Prevent form submission
                 alert(errors.join('\n')); // Display errors
+            } else {
+                // Form is valid, proceed with simulated submission feedback
+                e.preventDefault(); // Prevent actual submission for this simulation
+                const submitButton = contactForm.querySelector('button[type="submit"]');
+                const originalButtonText = submitButton.textContent; // Store original text
+
+                submitButton.textContent = 'Sending...';
+                submitButton.disabled = true;
+
+                // Simulate network delay and success/failure
+                setTimeout(() => {
+                    // Simulate success
+                    contactForm.reset(); // Clear the form
+                    submitButton.textContent = 'Sent! ✔';
+                    // Revert button state after a few seconds
+                    setTimeout(() => {
+                        submitButton.textContent = originalButtonText;
+                        submitButton.disabled = false;
+                    }, 3000);
+                }, 1500);
             }
         });
     }
@@ -55,4 +74,28 @@ document.addEventListener('DOMContentLoaded', function () {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
     }
+
+    // Intersection Observer for scroll animations
+    const animatedElements = document.querySelectorAll('section, #features .card');
+
+    const observerOptions = {
+        root: null, // viewport
+        rootMargin: '0px',
+        threshold: 0.1 // Trigger when 10% of the element is visible
+    };
+
+    const observerCallback = (entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target); // Optional: stop observing after it's visible
+            }
+        });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    animatedElements.forEach(el => {
+        observer.observe(el);
+    });
 });
