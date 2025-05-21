@@ -1,0 +1,208 @@
+/* Basic body styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+    padding-top: 56px; /* Adjust based on actual navbar height */
+}
+
+/* Header styling */
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+header nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+header nav ul li {
+    display: inline;
+    margin: 0 10px;
+}
+
+header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Hero section styling */
+#hero {
+    background: url('https://via.placeholder.com/1600x900.png?text=Hero+Image') no-repeat center center/cover;
+    color: white;
+    padding: 100px 20px; /* Increased padding for better visual with background */
+    text-align: center;
+    position: relative; /* For potential overlay if needed */
+    min-height: calc(100vh - 56px); /* Full viewport height minus navbar height */
+    display: flex; /* For centering content if not using Bootstrap's d-flex */
+    align-items: center; /* For centering content */
+    justify-content: center; /* For centering content */
+}
+
+#hero::before { /* Optional: Add a dark overlay for better text readability */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+#hero > * { /* Ensure content is above the overlay */
+    position: relative;
+    z-index: 2;
+}
+
+#hero .btn {
+    background-color: #007bff; /* Standard Bootstrap primary blue */
+    border-color: #007bff;
+    color: #fff; /* White text for better contrast on blue */
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    /* z-index will be handled by #hero > * */
+}
+
+/* Features section styling */
+#features {
+    padding: 40px 20px; /* Increased padding */
+    text-align: center;
+}
+
+#features .card {
+    margin-bottom: 20px;
+    border: none; /* Optional: remove card borders for a cleaner look */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Add subtle shadow to cards */
+}
+
+#features .card i {
+    color: #007bff; /* Ensure icons use primary color if not set inline */
+}
+
+/* About section styling */
+#about {
+    padding: 40px 20px; /* Increased padding */
+    background-color: #fff;
+}
+
+/* Contact form styling */
+#contact {
+    padding: 40px 20px; /* Increased padding */
+}
+
+#contact input[type="text"],
+#contact input[type="email"],
+#contact textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#contact button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#contact button:hover {
+    background-color: #0056b3;
+}
+
+/* Footer styling */
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 2rem 0; /* Increased padding */
+}
+
+footer a {
+    color: #007bff; /* Make links in footer stand out */
+}
+
+footer a:hover {
+    color: #0056b3;
+}
+
+/* Responsive adjustments */
+/* For tablets and smaller (Bootstrap's md breakpoint is 768px, so using 767.98px) */
+@media (max-width: 767.98px) {
+    #hero {
+        padding: 60px 15px; /* Reduced padding */
+        min-height: auto; /* Allow natural height based on content */
+    }
+
+    #hero h1 {
+        font-size: 2.5rem; /* Reduced font size */
+    }
+
+    #hero p.lead {
+        font-size: 1.1rem; /* Reduced font size */
+    }
+
+    section { /* General section padding adjustment */
+        padding: 30px 15px !important; /* Override inline Bootstrap or previous styles */
+    }
+    
+    h2 { /* Section titles */
+        font-size: 1.75rem;
+    }
+
+    /* Features section card adjustments if needed, Bootstrap col-md-4 already stacks them */
+    #features .card {
+        margin-bottom: 20px; /* Ensure spacing when stacked */
+    }
+}
+
+/* For mobile phones (Bootstrap's sm breakpoint is 576px, so using 575.98px) */
+@media (max-width: 575.98px) {
+    body {
+        padding-top: 54px; /* Adjust if navbar height changes slightly on xs */
+    }
+    
+    #hero h1 {
+        font-size: 2rem; /* Further reduce font size */
+    }
+
+    #hero p.lead {
+        font-size: 1rem; /* Further reduce font size */
+    }
+
+    #hero .btn {
+        padding: 8px 16px; /* Smaller button padding */
+        font-size: 0.9rem; /* Smaller button font */
+    }
+    
+    h2 { /* Section titles */
+        font-size: 1.5rem;
+    }
+
+    #contact form .form-group {
+        margin-bottom: 0.75rem; /* Reduce space between form elements */
+    }
+    
+    #contact button {
+        padding: 8px 12px; /* Smaller button padding */
+    }
+
+    footer .fab { /* Social media icons */
+        font-size: 1.2rem; /* Slightly smaller icons */
+        margin-right: 0.75rem !important; /* Reduced margin */
+    }
+    
+    footer p {
+        font-size: 0.9rem;
+    }
+}
