@@ -1,39 +1,123 @@
+:root {
+  --primary-bg: #FFFFFF; /* White */
+  --secondary-bg: #F8F9FA; /* Light Gray */
+  --primary-text: #212529; /* Dark Gray */
+  --secondary-text: #555555; /* Medium Gray */
+  --accent-primary: #0A4D68; /* Deep Sapphire Blue */
+  --accent-primary-hover: #083D54; /* Darker Sapphire for hover */
+  --accent-secondary: #EFEBEA; /* Warm Sand/Beige - for subtle backgrounds or borders */
+  --accent-primary-rgb: 10, 77, 104; /* RGB for #0A4D68 */
+  --card-bg: #FFFFFF;
+  --footer-bg: #343A40; /* Keeping Bootstrap dark footer for now, can adjust */
+  --footer-text: #F8F9FA;
+  --input-border: #ced4da; /* Standard Bootstrap border */
+}
+
 /* Basic body styling */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-    line-height: 1.6;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--primary-bg);
+    color: var(--primary-text);
+    line-height: 1.7; /* Slightly increased for Inter */
+    font-weight: 400;
     padding-top: 56px; /* Adjust based on actual navbar height */
 }
 
-/* Header styling */
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 1rem 0;
-    text-align: center;
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700; /* Bold for headings */
+    line-height: 1.3; /* Adjusted for Poppins */
+    color: var(--primary-text); /* Darker color for better contrast */
+    margin-top: 0; /* Remove default top margin */
 }
 
-header nav ul {
-    list-style: none;
-    padding: 0;
+h1 { font-size: 2.8rem; margin-bottom: 1rem; } /* Example sizes, adjust as needed */
+h2 { font-size: 2.2rem; margin-bottom: 0.9rem; }
+h3 { font-size: 1.8rem; margin-bottom: 0.8rem; }
+h4 { font-size: 1.5rem; margin-bottom: 0.7rem; }
+h5 { font-size: 1.25rem; margin-bottom: 0.6rem; }
+h6 { font-size: 1rem; margin-bottom: 0.5rem; }
+
+p {
+    margin-bottom: 1.25rem; /* More space after paragraphs */
+    font-size: 1rem;
 }
 
-header nav ul li {
-    display: inline;
-    margin: 0 10px;
+/* Header styling (Bootstrap navbar will handle most of this) */
+/* Using Bootstrap classes for navbar styling, colors can be overridden if needed */
+.navbar.bg-dark { /* Default Bootstrap dark navbar */
+    background-color: var(--accent-primary) !important; /* Override Bootstrap's dark with our accent */
 }
 
-header nav ul li a {
-    color: #fff;
-    text-decoration: none;
+.navbar-dark .navbar-brand {
+    color: var(--primary-bg);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem; /* Make brand slightly larger */
+}
+.navbar-dark .navbar-brand:hover,
+.navbar-dark .navbar-brand:focus {
+    color: var(--secondary-bg);
 }
 
-/* Hero section styling */
+.navbar-dark .navbar-nav .nav-link {
+    color: var(--primary-bg); /* Light text on dark background */
+    font-family: 'Inter', sans-serif;
+    font-weight: 500; /* Medium weight for nav links */
+    font-size: 1rem;
+    position: relative; /* For underline animation */
+    padding-bottom: 0.5rem; /* Space for underline */
+}
+
+.navbar-dark .navbar-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0; /* Position underline at the bottom of padding */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--primary-bg); /* White underline for dark navbar */
+    transition: width 0.3s ease-in-out;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover::after,
+.navbar-dark .navbar-nav .nav-link:focus::after {
+    width: 70%; /* Underline covers 70% of the link width */
+}
+
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link:focus {
+    color: var(--secondary-bg); /* Lighter color on hover/focus */
+}
+
+.navbar-dark .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e"); /* Lighter toggler icon */
+}
+
+
+/* Scroll Animation Base Styles */
+section, #features .card {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+section.is-visible, #features .card.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Hero section styling - already visible, no scroll animation needed here */
 #hero {
-    background: url('https://via.placeholder.com/1600x900.png?text=Hero+Image') no-repeat center center/cover;
-    color: white;
+    /* background: url('https://via.placeholder.com/1600x900.png?text=Hero+Image') no-repeat center center/cover; /* Removed placeholder */
+    background: linear-gradient(-45deg, var(--accent-primary), #065A7E, #0B7AAB, #0E9CDA); /* Shades of accent and complementary blues */
+    background-size: 400% 400%;
+    opacity: 1; /* Ensure hero is visible by default */
+    transform: translateY(0); /* Ensure hero is in place by default */
+    animation: gradientBG 15s ease infinite;
+    color: var(--primary-bg); /* White text on dark gradient */
     padding: 100px 20px; /* Increased padding for better visual with background */
     text-align: center;
     position: relative; /* For potential overlay if needed */
@@ -43,126 +127,281 @@ header nav ul li a {
     justify-content: center; /* For centering content */
 }
 
-#hero::before { /* Optional: Add a dark overlay for better text readability */
+/* Removing #hero::before overlay as the gradient should provide enough contrast, 
+   or text shadow will be used if needed. If not, it can be re-added. */
+
+/* #hero::before { 
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.2); /* Adjusted overlay for gradient */
     z-index: 1;
+} */
+
+#hero > * { /* Ensure content is directly on hero, not inside an overlay that might be removed */
+    position: relative;
+    z-index: 2; /* Keep content above background */
 }
 
-#hero > * { /* Ensure content is above the overlay */
-    position: relative;
-    z-index: 2;
+#hero h1 { /* Specific hero heading styling */
+    font-weight: 700; /* Poppins Bold */
+    font-size: 3.8rem; /* Slightly increased for more impact */
+    text-shadow: 0px 2px 4px rgba(0,0,0,0.3); /* Text shadow for readability */
+}
+
+#hero p.lead {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.35rem; /* Slightly increased */
+    font-weight: 400;
+    margin-bottom: 2rem; /* More space before CTA */
+    text-shadow: 0px 1px 3px rgba(0,0,0,0.2); /* Lighter shadow for lead */
 }
 
 #hero .btn {
-    background-color: #007bff; /* Standard Bootstrap primary blue */
-    border-color: #007bff;
-    color: #fff; /* White text for better contrast on blue */
-    padding: 10px 20px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600; /* Bolder for more prominence */
+    background-color: var(--accent-primary);
+    border: 2px solid var(--accent-primary-hover); /* Border for definition */
+    color: var(--primary-bg);
+    padding: 15px 30px; /* Increased padding */
     text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
+    border-radius: 8px; /* Slightly more rounded */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15); /* Subtle shadow */
+    transition: all 0.2s ease-in-out;
     /* z-index will be handled by #hero > * */
+}
+
+#hero .btn:hover {
+    background-color: var(--accent-primary-hover);
+    border-color: var(--accent-primary);
+    transform: translateY(-2px); /* Slight lift on hover */
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+#hero .btn:active {
+    transform: translateY(1px) scale(0.98);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
 }
 
 /* Features section styling */
 #features {
-    padding: 40px 20px; /* Increased padding */
+    padding: 4rem 1rem; /* Adjusted padding for overall consistency */
     text-align: center;
+    background-color: var(--secondary-bg); /* Alternate background */
 }
 
 #features .card {
-    margin-bottom: 20px;
-    border: none; /* Optional: remove card borders for a cleaner look */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Add subtle shadow to cards */
+    margin-bottom: 2rem; /* Increased margin for better spacing */
+    border: none; /* Remove previous border */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08); /* More pronounced shadow */
+    border-radius: 12px; /* Softer look */
+    background-color: var(--card-bg);
+    padding: 2rem; /* More padding inside cards */
+    /* transition for hover is already here, scroll animation transition is separate */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow 0.3s ease, transform 0.3s ease; /* Combined transitions */
+}
+
+#features .card:hover {
+    transform: translateY(-5px) scale(1.02); /* Slightly lift and scale on hover */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12); /* Enhanced shadow on hover */
+}
+
+/* Ensure .is-visible transform doesn't conflict with hover transform */
+#features .card.is-visible:hover {
+    transform: translateY(-5px) scale(1.02); /* Keep hover effect after visible */
+}
+#features .card.is-visible { /* Override initial translateY for hover if needed, but should be fine */
+    transform: translateY(0);
+}
+
+#features .card-title { /* h5 */
+    font-weight: 600; /* Poppins SemiBold for card titles */
+    color: var(--primary-text);
+    margin-top: 0.5rem; /* Space between icon and title */
+}
+
+#features .card-text { /* p */
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    color: var(--secondary-text);
+    line-height: 1.6;
 }
 
 #features .card i {
-    color: #007bff; /* Ensure icons use primary color if not set inline */
+    font-size: 2.5rem; /* Larger icons */
+    margin-bottom: 1rem; /* Well-spaced */
+    color: var(--accent-primary); /* Use accent for icons */
 }
+
 
 /* About section styling */
 #about {
-    padding: 40px 20px; /* Increased padding */
-    background-color: #fff;
+    padding: 6rem 1rem; /* Increased padding for better spacing, adjusted side padding for consistency */
+    background-color: var(--primary-bg); /* Standard background */
+}
+
+#about p.lead {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.2rem; /* Slightly larger for lead paragraph */
+    font-weight: 400; /* Ensure it's not too bold if inheriting */
+    color: var(--secondary-text);
+    max-width: 800px; /* Constrain width for readability */
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Contact form styling */
 #contact {
-    padding: 40px 20px; /* Increased padding */
+    padding: 6rem 1rem; /* Increased padding, adjusted side padding */
+    background-color: var(--secondary-bg); /* Alternate background */
 }
 
-#contact input[type="text"],
-#contact input[type="email"],
-#contact textarea {
+#contact h2 {
+    margin-bottom: 2rem; /* More space below section title */
+}
+
+#contact label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600; /* Slightly bolder for better emphasis */
+    font-size: 0.95rem; /* Standard label size */
+    color: var(--primary-text);
+    margin-bottom: 0.5rem; /* More space below label */
+}
+
+#contact .form-control, /* Targeting Bootstrap class directly */
+#contact textarea.form-control {
+    font-family: 'Inter', sans-serif;
     width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    padding: 1rem 1.25rem; /* Generous padding */
+    margin-bottom: 1.25rem; /* Increased margin for form groups effectively */
+    border: 1px solid var(--input-border);
+    border-radius: 10px; /* Softer look */
+    background-color: var(--primary-bg);
+    color: var(--primary-text);
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-#contact button {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
+#contact .form-control::placeholder,
+#contact textarea.form-control::placeholder {
+    color: var(--secondary-text);
+    opacity: 0.7;
+}
+
+#contact .form-control:focus,
+#contact textarea.form-control:focus {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 0.2rem rgba(var(--accent-primary-rgb), 0.25);
+}
+
+
+#contact button[type="submit"] { /* Be more specific for the submit button */
+    font-family: 'Inter', sans-serif;
+    font-weight: 600; /* Match hero button */
+    background-color: var(--accent-primary);
+    border: 2px solid var(--accent-primary-hover); /* Match hero button */
+    color: var(--primary-bg);
+    padding: 15px 30px; /* Match hero button */
+    border-radius: 8px; /* Match hero button */
     cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15); /* Match hero button */
+    transition: all 0.2s ease-in-out; /* Match hero button */
 }
 
-#contact button:hover {
-    background-color: #0056b3;
+#contact button[type="submit"]:hover,
+#contact button[type="submit"]:focus {
+    background-color: var(--accent-primary-hover);
+    border-color: var(--accent-primary); /* Match hero button */
+    transform: translateY(-2px); /* Match hero button */
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2); /* Match hero button */
+    outline: none; /* Remove default focus outline if custom shadow is applied */
+}
+
+#contact button[type="submit"]:active {
+    transform: translateY(1px) scale(0.98);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 /* Footer styling */
 footer {
-    background-color: #333;
-    color: #fff;
+    background-color: var(--footer-bg);
+    color: var(--footer-text);
     text-align: center;
     padding: 2rem 0; /* Increased padding */
 }
 
-footer a {
-    color: #007bff; /* Make links in footer stand out */
+footer a { /* Assuming these are the social icon links */
+    color: var(--accent-secondary); /* Lighter links in dark footer */
+    transition: all 0.2s ease-in-out; /* Add transition to the link itself for the icon inside */
+    display: inline-block; /* Needed for transform to work correctly on <a> which wraps <i> */
+}
+
+footer a i { /* Target the icon directly for transform if preferred, or the <a> tag */
+    transition: all 0.2s ease-in-out; /* Ensure icon has transition too */
 }
 
 footer a:hover {
-    color: #0056b3;
+    color: var(--primary-bg); /* Even lighter on hover for the text/icon color */
+}
+
+footer a:hover i {
+    transform: scale(1.15) translateY(-2px);
+    /* The color var(--primary-bg) will be inherited from 'footer a:hover' */
 }
 
 /* Responsive adjustments */
 /* For tablets and smaller (Bootstrap's md breakpoint is 768px, so using 767.98px) */
-@media (max-width: 767.98px) {
+@media (max-width: 991.98px) { /* lg breakpoint for navbar */
+    .navbar-brand {
+        font-size: 1.3rem;
+    }
+    .nav-link {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 767.98px) { /* md breakpoint */
     #hero {
-        padding: 60px 15px; /* Reduced padding */
+        padding: 4rem 1rem; /* Adjusted padding */
         min-height: auto; /* Allow natural height based on content */
     }
 
     #hero h1 {
-        font-size: 2.5rem; /* Reduced font size */
+        font-size: 2.8rem; /* Adjusted for Poppins */
     }
 
     #hero p.lead {
-        font-size: 1.1rem; /* Reduced font size */
-    }
-
-    section { /* General section padding adjustment */
-        padding: 30px 15px !important; /* Override inline Bootstrap or previous styles */
+        font-size: 1.15rem; /* Adjusted font size */
     }
     
-    h2 { /* Section titles */
-        font-size: 1.75rem;
+    h1 { font-size: 2.3rem; }
+    h2 { font-size: 1.9rem; } /* Section titles */
+    h3 { font-size: 1.6rem; }
+
+    section { /* General section padding adjustment */
+        padding: 3rem 1rem !important; /* Override inline Bootstrap or previous styles */
     }
+    
+    #features { padding: 3rem 1rem !important; }
+    #about { padding: 4rem 1rem !important; }
+    #contact { padding: 4rem 1rem !important; }
+
 
     /* Features section card adjustments if needed, Bootstrap col-md-4 already stacks them */
     #features .card {
-        margin-bottom: 20px; /* Ensure spacing when stacked */
+        margin-bottom: 1.5rem; /* Ensure spacing when stacked */
+        padding: 1.5rem; /* Adjust card padding for smaller screens */
+    }
+    #features .card i {
+        font-size: 2rem;
     }
 }
 
@@ -170,31 +409,42 @@ footer a:hover {
 @media (max-width: 575.98px) {
     body {
         padding-top: 54px; /* Adjust if navbar height changes slightly on xs */
+        font-size: 0.95rem; /* Slightly reduce base body font size */
     }
     
     #hero h1 {
-        font-size: 2rem; /* Further reduce font size */
+        font-size: 2.2rem; /* Further reduce font size for Poppins */
     }
 
     #hero p.lead {
-        font-size: 1rem; /* Further reduce font size */
+        font-size: 1.05rem; /* Adjusted font size */
     }
 
     #hero .btn {
-        padding: 8px 16px; /* Smaller button padding */
+        padding: 12px 24px; /* Adjusted button padding */
         font-size: 0.9rem; /* Smaller button font */
     }
     
-    h2 { /* Section titles */
-        font-size: 1.5rem;
-    }
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.7rem; } /* Section titles */
+    h3 { font-size: 1.4rem; }
+    h4 { font-size: 1.2rem; }
+    h5 { font-size: 1.1rem; }
+    
+    #features { padding: 2.5rem 1rem !important; }
+    #about { padding: 3rem 1rem !important; }
+    #contact { padding: 3rem 1rem !important; }
 
-    #contact form .form-group {
-        margin-bottom: 0.75rem; /* Reduce space between form elements */
+
+    #contact .form-control, 
+    #contact textarea.form-control {
+        padding: 0.8rem 1rem; /* Adjust padding for smaller screens */
+        margin-bottom: 1rem;
     }
     
-    #contact button {
-        padding: 8px 12px; /* Smaller button padding */
+    #contact button[type="submit"] {
+        padding: 12px 24px; /* Adjusted button padding */
+        font-size: 0.9rem;
     }
 
     footer .fab { /* Social media icons */
@@ -203,6 +453,6 @@ footer a:hover {
     }
     
     footer p {
-        font-size: 0.9rem;
+        font-size: 0.85rem; /* Slightly smaller footer text */
     }
 }
