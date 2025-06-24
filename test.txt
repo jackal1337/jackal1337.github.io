@@ -1,0 +1,6 @@
+test auto-sync
+test2
+test3
+test4 - new script
+test5 - simple script
+test-journal
