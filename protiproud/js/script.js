@@ -64,7 +64,24 @@ document.addEventListener('DOMContentLoaded', () => {
         return `${backendBaseUrl}/${relativePath.replace(/^\//, '')}`;
     }
 
+    function showSkeletonLoading(count = 3) {
+        const articleListElement = document.getElementById('article-list');
+        if (!articleListElement) return;
+
+        articleListElement.innerHTML = Array(count).fill(0).map(() => `
+            <div class="article-item skeleton-card">
+                <div class="skeleton skeleton-cover"></div>
+                <div class="skeleton skeleton-title"></div>
+                <div class="skeleton skeleton-meta"></div>
+                <div class="skeleton skeleton-text"></div>
+                <div class="skeleton skeleton-text"></div>
+                <div class="skeleton skeleton-btn"></div>
+            </div>
+        `).join('');
+    }
+
     async function fetchArticles() {
+        showSkeletonLoading(3);
         try {
             const response = await fetch(backendApiUrl);
             if (!response.ok) {
@@ -95,6 +112,24 @@ document.addEventListener('DOMContentLoaded', () => {
         </span>`;
     }
 
+    function initScrollAnimations() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        document.querySelectorAll('.article-item').forEach(item => {
+            observer.observe(item);
+        });
+    }
+
     function displayArticles(articles) {
         const articleListElement = document.getElementById('article-list');
         if (!articleListElement) return;
@@ -107,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const formattedDate = new Date(article.date).toLocaleDateString('cs-CZ');
 
             const coverHtml = article.coverImage
-                ? `<img src="${getFullAssetPath(article.coverImage)}" class="article-cover" alt="">`
+                ? `<img src="${getFullAssetPath(article.coverImage)}" class="article-cover" alt="" loading="lazy">`
                 : '';
 
             articleDiv.innerHTML = `
@@ -116,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="article-meta">
                     <span class="meta-item">Autor:
                         ${article.author_avatar
-                            ? `<img src="${getFullAssetPath(article.author_avatar)}" class="author-avatar" alt="Avatar autora" width="24" height="24">`
+                            ? `<img src="${getFullAssetPath(article.author_avatar)}" class="author-avatar" alt="Avatar autora" width="24" height="24" loading="lazy">`
                             : '<i class="bi bi-person-circle"></i>'
                         }
                         ${escapeHTML(article.author)}
@@ -129,6 +164,8 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             articleListElement.appendChild(articleDiv);
         });
+
+        initScrollAnimations();
     }
 
     function displayArticleDetail(article) {
@@ -139,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.title = `${article.title} | Protiproud`;
 
         const coverHtml = article.coverImage
-            ? `<img src="${getFullAssetPath(article.coverImage)}" class="article-cover-large" alt="">`
+            ? `<img src="${getFullAssetPath(article.coverImage)}" class="article-cover-large" alt="" loading="lazy">`
             : '';
 
         articleDetailElement.innerHTML = `
@@ -148,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="article-meta">
                     <span>Autor:
                         ${article.author_avatar
-                            ? `<img src="${getFullAssetPath(article.author_avatar)}" class="author-avatar" alt="Avatar autora" width="32" height="32">`
+                            ? `<img src="${getFullAssetPath(article.author_avatar)}" class="author-avatar" alt="Avatar autora" width="32" height="32" loading="lazy">`
                             : '<i class="bi bi-person-circle"></i>'
                         }
                         ${escapeHTML(article.author)}
