@@ -100,18 +100,23 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!articleListElement) return;
 
         articleListElement.innerHTML = '';
-        
+
         articles.forEach(article => {
             const articleDiv = document.createElement('div');
             articleDiv.className = 'article-item mb-5';
             const formattedDate = new Date(article.date).toLocaleDateString('cs-CZ');
-            
+
+            const coverHtml = article.coverImage
+                ? `<img src="${getFullAssetPath(article.coverImage)}" class="article-cover" alt="">`
+                : '';
+
             articleDiv.innerHTML = `
+                ${coverHtml}
                 <h2><a href="article.html?id=${article.id}">${escapeHTML(article.title)}</a></h2>
                 <div class="article-meta">
-                    <span class="meta-item">Autor: 
-                        ${article.author_avatar 
-                            ? `<img src="${getFullAssetPath(article.author_avatar)}" class="author-avatar" alt="Avatar autora" width="24" height="24">` 
+                    <span class="meta-item">Autor:
+                        ${article.author_avatar
+                            ? `<img src="${getFullAssetPath(article.author_avatar)}" class="author-avatar" alt="Avatar autora" width="24" height="24">`
                             : '<i class="bi bi-person-circle"></i>'
                         }
                         ${escapeHTML(article.author)}
@@ -133,13 +138,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const formattedDate = new Date(article.date).toLocaleDateString('cs-CZ');
         document.title = `${article.title} | Protiproud`;
 
+        const coverHtml = article.coverImage
+            ? `<img src="${getFullAssetPath(article.coverImage)}" class="article-cover-large" alt="">`
+            : '';
+
         articleDetailElement.innerHTML = `
             <article>
                 <h1>${escapeHTML(article.title)}</h1>
                 <div class="article-meta">
-                    <span>Autor: 
-                        ${article.author_avatar 
-                            ? `<img src="${getFullAssetPath(article.author_avatar)}" class="author-avatar" alt="Avatar autora" width="32" height="32">` 
+                    <span>Autor:
+                        ${article.author_avatar
+                            ? `<img src="${getFullAssetPath(article.author_avatar)}" class="author-avatar" alt="Avatar autora" width="32" height="32">`
                             : '<i class="bi bi-person-circle"></i>'
                         }
                         ${escapeHTML(article.author)}
@@ -147,6 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span>Publikováno: ${formattedDate}</span>
                 </div>
                 ${generateTagsHtml(article.tags)}
+                ${coverHtml}
                 <div class="article-content">
                     ${article.content}
                 </div>
@@ -204,6 +214,71 @@ document.addEventListener('DOMContentLoaded', () => {
     } else if (document.getElementById('article-detail')) {
         fetchSingleArticle();
     }
+
+    // === Back to Top ===
+    const backToTop = document.getElementById('back-to-top');
+    if (backToTop) {
+        window.addEventListener('scroll', () => {
+            backToTop.classList.toggle('visible', window.scrollY > 300);
+        });
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // === Lightbox ===
+    const lightbox = document.getElementById('lightbox');
+    if (lightbox) {
+        const lightboxImg = lightbox.querySelector('.lightbox-img');
+        const lightboxClose = lightbox.querySelector('.lightbox-close');
+
+        document.addEventListener('click', (e) => {
+            if (e.target.matches('.article-content img')) {
+                lightboxImg.src = e.target.src;
+                lightbox.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            }
+        });
+
+        const closeLightbox = () => {
+            lightbox.classList.remove('open');
+            document.body.style.overflow = '';
+        };
+
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightbox.classList.contains('open')) {
+                closeLightbox();
+            }
+        });
+    }
+
+    // === Featured Articles ===
+    async function loadFeaturedArticles() {
+        const list = document.querySelector('.popular-articles');
+        if (!list) return;
+
+        try {
+            const res = await fetch(`${backendBaseUrl}/api/featured.json`);
+            if (!res.ok) throw new Error('Failed to fetch');
+            const featured = await res.json();
+
+            if (featured && featured.length > 0) {
+                list.innerHTML = featured.map(f =>
+                    `<li><a href="article.html?id=${f.id}">${escapeHTML(f.title)}</a></li>`
+                ).join('');
+            }
+        } catch (e) {
+            // Fallback: zobrazit nejnovější články
+            console.warn('Featured articles not available, using fallback');
+        }
+    }
+
+    loadFeaturedArticles();
 });
 
 ThemeManager.applyTheme();
