@@ -559,6 +559,12 @@ body.dark-mode .logo {
     color: var(--accent-color);
 }
 
+.popular-articles .empty-state {
+    color: var(--text-muted);
+    font-style: italic;
+    border-bottom: none;
+}
+
 .tags-container {
     display: flex;
     flex-wrap: wrap;

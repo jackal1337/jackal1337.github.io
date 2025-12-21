@@ -271,10 +271,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 list.innerHTML = featured.map(f =>
                     `<li><a href="article.html?id=${f.id}">${escapeHTML(f.title)}</a></li>`
                 ).join('');
+            } else {
+                list.innerHTML = '<li class="empty-state">Žádné žhavé články</li>';
             }
         } catch (e) {
-            // Fallback: zobrazit nejnovější články
-            console.warn('Featured articles not available, using fallback');
+            console.warn('Featured articles not available:', e);
+            list.innerHTML = '<li class="empty-state">Žádné žhavé články</li>';
         }
     }
 
