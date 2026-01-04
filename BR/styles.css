@@ -117,6 +117,10 @@ span {
     border: 1px solid var(--border-light);
 }
 
+.about .row {
+    align-items: center;
+}
+
 .vozy {
     padding: 80px 0;
     background-color: #f8f9fa;
