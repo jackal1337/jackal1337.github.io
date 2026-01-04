@@ -272,7 +272,7 @@
     <script src="assets/js/objednavka.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            fetch('https://notjackal.eu/BlueRide/cars.php')
+            fetch('https://notjackal.eu/blueride/cars.php')
                 .then(response => response.json())
                 .then(data => {
                     const carsContainer = document.querySelector('.vozy .container .row');
@@ -293,7 +293,7 @@
                 })
                 .catch(function() {});
 
-            fetch('https://notjackal.eu/BlueRide/content.php')
+            fetch('https://notjackal.eu/blueride/content.php')
                 .then(response => response.json())
                 .then(data => {
                     if (data.onas) {
