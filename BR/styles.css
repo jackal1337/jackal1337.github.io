@@ -1,6 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
 
+:root {
+    --brand-primary: #6592e6;
+    --brand-dark: #466fbd;
+    --brand-light: #8fb3f5;
+    --bg-light: #F1FAFF;
+    --bg-card: #ffffff;
+    --text-primary: #1a1a2e;
+    --text-secondary: #64748b;
+    --text-muted: #94a3b8;
+    --border-subtle: rgba(101, 146, 230, 0.12);
+    --border-light: rgba(0, 0, 0, 0.06);
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+    --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+    --shadow-hover: 0 20px 40px -12px rgba(101, 146, 230, 0.2), 0 8px 16px -8px rgba(0, 0, 0, 0.06);
+    --shadow-elevated: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
 *, ::before, ::after {
     box-sizing: border-box;
     margin: 0;
@@ -13,12 +37,13 @@ html {
 
 body {
     font-family: "Lexend", sans-serif;
-    background-color: #F1FAFF;
+    background-color: var(--bg-light);
+    color: var(--text-primary);
 }
 
 span {
     font-family: "Anton", sans-serif;
-    color: #6592e6;
+    color: var(--brand-primary);
 }
 
 .fullscreen-bg {
@@ -50,12 +75,12 @@ span {
 }
 
 .wave .shape-fill {
-    fill: #F1FAFF;
+    fill: var(--bg-light);
 }
 
 .text-overlay {
     text-align: center;
-    color: #F1FAFF;
+    color: var(--bg-light);
     padding: 0 20px;
 }
 
@@ -85,9 +110,11 @@ span {
 
 .onas .container {
     margin: 0 auto;
-    padding: 50px 20px;
-    background-color: #f8f9fa;
-    border-radius: 5px;
+    padding: 50px 40px;
+    background-color: var(--bg-card);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-card);
+    border: 1px solid var(--border-light);
 }
 
 .vozy {
@@ -96,57 +123,212 @@ span {
 }
 
 .vozy h2 {
-    margin-bottom: 40px;
+    margin-bottom: 50px;
+    font-weight: 600;
+    color: var(--text-primary);
 }
 
 .vozy .card {
-    transition: transform 0.3s ease-in-out; 
+    background: var(--bg-card);
+    border: none;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    transition: var(--transition-smooth);
+    overflow: hidden;
+    position: relative;
+}
+
+.vozy .card::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--brand-primary), var(--brand-light));
+    transform: scaleX(0);
+    transition: transform var(--transition-smooth);
 }
 
 .vozy .card:hover {
-    transform: translateY(-5px); 
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-hover);
+}
+
+.vozy .card:hover::before {
+    transform: scaleX(1);
+}
+
+.vozy .card-img-wrapper {
+    position: relative;
+    overflow: hidden;
 }
 
 .vozy .card-img-top {
-    height: 250px; 
+    height: 220px;
     object-fit: cover;
+    transition: transform var(--transition-smooth);
+}
+
+.vozy .card:hover .card-img-top {
+    transform: scale(1.05);
+}
+
+.vozy .card-img-wrapper::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.15), transparent);
+    pointer-events: none;
+}
+
+.vozy .card-body {
+    padding: 24px;
 }
 
 .vozy .card-title {
-    font-size: 24px;
-    margin-bottom: 20px; 
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--text-primary);
 }
 
 .vozy .card-text {
-    margin-bottom: 10px; 
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 0;
 }
 
 .vozy .card-text li {
-    font-size: 18px; 
-    color: #495057; 
+    font-size: 15px;
+    color: var(--text-secondary);
+    padding: 4px 0;
 }
 
 .vozy .card-text a {
-    color: #007bff; 
-    text-decoration: none; 
+    color: var(--brand-primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color var(--transition-fast);
+}
+
+.vozy .card-text a:hover {
+    color: var(--brand-dark);
 }
 
 .cenik {
     padding: 80px 0;
-    background-color: #F1FAFF;
+    background-color: var(--bg-light);
 }
 
 .cenik h2 {
-    margin-bottom: 40px;
+    margin-bottom: 50px;
+    font-weight: 600;
+    color: var(--text-primary);
 }
 
 .cenik .card {
-    padding: 20px;
+    background: var(--bg-card);
+    border: none;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    transition: var(--transition-smooth);
+    overflow: hidden;
+    position: relative;
+    padding: 0;
+}
+
+.cenik .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--brand-primary), var(--brand-light));
+}
+
+.cenik .card:hover {
+    transform: translateY(-6px) scale(1.01);
+    box-shadow: var(--shadow-hover);
+}
+
+.cenik .card-body {
+    padding: 32px 28px;
 }
 
 .cenik .card-title {
-    font-size: 24px;
-    margin-bottom: 10px;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 24px;
+    color: var(--brand-primary);
+    position: relative;
+    padding-bottom: 16px;
+}
+
+.cenik .card-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 2px;
+    background: var(--border-subtle);
+    border-radius: 2px;
+}
+
+.cenik .list-unstyled {
+    margin: 0;
+}
+
+.cenik .list-unstyled li {
+    padding: 14px 0 14px 32px;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-light);
+    position: relative;
+    transition: var(--transition-fast);
+}
+
+.cenik .list-unstyled li:last-child {
+    border-bottom: none;
+}
+
+.cenik .list-unstyled li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(135deg, var(--brand-primary), var(--brand-light));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cenik .list-unstyled li::after {
+    content: '✓';
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 10px;
+    font-weight: bold;
+    color: white;
+}
+
+.cenik .list-unstyled li:hover {
+    color: var(--text-primary);
+    padding-left: 36px;
 }
 
 .spoluprace {
@@ -156,9 +338,24 @@ span {
 
 .spoluprace .container {
     margin: 0 auto;
-    padding: 50px 20px;
-    background-color: #f8f9fa;
-    border-radius: 5px;
+    padding: 50px 40px;
+    background-color: var(--bg-card);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-card);
+    border: 1px solid var(--border-light);
+}
+
+.spoluprace h2 {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 24px;
+}
+
+.spoluprace .list-unstyled li {
+    padding: 12px 0;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--text-secondary);
 }
 
 .mapa {
@@ -167,100 +364,218 @@ span {
 
 .mapa h2 {
     margin-bottom: 40px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+#map-canvas {
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    border: 1px solid var(--border-light);
 }
 
 .objednavka {
-    padding: 50px 0;
+    padding: 80px 0;
     background-color: #f8f9fa;
 }
 
 .objednavka h2 {
-    margin-bottom: 40px;
+    margin-bottom: 50px;
+    font-weight: 600;
+    color: var(--text-primary);
 }
 
 .objednavka .card {
+    background: var(--bg-card);
+    border: none;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
     margin-bottom: 30px;
+    overflow: hidden;
+    transition: var(--transition-smooth);
+}
+
+.objednavka .card:hover {
+    box-shadow: var(--shadow-hover);
+}
+
+#termsCard {
+    border-left: 4px solid var(--brand-primary);
+}
+
+#termsCard .card-body {
+    padding: 32px;
 }
 
 .objednavka .card-title {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 22px;
+    font-weight: 600;
     margin-bottom: 20px;
-    color: #333;
+    color: var(--text-primary);
 }
 
 .objednavka .card-text {
-    font-size: 16px;
-    line-height: 1.6;
-    color: #666;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text-secondary);
 }
 
 .objednavka .card-text ol {
-    padding-left: 20px;
+    padding-left: 0;
+    counter-reset: item;
+    list-style: none;
 }
 
-.objednavka .card-text li {
-    margin-bottom: 10px;
+.objednavka .card-text ol li {
+    margin-bottom: 14px;
+    padding-left: 40px;
+    position: relative;
+    counter-increment: item;
+}
+
+.objednavka .card-text ol li::before {
+    content: counter(item);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 26px;
+    height: 26px;
+    background: linear-gradient(135deg, var(--brand-primary), var(--brand-light));
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#orderForm {
+    border-radius: var(--radius-lg);
+}
+
+#orderForm .card-body {
+    padding: 40px;
 }
 
 .form-check-label {
-    font-size: 16px;
-    color: #666;
+    font-size: 15px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: color var(--transition-fast);
 }
 
-.objednavka .btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
-    font-size: 18px;
-    font-weight: bold;
-    padding: 10px 30px;
-    border-radius: 5px;
-    transition: all 0.3s ease;
+.form-check-label:hover {
+    color: var(--text-primary);
 }
 
-.objednavka .btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #0056b3;
+.form-check-input {
+    cursor: pointer;
+}
+
+.form-check-input:checked {
+    background-color: var(--brand-primary);
+    border-color: var(--brand-primary);
+}
+
+.form-group {
+    margin-bottom: 24px;
 }
 
 .form-group label {
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    display: block;
 }
 
 .form-control {
-    font-size: 16px;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+    font-size: 15px;
+    padding: 14px 16px;
+    border-radius: var(--radius-sm);
+    border: 2px solid var(--border-light);
+    background: var(--bg-card);
+    transition: var(--transition-fast);
 }
 
 .form-control:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    border-color: var(--brand-primary);
+    box-shadow: 0 0 0 3px rgba(101, 146, 230, 0.15);
+    outline: none;
+}
+
+.form-control::placeholder {
+    color: var(--text-muted);
+}
+
+.objednavka .btn-primary {
+    background: linear-gradient(135deg, var(--brand-primary), var(--brand-dark));
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 14px 36px;
+    border-radius: 50px;
+    transition: var(--transition-smooth);
+    box-shadow: 0 4px 14px rgba(101, 146, 230, 0.3);
+}
+
+.objednavka .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(101, 146, 230, 0.4);
+    background: linear-gradient(135deg, var(--brand-dark), var(--brand-primary));
+}
+
+.objednavka .btn-primary:active {
+    transform: translateY(0);
 }
 
 @media (max-width: 767px) {
+    .onas .container,
+    .spoluprace .container {
+        padding: 30px 20px;
+    }
+
+    .vozy .card-body,
+    .cenik .card-body {
+        padding: 20px;
+    }
+
     .objednavka .card-title {
-        font-size: 20px;
+        font-size: 18px;
     }
 
     .objednavka .card-text {
         font-size: 14px;
     }
 
+    #termsCard .card-body,
+    #orderForm .card-body {
+        padding: 24px;
+    }
+
     .form-group label {
-        font-size: 16px;
+        font-size: 14px;
     }
 
     .form-control {
         font-size: 14px;
+        padding: 12px 14px;
     }
 
     .objednavka .btn-primary {
-        font-size: 16px;
-        padding: 8px 20px;
+        font-size: 15px;
+        padding: 12px 28px;
+        width: 100%;
+    }
+
+    .cenik .card-title {
+        font-size: 18px;
+    }
+
+    .cenik .list-unstyled li {
+        font-size: 14px;
+        padding: 12px 0 12px 28px;
     }
 }
 
@@ -268,37 +583,104 @@ span {
     position: fixed;
     z-index: 1000;
     width: 100%;
-    background-color: #F1FAFF !important;
-    filter: drop-shadow(0 0 0.75rem #2b2b2b);
+    background-color: var(--bg-light) !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(10px);
 }
 
 .navbar-brand {
     font-family: "Anton", sans-serif;
     font-size: 36px;
     font-weight: bold;
-    color: #6592e6 !important;
+    color: var(--brand-primary) !important;
 }
 
 .navbar-nav .nav-link {
-    font-size: 18px;
+    font-size: 16px;
+    font-weight: 500;
     margin-left: 20px;
-    color: #333;
-    transition: all 0.3s ease-in-out;
+    color: var(--text-primary);
+    transition: var(--transition-fast);
+    position: relative;
+}
+
+.navbar-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--brand-primary);
+    transition: var(--transition-fast);
+    transform: translateX(-50%);
 }
 
 .navbar-nav .nav-link:hover {
-    color: #6592e6 !important;
+    color: var(--brand-primary) !important;
+}
+
+.navbar-nav .nav-link:hover::after {
+    width: 80%;
 }
 
 .btn-primary {
-    background-color: #6592e6 !important;
-    border-color: #466fbd !important;
-    font-size: 18px;
+    background: linear-gradient(135deg, var(--brand-primary), var(--brand-dark)) !important;
+    border: none !important;
+    font-size: 16px;
+    font-weight: 600;
     margin-left: 20px;
-    transition: all 0.3s ease-in-out;
+    padding: 10px 24px;
+    border-radius: 50px;
+    transition: var(--transition-smooth);
+    box-shadow: 0 4px 14px rgba(101, 146, 230, 0.25);
 }
 
 .btn-primary:hover {
-    background-color: #466fbd !important;
-    border-color: #6592e6 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(101, 146, 230, 0.35);
+}
+
+footer {
+    padding: 40px 0;
+    background: var(--bg-card);
+    border-top: 1px solid var(--border-light);
+}
+
+footer p {
+    font-size: 14px;
+}
+
+footer a {
+    color: var(--brand-primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color var(--transition-fast);
+}
+
+footer a:hover {
+    color: var(--brand-dark);
+}
+
+.modal-content {
+    border: none;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-elevated);
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--border-light);
+    padding: 20px 24px;
+}
+
+.modal-body {
+    padding: 24px;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+.modal-title {
+    font-weight: 600;
+    color: var(--text-primary);
 }

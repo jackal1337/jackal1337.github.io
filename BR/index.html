@@ -67,7 +67,7 @@
     </header>
 
     <section class="onas" id="onas">
-        <div class="container shadow-lg">
+        <div class="container">
             <div class="row">
                 <div class="container col-md-6">
                     <h2 id="onas-title">O nás</h2>
@@ -80,7 +80,7 @@
                         nejsou jentak běžně dostupná!</p>
                 </div>
                 <div class="col-md-6">
-                    <img id="onas-image" src="assets/img/BelAir.jpg" alt="O nás" class="img-fluid rounded shadow-lg">
+                    <img id="onas-image" src="assets/img/BelAir.jpg" alt="O nás" class="img-fluid rounded">
                 </div>
             </div>
         </div>
@@ -100,7 +100,7 @@
             <h2 class="text-center" id="cenik-title">Ceník</h2>
             <div class="row justify-content-center">
                 <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100 shadow-lg">
+                    <div class="card h-100">
                         <div class="card-body">
                             <h5 class="card-title text-center" id="cenik-short-title">Krátkodobý pronájem</h5>
                             <ul class="list-unstyled" id="cenik-short-items">
@@ -112,7 +112,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100 shadow-lg">
+                    <div class="card h-100">
                         <div class="card-body">
                             <h5 class="card-title text-center" id="cenik-long-title">Dlouhodobý pronájem</h5>
                             <ul class="list-unstyled" id="cenik-long-items">
@@ -151,7 +151,7 @@
             <h2 class="text-center" id="mapa-title">Kde nás najít?</h2>
             <div class="row justify-content-center">
                 <div class="col-md-6">
-                    <div id="map-canvas" class="rounded shadow-lg" style="width: 100%; height: 550px;"></div>
+                    <div id="map-canvas" style="width: 100%; height: 550px;"></div>
                 </div>
             </div>
         </div>
@@ -160,7 +160,7 @@
     <section class="objednavka" id="objednavka">
         <div class="container">
             <h2 class="text-center">Objednávkový formulář</h2>
-            <div class="card rounded shadow-lg" id="termsCard">
+            <div class="card" id="termsCard">
                 <div class="card-body mx-3">
                     <h4 class="card-title">Obchodní podmínky</h4>
                     <p class="card-text">
@@ -280,11 +280,13 @@
                         const carElement = document.createElement('div');
                         carElement.classList.add('col-md-6', 'col-lg-4', 'mb-4');
                         carElement.innerHTML = `
-                            <div class="card h-100 shadow-lg">
-                                <img src="${car.image}" alt="${car.title}" class="card-img-top">
+                            <div class="card h-100">
+                                <div class="card-img-wrapper">
+                                    <img src="${car.image}" alt="${car.title}" class="card-img-top">
+                                </div>
                                 <div class="card-body">
                                     <h5 class="card-title">${car.title}</h5>
-                                    <p>${car.description}</p>
+                                    <div class="card-text">${car.description}</div>
                                 </div>
                             </div>
                         `;
