@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <a class="navbar-brand" href="index.html">BlueRide</a>
@@ -41,7 +41,7 @@
             </div>
         </div>
     </nav>
-    
+
     <header>
         <div class="fullscreen-bg">
             <div class="text-overlay">
@@ -65,13 +65,13 @@
             </div>
         </div>
     </header>
-    
+
     <section class="onas" id="onas">
         <div class="container shadow-lg">
             <div class="row">
                 <div class="container col-md-6">
-                    <h2>O nás</h2>
-                    <p><span>BlueRide</span> - Místo, kde se setkává luxus a péče.<br>Jsme Vaší první volbou v oblasti
+                    <h2 id="onas-title">O nás</h2>
+                    <p id="onas-text"><span>BlueRide</span> - Místo, kde se setkává luxus a péče.<br>Jsme Vaší první volbou v oblasti
                         autopůjčoven,
                         specializujeme se na poskytování prvotřídních vozů a špičkového zákaznického servisu.<br>Naše
                         vášeň
@@ -80,31 +80,30 @@
                         nejsou jentak běžně dostupná!</p>
                 </div>
                 <div class="col-md-6">
-                    <img src="assets/img/BelAir.jpg" alt="O nás" class="img-fluid rounded shadow-lg">
+                    <img id="onas-image" src="assets/img/BelAir.jpg" alt="O nás" class="img-fluid rounded shadow-lg">
                 </div>
             </div>
         </div>
     </section>
-    
+
     <section class="vozy" id="vozy">
         <div class="container">
             <h2 class="text-center mb-5">Naše vozy</h2>
             <div class="row">
-                <!-- Vozidla -->
             </div>
         </div>
     </section>
-    
-    
+
+
     <section class="cenik" id="cenik">
         <div class="container">
-            <h2 class="text-center">Ceník</h2>
+            <h2 class="text-center" id="cenik-title">Ceník</h2>
             <div class="row justify-content-center">
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card h-100 shadow-lg">
                         <div class="card-body">
-                            <h5 class="card-title text-center">Krátkodobý pronájem</h5>
-                            <ul class="list-unstyled">
+                            <h5 class="card-title text-center" id="cenik-short-title">Krátkodobý pronájem</h5>
+                            <ul class="list-unstyled" id="cenik-short-items">
                                 <li>7-30 Dní</li>
                                 <li>Přístup ke všem vozům</li>
                                 <li>500.000Kč týdně + jednorázové uhrazení vratné kauce 500.000Kč k úhradě případných škod.</li>
@@ -115,8 +114,8 @@
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card h-100 shadow-lg">
                         <div class="card-body">
-                            <h5 class="card-title text-center">Dlouhodobý pronájem</h5>
-                            <ul class="list-unstyled">
+                            <h5 class="card-title text-center" id="cenik-long-title">Dlouhodobý pronájem</h5>
+                            <ul class="list-unstyled" id="cenik-long-items">
                                 <li>Měsíc a více</li>
                                 <li>Přístup ke všem vozům</li>
                                 <li>300.000 týdně + jednorázové uhrazení vratné kauce 500.000Kč k úhradě případných
@@ -128,13 +127,13 @@
             </div>
         </div>
     </section>
-    
+
     <section class="spoluprace" id="spoluprace">
         <div class="container">
             <div class="row">
                 <div class="container col-md-6">
-                    <h2>Spolupráce</h2>
-                    <ul class="list-unstyled">
+                    <h2 id="spoluprace-title">Spolupráce</h2>
+                    <ul class="list-unstyled" id="spoluprace-items">
                         <li>Vlastníš unikátní vůz a chceš si s ním vydělat?</li>
                         <li>Nevadilo by ti nám jej propůjčit výměnou za pronájmovou částku, nebo za trvalý přístup k
                             vozům <span>BlueRide</span>?</li>
@@ -146,10 +145,10 @@
             </div>
         </div>
     </section>
-    
+
     <section class="mapa" id="mapa">
         <div class="container">
-            <h2 class="text-center">Kde nás najít?</h2>
+            <h2 class="text-center" id="mapa-title">Kde nás najít?</h2>
             <div class="row justify-content-center">
                 <div class="col-md-6">
                     <div id="map-canvas" class="rounded shadow-lg" style="width: 100%; height: 550px;"></div>
@@ -157,7 +156,7 @@
             </div>
         </div>
     </section>
-    
+
     <section class="objednavka" id="objednavka">
         <div class="container">
             <h2 class="text-center">Objednávkový formulář</h2>
@@ -237,7 +236,7 @@
         </div>
     </section>
 
-    
+
     <div class="modal fade" id="orderSuccessModal" tabindex="-1" role="dialog" aria-labelledby="orderSuccessModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -254,7 +253,7 @@
             </div>
         </div>
     </div>
-    
+
     <footer>
         <div class="px-lg-5 my-5">
             <p class="text-muted text-center">
@@ -273,32 +272,105 @@
     <script src="assets/js/objednavka.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-    fetch('https://notjackal.eu/BlueRide/cars.php')
-        .then(response => response.json())
-        .then(data => {
-            const carsContainer = document.querySelector('.vozy .container .row');
-            data.forEach(car => {
-                const carElement = document.createElement('div');
-                carElement.classList.add('col-md-6', 'col-lg-4', 'mb-4');
+            fetch('https://notjackal.eu/BlueRide/cars.php')
+                .then(response => response.json())
+                .then(data => {
+                    const carsContainer = document.querySelector('.vozy .container .row');
+                    data.forEach(car => {
+                        const carElement = document.createElement('div');
+                        carElement.classList.add('col-md-6', 'col-lg-4', 'mb-4');
+                        carElement.innerHTML = `
+                            <div class="card h-100 shadow-lg">
+                                <img src="${car.image}" alt="${car.title}" class="card-img-top">
+                                <div class="card-body">
+                                    <h5 class="card-title">${car.title}</h5>
+                                    <p>${car.description}</p>
+                                </div>
+                            </div>
+                        `;
+                        carsContainer.appendChild(carElement);
+                    });
+                })
+                .catch(function() {});
 
-                carElement.innerHTML = `
-                    <div class="card h-100 shadow-lg">
-                        <img src="${car.image}" alt="${car.title}" class="card-img-top">
-                        <div class="card-body">
-                            <h5 class="card-title">${car.title}</h5>
-                            <p>${car.description}</p>
-                        </div>
-                    </div>
-                `;
+            fetch('https://notjackal.eu/BlueRide/content.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.onas) {
+                        if (data.onas.title) {
+                            document.getElementById('onas-title').textContent = data.onas.title;
+                        }
+                        if (data.onas.text) {
+                            document.getElementById('onas-text').innerHTML = data.onas.text;
+                        }
+                        if (data.onas.image) {
+                            document.getElementById('onas-image').src = data.onas.image;
+                        }
+                    }
 
-                carsContainer.appendChild(carElement);
-            });
-        })
-        .catch(error => {
-            console.error('Chyba při načítání JSON souboru:', error);
+                    if (data.cenik) {
+                        if (data.cenik.title) {
+                            document.getElementById('cenik-title').textContent = data.cenik.title;
+                        }
+                        if (data.cenik.shortTerm) {
+                            if (data.cenik.shortTerm.title) {
+                                document.getElementById('cenik-short-title').textContent = data.cenik.shortTerm.title;
+                            }
+                            if (data.cenik.shortTerm.items && Array.isArray(data.cenik.shortTerm.items)) {
+                                var shortList = document.getElementById('cenik-short-items');
+                                shortList.innerHTML = '';
+                                data.cenik.shortTerm.items.forEach(function(item) {
+                                    var li = document.createElement('li');
+                                    li.innerHTML = item;
+                                    shortList.appendChild(li);
+                                });
+                            }
+                        }
+                        if (data.cenik.longTerm) {
+                            if (data.cenik.longTerm.title) {
+                                document.getElementById('cenik-long-title').textContent = data.cenik.longTerm.title;
+                            }
+                            if (data.cenik.longTerm.items && Array.isArray(data.cenik.longTerm.items)) {
+                                var longList = document.getElementById('cenik-long-items');
+                                longList.innerHTML = '';
+                                data.cenik.longTerm.items.forEach(function(item) {
+                                    var li = document.createElement('li');
+                                    li.innerHTML = item;
+                                    longList.appendChild(li);
+                                });
+                            }
+                        }
+                    }
+
+                    if (data.spoluprace) {
+                        if (data.spoluprace.title) {
+                            document.getElementById('spoluprace-title').textContent = data.spoluprace.title;
+                        }
+                        if (data.spoluprace.items && Array.isArray(data.spoluprace.items)) {
+                            var spolupraceList = document.getElementById('spoluprace-items');
+                            spolupraceList.innerHTML = '';
+                            data.spoluprace.items.forEach(function(item) {
+                                var li = document.createElement('li');
+                                li.innerHTML = item;
+                                spolupraceList.appendChild(li);
+                            });
+                        }
+                    }
+
+                    if (data.mapa) {
+                        if (data.mapa.title) {
+                            document.getElementById('mapa-title').textContent = data.mapa.title;
+                        }
+                        initMapWithData(data.mapa);
+                    } else {
+                        initMapDefault();
+                    }
+                })
+                .catch(function() {
+                    initMapDefault();
+                });
         });
-});
-    </script>    
+    </script>
 </body>
 
 </html>
