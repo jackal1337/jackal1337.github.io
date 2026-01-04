@@ -104,11 +104,11 @@ span {
     }
 }
 
-.onas {
+.about {
     padding: 80px 0;
 }
 
-.onas .container {
+.about .container {
     margin: 0 auto;
     padding: 50px 40px;
     background-color: var(--bg-card);
@@ -220,18 +220,18 @@ span {
     color: var(--brand-dark);
 }
 
-.cenik {
+.pricing {
     padding: 80px 0;
     background-color: var(--bg-light);
 }
 
-.cenik h2 {
+.pricing h2 {
     margin-bottom: 50px;
     font-weight: 600;
     color: var(--text-primary);
 }
 
-.cenik .card {
+.pricing .card {
     background: var(--bg-card);
     border: none;
     border-radius: var(--radius-lg);
@@ -242,7 +242,7 @@ span {
     padding: 0;
 }
 
-.cenik .card::before {
+.pricing .card::before {
     content: '';
     position: absolute;
     top: 0;
@@ -252,16 +252,16 @@ span {
     background: linear-gradient(90deg, var(--brand-primary), var(--brand-light));
 }
 
-.cenik .card:hover {
+.pricing .card:hover {
     transform: translateY(-6px) scale(1.01);
     box-shadow: var(--shadow-hover);
 }
 
-.cenik .card-body {
+.pricing .card-body {
     padding: 32px 28px;
 }
 
-.cenik .card-title {
+.pricing .card-title {
     font-size: 22px;
     font-weight: 600;
     margin-bottom: 24px;
@@ -270,7 +270,7 @@ span {
     padding-bottom: 16px;
 }
 
-.cenik .card-title::after {
+.pricing .card-title::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -282,11 +282,11 @@ span {
     border-radius: 2px;
 }
 
-.cenik .list-unstyled {
+.pricing .list-unstyled {
     margin: 0;
 }
 
-.cenik .list-unstyled li {
+.pricing .list-unstyled li {
     padding: 14px 0 14px 32px;
     font-size: 15px;
     line-height: 1.5;
@@ -296,11 +296,11 @@ span {
     transition: var(--transition-fast);
 }
 
-.cenik .list-unstyled li:last-child {
+.pricing .list-unstyled li:last-child {
     border-bottom: none;
 }
 
-.cenik .list-unstyled li::before {
+.pricing .list-unstyled li::before {
     content: '';
     position: absolute;
     left: 0;
@@ -315,7 +315,7 @@ span {
     justify-content: center;
 }
 
-.cenik .list-unstyled li::after {
+.pricing .list-unstyled li::after {
     content: '✓';
     position: absolute;
     left: 5px;
@@ -326,17 +326,17 @@ span {
     color: white;
 }
 
-.cenik .list-unstyled li:hover {
+.pricing .list-unstyled li:hover {
     color: var(--text-primary);
     padding-left: 36px;
 }
 
-.spoluprace {
+.partnership {
     padding: 80px 0;
     background-color: #f8f9fa;
 }
 
-.spoluprace .container {
+.partnership .container {
     margin: 0 auto;
     padding: 50px 40px;
     background-color: var(--bg-card);
@@ -345,24 +345,24 @@ span {
     border: 1px solid var(--border-light);
 }
 
-.spoluprace h2 {
+.partnership h2 {
     font-weight: 600;
     color: var(--text-primary);
     margin-bottom: 24px;
 }
 
-.spoluprace .list-unstyled li {
+.partnership .list-unstyled li {
     padding: 12px 0;
     font-size: 16px;
     line-height: 1.7;
     color: var(--text-secondary);
 }
 
-.mapa {
+.map {
     padding: 80px 0;
 }
 
-.mapa h2 {
+.map h2 {
     margin-bottom: 40px;
     font-weight: 600;
     color: var(--text-primary);
@@ -374,18 +374,18 @@ span {
     border: 1px solid var(--border-light);
 }
 
-.objednavka {
+.order {
     padding: 80px 0;
     background-color: #f8f9fa;
 }
 
-.objednavka h2 {
+.order h2 {
     margin-bottom: 50px;
     font-weight: 600;
     color: var(--text-primary);
 }
 
-.objednavka .card {
+.order .card {
     background: var(--bg-card);
     border: none;
     border-radius: var(--radius-lg);
@@ -395,7 +395,7 @@ span {
     transition: var(--transition-smooth);
 }
 
-.objednavka .card:hover {
+.order .card:hover {
     box-shadow: var(--shadow-hover);
 }
 
@@ -407,33 +407,33 @@ span {
     padding: 32px;
 }
 
-.objednavka .card-title {
+.order .card-title {
     font-size: 22px;
     font-weight: 600;
     margin-bottom: 20px;
     color: var(--text-primary);
 }
 
-.objednavka .card-text {
+.order .card-text {
     font-size: 15px;
     line-height: 1.7;
     color: var(--text-secondary);
 }
 
-.objednavka .card-text ol {
+.order .card-text ol {
     padding-left: 0;
     counter-reset: item;
     list-style: none;
 }
 
-.objednavka .card-text ol li {
+.order .card-text ol li {
     margin-bottom: 14px;
     padding-left: 40px;
     position: relative;
     counter-increment: item;
 }
 
-.objednavka .card-text ol li::before {
+.order .card-text ol li::before {
     content: counter(item);
     position: absolute;
     left: 0;
@@ -509,7 +509,7 @@ span {
     color: var(--text-muted);
 }
 
-.objednavka .btn-primary {
+.order .btn-primary {
     background: linear-gradient(135deg, var(--brand-primary), var(--brand-dark));
     border: none;
     font-size: 16px;
@@ -520,32 +520,32 @@ span {
     box-shadow: 0 4px 14px rgba(101, 146, 230, 0.3);
 }
 
-.objednavka .btn-primary:hover {
+.order .btn-primary:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(101, 146, 230, 0.4);
     background: linear-gradient(135deg, var(--brand-dark), var(--brand-primary));
 }
 
-.objednavka .btn-primary:active {
+.order .btn-primary:active {
     transform: translateY(0);
 }
 
 @media (max-width: 767px) {
-    .onas .container,
-    .spoluprace .container {
+    .about .container,
+    .partnership .container {
         padding: 30px 20px;
     }
 
     .vozy .card-body,
-    .cenik .card-body {
+    .pricing .card-body {
         padding: 20px;
     }
 
-    .objednavka .card-title {
+    .order .card-title {
         font-size: 18px;
     }
 
-    .objednavka .card-text {
+    .order .card-text {
         font-size: 14px;
     }
 
@@ -563,17 +563,17 @@ span {
         padding: 12px 14px;
     }
 
-    .objednavka .btn-primary {
+    .order .btn-primary {
         font-size: 15px;
         padding: 12px 28px;
         width: 100%;
     }
 
-    .cenik .card-title {
+    .pricing .card-title {
         font-size: 18px;
     }
 
-    .cenik .list-unstyled li {
+    .pricing .list-unstyled li {
         font-size: 14px;
         padding: 12px 0 12px 28px;
     }
