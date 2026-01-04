@@ -66,10 +66,10 @@
         </div>
     </header>
 
-    <section class="about reveal" id="about">
+    <section class="about" id="about">
         <div class="container">
             <div class="row align-items-center">
-                <div class="container col-md-6 reveal-left">
+                <div class="container col-md-6">
                     <h2 id="about-title">O nás</h2>
                     <p id="about-text"><span>BlueRide</span> - Místo, kde se setkává luxus a péče.<br>Jsme Vaší první volbou v oblasti
                         autopůjčoven,
@@ -79,26 +79,26 @@
                         stylem.<br>Za pouhých 500.000Kč týdně obdržíte přístup k více jak dvaceti unikátním vozům, která
                         nejsou jentak běžně dostupná!</p>
                 </div>
-                <div class="col-md-6 reveal-right">
+                <div class="col-md-6">
                     <img id="about-image" src="assets/img/BelAir.jpg" alt="O nás" class="img-fluid rounded about-image">
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="vozy reveal" id="vozy">
+    <section class="vozy" id="vozy">
         <div class="container">
             <h2 class="text-center mb-5">Naše vozy</h2>
-            <div class="row stagger-children" id="cars-container">
+            <div class="row" id="cars-container">
             </div>
         </div>
     </section>
 
 
-    <section class="pricing reveal" id="pricing">
+    <section class="pricing" id="pricing">
         <div class="container">
             <h2 class="text-center" id="pricing-title">Ceník</h2>
-            <div class="row justify-content-center stagger-children">
+            <div class="row justify-content-center">
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card h-100 pricing-card">
                         <div class="card-body">
@@ -128,12 +128,12 @@
         </div>
     </section>
 
-    <section class="partnership reveal" id="partnership">
+    <section class="partnership" id="partnership">
         <div class="container">
             <div class="row">
-                <div class="container col-md-8 col-lg-6 reveal-left">
+                <div class="container col-md-8 col-lg-6">
                     <h2 id="partnership-title">Spolupráce</h2>
-                    <ul class="list-unstyled stagger-children" id="partnership-items">
+                    <ul class="list-unstyled" id="partnership-items">
                         <li>Vlastníš unikátní vůz a chceš si s ním vydělat?</li>
                         <li>Nevadilo by ti nám jej propůjčit výměnou za pronájmovou částku, nebo za trvalý přístup k
                             vozům <span>BlueRide</span>?</li>
@@ -146,7 +146,7 @@
         </div>
     </section>
 
-    <section class="map reveal" id="map">
+    <section class="map" id="map">
         <div class="container-fluid px-lg-5">
             <h2 class="text-center" id="map-title">Kde nás najít?</h2>
             <div class="row justify-content-center">
@@ -157,7 +157,7 @@
         </div>
     </section>
 
-    <section class="order reveal" id="order">
+    <section class="order" id="order">
         <div class="container">
             <h2 class="text-center">Objednávkový formulář</h2>
             <div class="card" id="termsCard">
@@ -279,7 +279,7 @@
         </div>
     </div>
 
-    <footer class="reveal">
+    <footer>
         <div class="px-lg-5 my-5">
             <p class="text-muted text-center">
                 Provozovatel webové stránky blueride.ic je PO BlueRide, IČ 494<br>Design&Code by <a
@@ -400,40 +400,10 @@
         };
 
         // =====================================================
-        // SCROLL REVEAL SYSTEM
-        // =====================================================
-        function initScrollReveal() {
-            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            if (prefersReducedMotion) {
-                document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
-                    el.classList.add('revealed');
-                });
-                return;
-            }
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('revealed');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            });
-
-            document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
-                observer.observe(el);
-            });
-        }
-
-        // =====================================================
         // MAIN INIT
         // =====================================================
         document.addEventListener('DOMContentLoaded', function () {
             lightbox.init();
-            initScrollReveal();
 
             // Fetch cars with lightbox integration
             fetch('https://notjackal.eu/blueride/cars.php')
