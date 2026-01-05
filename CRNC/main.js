@@ -28,8 +28,7 @@
         modalTitle: document.getElementById('modalTitle'),
         modalYear: document.getElementById('modalYear'),
         modalDescription: document.getElementById('modalDescription'),
-        modalStatus: document.getElementById('modalStatus'),
-        modalBadges: document.getElementById('modalBadges')
+        modalSpecs: document.getElementById('modalSpecs')
     };
 
     let carsData = [];
@@ -78,22 +77,14 @@
     }
 
     function createCarCard(car) {
-        const statusClass = car.availability || 'available';
-        const statusText = getStatusText(statusClass);
-        const statusIcon = getStatusIcon(statusClass);
-
         const badges = [];
-        if (car.hasTuning) badges.push('<span class="car-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>Tuning</span>');
-        if (car.hasWrap) badges.push('<span class="car-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>Wrap</span>');
+        if (car.hasTuning) badges.push('<span class="car-badge tuning"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>Tuning</span>');
+        if (car.hasWrap) badges.push('<span class="car-badge wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>Wrap</span>');
 
         return `
             <article class="car-card" data-car-id="${car.id}">
                 <div class="car-image-wrapper">
                     <img src="${escapeHtml(car.image)}" alt="${escapeHtml(car.title)}" class="car-image" loading="lazy">
-                    <div class="car-status ${statusClass}">
-                        ${statusIcon}
-                        ${statusText}
-                    </div>
                 </div>
                 <div class="car-info">
                     <div class="car-year">${car.year || ''}</div>
@@ -125,24 +116,80 @@
         const car = carsData.find(c => c.id === carId);
         if (!car) return;
 
-        const statusClass = car.availability || 'available';
-        const statusText = getStatusText(statusClass);
-
         elements.modalImage.src = car.image;
         elements.modalImage.alt = car.title;
         elements.modalTitle.textContent = car.title;
         elements.modalYear.textContent = car.year || '';
         elements.modalDescription.innerHTML = car.description || '';
-        elements.modalStatus.className = `modal-status ${statusClass}`;
-        elements.modalStatus.textContent = statusText;
 
-        const badges = [];
-        if (car.hasTuning) badges.push('<span class="modal-badge tuning">Tuning</span>');
-        if (car.hasWrap) badges.push('<span class="modal-badge wrap">Wrap</span>');
-        elements.modalBadges.innerHTML = badges.join('');
+        // Render specs
+        renderModalSpecs(car);
 
         elements.carModal.classList.add('active');
         document.body.style.overflow = 'hidden';
+    }
+
+    function renderModalSpecs(car) {
+        if (!elements.modalSpecs) return;
+
+        let specsHtml = '<div class="specs-list">';
+
+        // Polep (Wrap)
+        specsHtml += `
+            <div class="spec-row">
+                <span class="spec-label">Polep</span>
+                <span class="spec-value ${car.hasWrap ? 'yes' : 'no'}">${car.hasWrap ? 'S polepem' : 'Bez polepu'}</span>
+            </div>
+        `;
+
+        // Úpravy (Modifications)
+        specsHtml += `
+            <div class="spec-row">
+                <span class="spec-label">Úpravy</span>
+                <span class="spec-value ${car.hasTuning ? 'yes' : 'no'}">${car.hasTuning ? 'Je upravené' : 'Bez úprav'}</span>
+            </div>
+        `;
+
+        // Tuning parts list
+        if (car.tuningParts && car.tuningParts.length > 0) {
+            specsHtml += `
+                <div class="spec-row spec-row-list">
+                    <span class="spec-label">Seznam úprav</span>
+                    <div class="spec-value-list">
+                        ${car.tuningParts.map(part => `<span class="tuning-part">${escapeHtml(part)}</span>`).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Top speed
+        if (car.topSpeed) {
+            specsHtml += `
+                <div class="spec-row">
+                    <span class="spec-label">Nejvyšší rychlost*</span>
+                    <span class="spec-value highlight">${escapeHtml(car.topSpeed)}</span>
+                </div>
+            `;
+        }
+
+        // Note
+        if (car.note) {
+            specsHtml += `
+                <div class="spec-row">
+                    <span class="spec-label">Poznámka</span>
+                    <span class="spec-value">${escapeHtml(car.note)}</span>
+                </div>
+            `;
+        }
+
+        specsHtml += '</div>';
+
+        // Add footnote if topSpeed exists
+        if (car.topSpeed) {
+            specsHtml += '<p class="specs-footnote">* Naměřená nejvyšší rychlost nemusí odpovídat skutečným podmínkám</p>';
+        }
+
+        elements.modalSpecs.innerHTML = specsHtml;
     }
 
     function closeCarModal() {
@@ -269,24 +316,6 @@
         if (!elements.contactFormMessage) return;
         elements.contactFormMessage.textContent = message;
         elements.contactFormMessage.className = `form-message ${type}`;
-    }
-
-    function getStatusText(status) {
-        const texts = {
-            available: 'Dostupný',
-            unavailable: 'Nedostupný',
-            reserved: 'Rezervován'
-        };
-        return texts[status] || 'Dostupný';
-    }
-
-    function getStatusIcon(status) {
-        const icons = {
-            available: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>',
-            unavailable: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 18L18 6M6 6l12 12"/></svg>',
-            reserved: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>'
-        };
-        return icons[status] || icons.available;
     }
 
     function escapeHtml(str) {
