@@ -666,6 +666,44 @@ input, textarea, select {
     font-size: var(--text-sm);
 }
 
+.pricing-card-price-note {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin-top: calc(var(--space-xs) * -1);
+    margin-bottom: var(--space-lg);
+}
+
+.pricing-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    background: var(--brand-gradient);
+    color: var(--text-inverse);
+    padding: var(--space-md) var(--space-xl);
+    border-radius: var(--radius-full);
+    font-weight: 600;
+    text-decoration: none;
+    margin-top: var(--space-lg);
+    transition: all var(--duration-normal) var(--ease-out);
+    box-shadow: var(--shadow-brand);
+}
+
+.pricing-cta:hover {
+    background: var(--brand-gradient-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(1, 190, 11, 0.35);
+}
+
+.pricing-cta svg {
+    width: 18px;
+    height: 18px;
+    transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.pricing-cta:hover svg {
+    transform: translateX(4px);
+}
+
 .about-section {
     background: var(--bg-secondary);
 }
@@ -760,6 +798,209 @@ input, textarea, select {
 .about-card p {
     font-size: var(--text-sm);
     color: var(--text-muted);
+}
+
+.contact-section {
+    background: var(--bg-elevated);
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3xl);
+    align-items: start;
+}
+
+@media (max-width: 768px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-2xl);
+    }
+}
+
+.contact-info {
+    padding-right: var(--space-xl);
+}
+
+.contact-description {
+    font-size: var(--text-lg);
+    color: var(--text-secondary);
+    margin-bottom: var(--space-xl);
+    line-height: 1.7;
+}
+
+.contact-benefits {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.contact-benefit {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    color: var(--text-secondary);
+}
+
+.contact-benefit svg {
+    width: 20px;
+    height: 20px;
+    color: var(--brand-primary);
+    flex-shrink: 0;
+}
+
+.contact-form-wrapper {
+    background: var(--bg-card);
+    border-radius: var(--radius-xl);
+    padding: var(--space-2xl);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-light);
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+}
+
+.contact-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+.contact-form label {
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.contact-form input,
+.contact-form textarea {
+    padding: var(--space-md);
+    border: 1px solid var(--border-medium);
+    border-radius: var(--radius-md);
+    font-family: inherit;
+    font-size: var(--text-base);
+    transition: border-color var(--duration-fast) var(--ease-out),
+                box-shadow var(--duration-fast) var(--ease-out);
+    background: var(--bg-secondary);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: var(--brand-primary);
+    box-shadow: 0 0 0 3px var(--brand-soft);
+}
+
+.contact-form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.contact-form .form-checkbox {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.contact-form .form-checkbox input {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--brand-primary);
+    cursor: pointer;
+}
+
+.contact-form .form-checkbox label {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    cursor: pointer;
+}
+
+.contact-form .form-checkbox a {
+    color: var(--brand-primary);
+    text-decoration: none;
+}
+
+.contact-form .form-checkbox a:hover {
+    text-decoration: underline;
+}
+
+.contact-submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    background: var(--brand-gradient);
+    color: var(--text-inverse);
+    border: none;
+    padding: var(--space-md) var(--space-xl);
+    border-radius: var(--radius-full);
+    font-family: inherit;
+    font-size: var(--text-base);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--duration-normal) var(--ease-out);
+    box-shadow: var(--shadow-brand);
+    width: 100%;
+}
+
+.contact-submit:hover:not(:disabled) {
+    background: var(--brand-gradient-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(1, 190, 11, 0.35);
+}
+
+.contact-submit:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.contact-submit .submit-text {
+    display: block;
+}
+
+.contact-submit .submit-loading {
+    display: none;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.contact-submit.loading .submit-text {
+    display: none;
+}
+
+.contact-submit.loading .submit-loading {
+    display: flex;
+}
+
+.contact-submit .spinner {
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+}
+
+.contact-form .form-message {
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    text-align: center;
+    display: none;
+}
+
+.contact-form .form-message.success {
+    display: block;
+    background: var(--status-available-bg);
+    color: var(--status-available);
+    border: 1px solid var(--status-available);
+}
+
+.contact-form .form-message.error {
+    display: block;
+    background: var(--status-unavailable-bg);
+    color: var(--status-unavailable);
+    border: 1px solid var(--status-unavailable);
 }
 
 .footer {
@@ -1034,6 +1275,37 @@ input, textarea, select {
 .modal-badge.wrap {
     background: rgba(236, 72, 153, 0.1);
     color: #ec4899;
+}
+
+.modal-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    background: var(--brand-gradient);
+    color: var(--text-inverse);
+    padding: var(--space-md) var(--space-xl);
+    border-radius: var(--radius-full);
+    font-weight: 600;
+    text-decoration: none;
+    margin-top: var(--space-lg);
+    transition: all var(--duration-normal) var(--ease-out);
+    box-shadow: var(--shadow-brand);
+}
+
+.modal-cta:hover {
+    background: var(--brand-gradient-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(1, 190, 11, 0.35);
+}
+
+.modal-cta svg {
+    width: 18px;
+    height: 18px;
+    transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.modal-cta:hover svg {
+    transform: translateX(4px);
 }
 
 .modal-price {

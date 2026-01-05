@@ -27,7 +27,7 @@
                 <li><a href="#cars">Vozy</a></li>
                 <li><a href="#pricing">Ceník</a></li>
                 <li><a href="#about">O nás</a></li>
-                <li><a href="#footer">Kontakt</a></li>
+                <li><a href="#contact">Kontakt</a></li>
             </ul>
         </nav>
 
@@ -89,17 +89,24 @@
                         </svg>
                     </div>
                     <h3 class="pricing-card-title" id="pricingCardTitle">Měsíční paušál</h3>
-                    <div class="pricing-card-price" id="pricingCardPrice">Kontaktujte nás</div>
+                    <div class="pricing-card-price" id="pricingCardPrice">15 000 Kč</div>
+                    <div class="pricing-card-price-note" id="pricingCardPriceNote">měsíčně</div>
                     <ul class="pricing-card-features" id="pricingCardFeatures">
                         <li>Přístup ke všem vozům</li>
                         <li>Bez limitu kilometrů</li>
                         <li>Pojištění v ceně</li>
                     </ul>
+                    <a href="#contact" class="pricing-cta">
+                        Mám zájem
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
                 </div>
             </div>
 
             <div class="pricing-note" id="pricingNote">
-                <p>Pro více informací o cenách a podmínkách nás kontaktujte.</p>
+                <p>Cena zahrnuje vše. Žádné skryté poplatky.</p>
             </div>
         </div>
     </section>
@@ -164,6 +171,78 @@
         </div>
     </section>
 
+    <section id="contact" class="section contact-section">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <span class="section-badge">Kontakt</span>
+                    <h2 class="section-title">Mám zájem</h2>
+                    <p class="contact-description">
+                        Vyplňte formulář a my se vám ozveme s dalšími informacemi o našem carsharingu.
+                    </p>
+                    <div class="contact-benefits">
+                        <div class="contact-benefit">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span>Odpovíme do 24 hodin</span>
+                        </div>
+                        <div class="contact-benefit">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span>Bez závazků</span>
+                        </div>
+                        <div class="contact-benefit">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span>Individuální přístup</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form-wrapper">
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <label for="contactName">Jméno a příjmení *</label>
+                            <input type="text" id="contactName" name="name" required placeholder="Jan Novák">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contactPhone">Telefonní číslo *</label>
+                            <input type="tel" id="contactPhone" name="phone" required placeholder="123 456">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contactNote">Zpráva</label>
+                            <textarea id="contactNote" name="note" rows="3" placeholder="Vaše dotazy nebo požadavky..."></textarea>
+                        </div>
+
+                        <div class="form-group form-checkbox">
+                            <input type="checkbox" id="contactTerms" name="terms" required>
+                            <label for="contactTerms">
+                                Souhlasím s <a href="#" id="contactTermsLink">podmínkami</a> *
+                            </label>
+                        </div>
+
+                        <button type="submit" class="contact-submit" id="contactSubmit">
+                            <span class="submit-text">Odeslat poptávku</span>
+                            <span class="submit-loading">
+                                <svg class="spinner" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="30 70"/>
+                                </svg>
+                                Odesílám...
+                            </span>
+                        </button>
+
+                        <div class="form-message" id="contactFormMessage"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <footer id="footer" class="footer">
         <div class="container">
             <div class="footer-grid">
@@ -213,67 +292,13 @@
                         <h2 class="modal-title" id="modalTitle"></h2>
                         <div class="modal-description" id="modalDescription"></div>
                         <div class="modal-badges" id="modalBadges"></div>
+                        <a href="#contact" class="modal-cta" id="modalCta">
+                            Mám zájem o carsharing
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </a>
                     </div>
-                </div>
-
-                <div class="modal-order" id="orderSection">
-                    <h3 class="order-title">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
-                        </svg>
-                        Rezervace
-                    </h3>
-
-                    <form class="order-form" id="orderForm">
-                        <input type="hidden" name="car_id" id="orderCarId">
-                        <input type="hidden" name="car_title" id="orderCarTitle">
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="orderName">Jméno a příjmení *</label>
-                                <input type="text" id="orderName" name="name" required placeholder="Jan Novák">
-                            </div>
-                            <div class="form-group">
-                                <label for="orderPhone">Telefonní číslo *</label>
-                                <input type="tel" id="orderPhone" name="phone" required placeholder="123 456">
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="orderDateFrom">Datum od *</label>
-                                <input type="date" id="orderDateFrom" name="date_from" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="orderDateTo">Datum do *</label>
-                                <input type="date" id="orderDateTo" name="date_to" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="orderNote">Poznámka</label>
-                            <textarea id="orderNote" name="note" rows="2" placeholder="Další informace k rezervaci..."></textarea>
-                        </div>
-
-                        <div class="form-group form-checkbox">
-                            <input type="checkbox" id="orderTerms" name="terms" required>
-                            <label for="orderTerms">
-                                Souhlasím s <a href="#" id="termsLink">podmínkami</a> *
-                            </label>
-                        </div>
-
-                        <button type="submit" class="order-submit" id="orderSubmit">
-                            <span class="submit-text">Odeslat rezervaci</span>
-                            <span class="submit-loading">
-                                <svg class="spinner" viewBox="0 0 24 24">
-                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="30 70"/>
-                                </svg>
-                                Odesílám...
-                            </span>
-                        </button>
-
-                        <div class="form-message" id="formMessage"></div>
-                    </form>
                 </div>
             </div>
         </div>

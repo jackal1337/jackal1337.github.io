@@ -8,28 +8,27 @@
         carCount: document.getElementById('carCount'),
         carModal: document.getElementById('carModal'),
         closeModal: document.getElementById('closeModal'),
+        modalCta: document.getElementById('modalCta'),
         termsModal: document.getElementById('termsModal'),
         closeTerms: document.getElementById('closeTerms'),
         openTerms: document.getElementById('openTerms'),
-        termsLink: document.getElementById('termsLink'),
         termsList: document.getElementById('termsList'),
-        orderForm: document.getElementById('orderForm'),
-        orderSubmit: document.getElementById('orderSubmit'),
-        formMessage: document.getElementById('formMessage'),
+        contactForm: document.getElementById('contactForm'),
+        contactSubmit: document.getElementById('contactSubmit'),
+        contactFormMessage: document.getElementById('contactFormMessage'),
+        contactTermsLink: document.getElementById('contactTermsLink'),
+        footerContacts: document.getElementById('footerContacts'),
+        pricingCardTitle: document.getElementById('pricingCardTitle'),
+        pricingCardPrice: document.getElementById('pricingCardPrice'),
+        pricingCardPriceNote: document.getElementById('pricingCardPriceNote'),
+        pricingCardFeatures: document.getElementById('pricingCardFeatures'),
+        pricingNote: document.getElementById('pricingNote'),
         modalImage: document.getElementById('modalImage'),
         modalTitle: document.getElementById('modalTitle'),
         modalYear: document.getElementById('modalYear'),
         modalDescription: document.getElementById('modalDescription'),
         modalStatus: document.getElementById('modalStatus'),
-        modalBadges: document.getElementById('modalBadges'),
-        orderCarId: document.getElementById('orderCarId'),
-        orderCarTitle: document.getElementById('orderCarTitle'),
-        orderSection: document.getElementById('orderSection'),
-        footerContacts: document.getElementById('footerContacts'),
-        pricingCardTitle: document.getElementById('pricingCardTitle'),
-        pricingCardPrice: document.getElementById('pricingCardPrice'),
-        pricingCardFeatures: document.getElementById('pricingCardFeatures'),
-        pricingNote: document.getElementById('pricingNote')
+        modalBadges: document.getElementById('modalBadges')
     };
 
     let carsData = [];
@@ -141,25 +140,6 @@
         if (car.hasWrap) badges.push('<span class="modal-badge wrap">Wrap</span>');
         elements.modalBadges.innerHTML = badges.join('');
 
-        elements.orderCarId.value = car.id;
-        elements.orderCarTitle.value = car.title;
-
-        if (statusClass === 'available') {
-            elements.orderSection.style.display = 'block';
-        } else {
-            elements.orderSection.style.display = 'none';
-        }
-
-        elements.orderForm.reset();
-        elements.formMessage.className = 'form-message';
-        elements.formMessage.textContent = '';
-        elements.orderSubmit.classList.remove('loading');
-        elements.orderSubmit.disabled = false;
-
-        const today = new Date().toISOString().split('T')[0];
-        document.getElementById('orderDateFrom').min = today;
-        document.getElementById('orderDateTo').min = today;
-
         elements.carModal.classList.add('active');
         document.body.style.overflow = 'hidden';
     }
@@ -206,6 +186,10 @@
             elements.pricingCardPrice.textContent = pricing.price;
         }
 
+        if (elements.pricingCardPriceNote && pricing.priceNote) {
+            elements.pricingCardPriceNote.textContent = pricing.priceNote;
+        }
+
         if (elements.pricingCardFeatures && pricing.features) {
             elements.pricingCardFeatures.innerHTML = pricing.features.map(f => `<li>${escapeHtml(f)}</li>`).join('');
         }
@@ -237,25 +221,18 @@
         elements.footerContacts.innerHTML = html;
     }
 
-    async function handleOrderSubmit(e) {
+    async function handleContactSubmit(e) {
         e.preventDefault();
 
-        const formData = new FormData(elements.orderForm);
+        const formData = new FormData(elements.contactForm);
 
         if (!formData.get('terms')) {
-            showFormMessage('Musíte souhlasit s podmínkami.', 'error');
+            showContactMessage('Musíte souhlasit s podmínkami.', 'error');
             return;
         }
 
-        const dateFrom = new Date(formData.get('date_from'));
-        const dateTo = new Date(formData.get('date_to'));
-        if (dateTo < dateFrom) {
-            showFormMessage('Datum "do" musí být po datu "od".', 'error');
-            return;
-        }
-
-        elements.orderSubmit.classList.add('loading');
-        elements.orderSubmit.disabled = true;
+        elements.contactSubmit.classList.add('loading');
+        elements.contactSubmit.disabled = true;
 
         try {
             const response = await fetch(`${API_BASE}/order.php`, {
@@ -266,23 +243,24 @@
             const result = await response.json();
 
             if (result.success) {
-                showFormMessage('Rezervace byla úspěšně odeslána! Brzy vás budeme kontaktovat.', 'success');
-                elements.orderForm.reset();
+                showContactMessage('Poptávka byla úspěšně odeslána! Brzy vás budeme kontaktovat.', 'success');
+                elements.contactForm.reset();
             } else {
-                showFormMessage(result.error || 'Nepodařilo se odeslat rezervaci.', 'error');
+                showContactMessage(result.error || 'Nepodařilo se odeslat poptávku.', 'error');
             }
         } catch (error) {
-            console.error('Order submission error:', error);
-            showFormMessage('Nepodařilo se odeslat rezervaci. Zkuste to prosím později.', 'error');
+            console.error('Contact form error:', error);
+            showContactMessage('Nepodařilo se odeslat poptávku. Zkuste to prosím později.', 'error');
         } finally {
-            elements.orderSubmit.classList.remove('loading');
-            elements.orderSubmit.disabled = false;
+            elements.contactSubmit.classList.remove('loading');
+            elements.contactSubmit.disabled = false;
         }
     }
 
-    function showFormMessage(message, type) {
-        elements.formMessage.textContent = message;
-        elements.formMessage.className = `form-message ${type}`;
+    function showContactMessage(message, type) {
+        if (!elements.contactFormMessage) return;
+        elements.contactFormMessage.textContent = message;
+        elements.contactFormMessage.className = `form-message ${type}`;
     }
 
     function getStatusText(status) {
@@ -319,6 +297,10 @@
             elements.carModal.querySelector('.modal-backdrop').addEventListener('click', closeCarModal);
         }
 
+        if (elements.modalCta) {
+            elements.modalCta.addEventListener('click', closeCarModal);
+        }
+
         if (elements.closeTerms) {
             elements.closeTerms.addEventListener('click', closeTermsModal);
         }
@@ -334,15 +316,15 @@
             });
         }
 
-        if (elements.termsLink) {
-            elements.termsLink.addEventListener('click', (e) => {
+        if (elements.contactTermsLink) {
+            elements.contactTermsLink.addEventListener('click', (e) => {
                 e.preventDefault();
                 openTermsModal();
             });
         }
 
-        if (elements.orderForm) {
-            elements.orderForm.addEventListener('submit', handleOrderSubmit);
+        if (elements.contactForm) {
+            elements.contactForm.addEventListener('submit', handleContactSubmit);
         }
 
         document.addEventListener('keydown', (e) => {
@@ -354,16 +336,6 @@
                 }
             }
         });
-
-        const dateFromInput = document.getElementById('orderDateFrom');
-        if (dateFromInput) {
-            dateFromInput.addEventListener('change', function() {
-                const dateToInput = document.getElementById('orderDateTo');
-                if (dateToInput) {
-                    dateToInput.min = this.value;
-                }
-            });
-        }
     }
 
     function init() {
