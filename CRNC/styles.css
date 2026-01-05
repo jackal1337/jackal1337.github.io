@@ -694,6 +694,8 @@ input, textarea, select {
 .footer-logo {
     width: 64px;
     height: 64px;
+    object-fit: contain;
+    border-radius: var(--radius-md);
     margin-bottom: var(--space-md);
 }
 
