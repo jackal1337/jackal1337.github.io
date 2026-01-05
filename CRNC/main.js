@@ -2,7 +2,7 @@
     'use strict';
 
     const API_BASE = 'https://notjackal.eu/crnc';
-    const ORDER_API = 'https://api.jackal1337.vercel.app/api/crnc';
+    const ORDER_API = 'https://notjackal.eu/crnc/order.php';
 
     const elements = {
         carsGrid: document.getElementById('carsGrid'),
