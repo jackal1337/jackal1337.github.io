@@ -19,10 +19,7 @@
         contactFormMessage: document.getElementById('contactFormMessage'),
         contactTermsLink: document.getElementById('contactTermsLink'),
         footerContacts: document.getElementById('footerContacts'),
-        pricingCardTitle: document.getElementById('pricingCardTitle'),
-        pricingCardPrice: document.getElementById('pricingCardPrice'),
-        pricingCardPriceNote: document.getElementById('pricingCardPriceNote'),
-        pricingCardFeatures: document.getElementById('pricingCardFeatures'),
+        pricingGrid: document.getElementById('pricingGrid'),
         pricingNote: document.getElementById('pricingNote'),
         modalImage: document.getElementById('modalImage'),
         modalTitle: document.getElementById('modalTitle'),
@@ -225,21 +222,30 @@
         if (!contentData.pricing) return;
 
         const pricing = contentData.pricing;
+        const items = pricing.items || [];
 
-        if (elements.pricingCardTitle && pricing.title) {
-            elements.pricingCardTitle.textContent = pricing.title;
-        }
-
-        if (elements.pricingCardPrice && pricing.price) {
-            elements.pricingCardPrice.textContent = pricing.price;
-        }
-
-        if (elements.pricingCardPriceNote && pricing.priceNote) {
-            elements.pricingCardPriceNote.textContent = pricing.priceNote;
-        }
-
-        if (elements.pricingCardFeatures && pricing.features) {
-            elements.pricingCardFeatures.innerHTML = pricing.features.map(f => `<li>${escapeHtml(f)}</li>`).join('');
+        if (elements.pricingGrid && items.length > 0) {
+            elements.pricingGrid.innerHTML = items.map(item => `
+                <div class="pricing-card ${item.highlighted ? 'highlighted' : ''}">
+                    <div class="pricing-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="pricing-card-title">${escapeHtml(item.title)}</h3>
+                    <div class="pricing-card-price">${escapeHtml(item.price)}</div>
+                    ${item.priceNote ? `<div class="pricing-card-price-note">${escapeHtml(item.priceNote)}</div>` : ''}
+                    <ul class="pricing-card-features">
+                        ${(item.features || []).map(f => `<li>${escapeHtml(f)}</li>`).join('')}
+                    </ul>
+                    <a href="#contact" class="pricing-cta">
+                        Mám zájem
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+            `).join('');
         }
 
         if (elements.pricingNote && pricing.note) {
