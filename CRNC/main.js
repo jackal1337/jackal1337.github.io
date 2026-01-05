@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    const API_BASE = 'https://artic.leosight.cz/crnc';
+    const API_BASE = 'https://notjackal.eu/crnc';
     const ORDER_API = 'https://api.jackal1337.vercel.app/api/crnc';
 
     const elements = {
