@@ -22,10 +22,14 @@
         modalDescription: document.getElementById('modalDescription'),
         modalStatus: document.getElementById('modalStatus'),
         modalBadges: document.getElementById('modalBadges'),
-        modalPrice: document.getElementById('modalPrice'),
         orderCarId: document.getElementById('orderCarId'),
         orderCarTitle: document.getElementById('orderCarTitle'),
-        orderSection: document.getElementById('orderSection')
+        orderSection: document.getElementById('orderSection'),
+        footerContacts: document.getElementById('footerContacts'),
+        pricingCardTitle: document.getElementById('pricingCardTitle'),
+        pricingCardPrice: document.getElementById('pricingCardPrice'),
+        pricingCardFeatures: document.getElementById('pricingCardFeatures'),
+        pricingNote: document.getElementById('pricingNote')
     };
 
     let carsData = [];
@@ -51,6 +55,8 @@
             if (!response.ok) throw new Error('Failed to fetch content');
             contentData = await response.json();
             renderTerms();
+            renderPricing();
+            renderContacts();
         } catch (error) {
             console.error('Error fetching content:', error);
         }
@@ -94,10 +100,6 @@
                     <h3 class="car-title">${escapeHtml(car.title)}</h3>
                     ${badges.length > 0 ? `<div class="car-badges">${badges.join('')}</div>` : ''}
                     <div class="car-footer">
-                        <div class="car-price">
-                            <span class="car-price-value">${formatPrice(car.pricePerDay)}</span>
-                            <span class="car-price-period">/ den</span>
-                        </div>
                         <span class="car-detail-btn">
                             Detail
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
@@ -133,7 +135,6 @@
         elements.modalDescription.innerHTML = car.description || '';
         elements.modalStatus.className = `modal-status ${statusClass}`;
         elements.modalStatus.textContent = statusText;
-        elements.modalPrice.textContent = formatPrice(car.pricePerDay);
 
         const badges = [];
         if (car.hasTuning) badges.push('<span class="modal-badge tuning">Tuning</span>');
@@ -192,13 +193,57 @@
         }
     }
 
+    function renderPricing() {
+        if (!contentData.pricing) return;
+
+        const pricing = contentData.pricing;
+
+        if (elements.pricingCardTitle && pricing.title) {
+            elements.pricingCardTitle.textContent = pricing.title;
+        }
+
+        if (elements.pricingCardPrice && pricing.price) {
+            elements.pricingCardPrice.textContent = pricing.price;
+        }
+
+        if (elements.pricingCardFeatures && pricing.features) {
+            elements.pricingCardFeatures.innerHTML = pricing.features.map(f => `<li>${escapeHtml(f)}</li>`).join('');
+        }
+
+        if (elements.pricingNote && pricing.note) {
+            elements.pricingNote.innerHTML = `<p>${escapeHtml(pricing.note)}</p>`;
+        }
+    }
+
+    function renderContacts() {
+        if (!elements.footerContacts || !contentData.contacts) return;
+
+        const contacts = contentData.contacts;
+        const phoneIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>';
+
+        let html = '<h4>Kontakty</h4>';
+        contacts.forEach(contact => {
+            html += `
+                <div class="contact-item">
+                    ${phoneIcon}
+                    <div>
+                        <span class="contact-name">${escapeHtml(contact.name)}</span>
+                        <span class="contact-phone">${escapeHtml(contact.phone)}</span>
+                    </div>
+                </div>
+            `;
+        });
+
+        elements.footerContacts.innerHTML = html;
+    }
+
     async function handleOrderSubmit(e) {
         e.preventDefault();
 
         const formData = new FormData(elements.orderForm);
 
         if (!formData.get('terms')) {
-            showFormMessage('Musíte souhlasit s podmínkami pronájmu.', 'error');
+            showFormMessage('Musíte souhlasit s podmínkami.', 'error');
             return;
         }
 
@@ -221,14 +266,14 @@
             const result = await response.json();
 
             if (result.success) {
-                showFormMessage('Objednávka byla úspěšně odeslána! Brzy vás budeme kontaktovat.', 'success');
+                showFormMessage('Rezervace byla úspěšně odeslána! Brzy vás budeme kontaktovat.', 'success');
                 elements.orderForm.reset();
             } else {
-                showFormMessage(result.error || 'Nepodařilo se odeslat objednávku.', 'error');
+                showFormMessage(result.error || 'Nepodařilo se odeslat rezervaci.', 'error');
             }
         } catch (error) {
             console.error('Order submission error:', error);
-            showFormMessage('Nepodařilo se odeslat objednávku. Zkuste to prosím později.', 'error');
+            showFormMessage('Nepodařilo se odeslat rezervaci. Zkuste to prosím později.', 'error');
         } finally {
             elements.orderSubmit.classList.remove('loading');
             elements.orderSubmit.disabled = false;
@@ -256,11 +301,6 @@
             reserved: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>'
         };
         return icons[status] || icons.available;
-    }
-
-    function formatPrice(price) {
-        if (!price) return '0 Kč';
-        return new Intl.NumberFormat('cs-CZ').format(price) + ' Kč';
     }
 
     function escapeHtml(str) {
