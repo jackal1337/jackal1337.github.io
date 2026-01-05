@@ -2,6 +2,7 @@
     'use strict';
 
     const API_BASE = 'https://artic.leosight.cz/crnc';
+    const ORDER_API = 'https://api.jackal1337.vercel.app/api/crnc';
 
     const elements = {
         carsGrid: document.getElementById('carsGrid'),
@@ -235,9 +236,16 @@
         elements.contactSubmit.disabled = true;
 
         try {
-            const response = await fetch(`${API_BASE}/order.php`, {
+            const response = await fetch(ORDER_API, {
                 method: 'POST',
-                body: formData
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: formData.get('name'),
+                    phone: formData.get('phone'),
+                    note: formData.get('note') || ''
+                })
             });
 
             const result = await response.json();

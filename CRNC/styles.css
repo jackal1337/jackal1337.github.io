@@ -1022,6 +1022,7 @@ input, textarea, select {
     object-fit: contain;
     border-radius: var(--radius-md);
     margin-bottom: var(--space-md);
+    filter: brightness(0) invert(1);
 }
 
 .footer-company {
