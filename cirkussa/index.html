@@ -1,36 +1,270 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="cs">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body, html {
-      height: 100%;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background-color: #f8f9fa;
-    }
-  </style>
-</head>
-<body>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" href="https://jackal1337.github.io/cirkussa/CirkusLogo.png">
+    <link rel="stylesheet" href="./style.css?v=16">
+  </head>
+  <body>
+    <div class="noise"></div>
+    <div class="spotlight spotlight-left"></div>
+    <div class="spotlight spotlight-right"></div>
 
-  <div class="container text-center">
-    <img src="CirkusLogo.png" alt="Centered Image" class="img-fluid">
-  </div>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top circus-nav">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="#top">
+          <img src="https://jackal1337.github.io/cirkussa/CirkusLogo.png" alt="Cirkussa.ic logo" class="brand-logo">
+          <span class="brand-wordmark">cirkussa.ic</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+          <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+            <li class="nav-item"><a class="nav-link" href="#show">Program</a></li>
+            <li class="nav-item"><a class="nav-link" href="#hall">Síň ostudy</a></li>
+            <li class="nav-item"><a class="nav-link" href="#evidence">Důkazy</a></li>
+            <li class="nav-item"><a class="nav-link" href="#roulette">Ruleta</a></li>
+            <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
-  <footer>
-    <div class="px-lg-5 my-5">
-        <p class="text-muted text-center">
-            Provozovatel webové stránky cirkussa.ic je PO Tixor, IČ 581<br>Design&Code by <a
-                href="https://artic.leosight.cz/iris.ic/donnie" target="_top">Donato Ortiz</a>
-        </p>
+    <header id="top" class="hero-section section-shell">
+      <div class="container position-relative">
+        <div class="row align-items-center g-5">
+          <div class="col-lg-7">
+            <span class="eyebrow"><span class="eyebrow-mark">✦</span> největší právní varieté v San Andreas</span>
+            <h1 class="hero-title">
+              Tohle není právní řád.<br>
+              <span>Tohle je cirkus na paragrafovém laně.</span>
+            </h1>
+            <p class="hero-text">
+              cirkussa.ic je výsměšná vitrína zákonů, které nepůsobí jako právní řád, ale jako sbírka momentů, kdy se někdo utrhl od rozumu,
+              sedl ke klávesnici a rozhodl se proměnit legislativu v kabaretní číslo.
+            </p>
+            <div class="hero-actions d-flex flex-wrap gap-3">
+              <a href="#show" class="btn btn circus-btn circus-btn-primary">Spustit představení</a>
+              <a href="#roulette" class="btn btn circus-btn circus-btn-ghost">Zatočit ruletou absurdity</a>
+            </div>
+            <div class="hero-stats row g-3 mt-4">
+              <div class="col-sm-4"><div class="stat-card"><div class="stat-number">10</div><div class="stat-label">hlavních výstupů večera</div></div></div>
+              <div class="col-sm-4"><div class="stat-card"><div class="stat-number">75</div><div class="stat-label">projetých zákonů</div></div></div>
+              <div class="col-sm-4"><div class="stat-card"><div class="stat-number">∞</div><div class="stat-label">prostoru pro facepalm</div></div></div>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <div class="hero-poster card-shell">
+              <div class="poster-glow"></div>
+              <img src="https://jackal1337.github.io/cirkussa/CirkusLogo.png" alt="Cirkussa.ic" class="hero-logo">
+              <div class="poster-copy">
+                <div class="poster-label">mimořádné vystoupení</div>
+                <h2>LEGISLATIVNÍ<br>TRAGIKOMEDIE</h2>
+                <p>Hostují: trest smrti, psi s techničákem, účetní groteska a obce bez značek.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="circus-marquee-shell" aria-label="Top 5 nejvtipnějších názvů a kuriozit">
+      <div class="circus-marquee-motion">
+        <div class="circus-marquee-track">
+          <span>Usnesení o platnosti chybně uhrazených poplatků</span>
+          <span>•</span>
+          <span>Usnesení o navýšení platů pro kongresmany</span>
+          <span>•</span>
+          <span>Zákon o trestu smrti</span>
+          <span>•</span>
+          <span>Zákon o vlastnictví a vedení psů</span>
+          <span>•</span>
+          <span>Usnesení o obnově činnosti soudu po teroristickém útoku</span>
+          <span>•</span>
+        </div>
+        <div class="circus-marquee-track" aria-hidden="true">
+          <span>Usnesení o platnosti chybně uhrazených poplatků</span>
+          <span>•</span>
+          <span>Usnesení o navýšení platů pro kongresmany</span>
+          <span>•</span>
+          <span>Zákon o trestu smrti</span>
+          <span>•</span>
+          <span>Zákon o vlastnictví a vedení psů</span>
+          <span>•</span>
+          <span>Usnesení o obnově činnosti soudu po teroristickém útoku</span>
+          <span>•</span>
+        </div>
+      </div>
+    </section>
+
+    <main>
+      <section id="show" class="section-shell">
+        <div class="container">
+          <div class="section-intro text-center mx-auto">
+            <span class="eyebrow">hlavní program</span>
+            <h2>Top 10 nejděravějších zákonů tohoto cirkusu</h2>
+            <p>Tohle není jemné popichování. Tohle je veřejná poprava textů, které si samy koledují o chaos, hádky a věčné "to jste snad nemysleli vážně".</p>
+          </div>
+          <div class="row g-4 cards-grid">
+            <div class="col-lg-6 col-xl-4"><article class="law-card card-shell h-100 rank-1"><div class="law-rank">#1</div><h3>[65/2021] Oprávněný vstup policie do objektu</h3><p class="law-burn">Jak udělat skoro-domovní-prohlídku a zároveň tvrdit, že to domovní prohlídka vlastně není.</p><ul><li>stačí "důvodné podezření"</li><li>vstup i bez příkazu</li><li>ideální recept na přetažené pravomoci</li></ul></article></div>
+            <div class="col-lg-6 col-xl-4"><article class="law-card card-shell h-100 rank-2"><div class="law-rank">#2</div><h3>[02/2020] Zákon o policii</h3><p class="law-burn">Podezření, biometrie, zadržení. Všechno široké, gumové a připravené na interpretační gymnastiku.</p><ul><li>silné zásahy už při podezření</li><li>snadno natahovatelné formulace</li><li>radost pro každého fanouška slovíčkaření</li></ul></article></div>
+            <div class="col-lg-6 col-xl-4"><article class="law-card card-shell h-100 rank-3"><div class="law-rank">#3</div><h3>[3/2018] + [32/2021] + [43/2021]</h3><p class="law-burn">Obce existují. Hranice obcí jaksi méně. Výsledkem je rychlostní šaráda, ve které se 60 a 90 perou o přežití.</p><ul><li>v obci 60, mimo obec 90</li><li>Los Santos, SF, LV, Angel Pine jsou obce</li><li>ale v terénu? často legislativní mlha</li></ul></article></div>
+            <div class="col-lg-6 col-xl-4"><article class="law-card card-shell h-100"><div class="law-rank">#4</div><h3>[47/2021] Zákon o trestu smrti</h3><p class="law-burn">Ano, v tomhle právním lunaparku byl svého času i trest smrti. A ne nějak bokem - pěkně natvrdo a s teatrálním slovníkem.</p><ul><li>smrtící třísl. injekce</li><li>trest pro "morálně neakceptovatelné" činy</li><li>vrcholná ukázka legislativního melodramatu</li></ul></article></div>
+            <div class="col-lg-6 col-xl-4"><article class="law-card card-shell h-100"><div class="law-rank">#5</div><h3>[28/2021] Parkování firemních vozidel</h3><p class="law-burn">Tady už nejde o dopravu. Tady sleduješ ekonomický horor s hostujícím nápisem "Parkování povoleno dle 28/2021".</p><ul><li>90 000 Kč běžně</li><li>5 000 000 Kč za fake povolení</li><li>výjimky, smlouvy, chaos a towing drama</li></ul></article></div>
+            <div class="col-lg-6 col-xl-4"><article class="law-card card-shell h-100"><div class="law-rank">#6</div><h3>[223/2024] Zákon o vlastnictví a vedení psů</h3><p class="law-burn">Pes tu nedostal jen obojek. Dostal skoro vlastní úřední kariéru. Evidenční známka, obec, status nebezpečnosti - kompletní byrokracie pro hafany.</p><ul><li>psí evidence a známka</li><li>na známce i obec a nebezpečnost</li><li>administrativa, kterou by leckterý úřad záviděl</li></ul></article></div>
+            <div class="col-lg-6 col-xl-4"><article class="law-card card-shell h-100"><div class="law-rank">#7</div><h3>[101/2023] Internetové služby</h3><p class="law-burn">Obsah uživatelů patří i platformě, platforma má hlídat vše, věk se má ověřovat "přiměřeně". Ano, tohle je opravdový text.</p><ul><li>neurčitá technická povinnost</li><li>obsah jako spoluvlastnictví provozovatele</li><li>regulace psaná jak po hádce s fórem</li></ul></article></div>
+            <div class="col-lg-6 col-xl-4"><article class="law-card card-shell h-100"><div class="law-rank">#8</div><h3>[69/2021] Psychologická činnost a AMKP</h3><p class="law-burn">Krátce existoval zákon, kde jedna jediná instituce prakticky držela psychologii pod krkem. Jako kdyby si někdo řekl: monopol, ale make it therapeutic.</p><ul><li>AMKP jako jediný poskytovatel</li><li>psychologickou činnost směl dělat jen zaměstnanec AMKP</li><li>malý administrativní kult v bílém plášti</li></ul></article></div>
+            <div class="col-lg-6 col-xl-4"><article class="law-card card-shell h-100"><div class="law-rank">#9</div><h3>[78/2022] Psychologická činnost</h3><p class="law-burn">Strop 400 000 Kč, spodní hranice neurčena. To není sazebník, to je cirkusová tombola.</p><ul><li>široká diskrece ZZS</li><li>revokace, certifikace, výběr plateb</li><li>cenotvorba ve stylu "uvidíme"</li></ul></article></div>
+            <div class="col-lg-6 col-xl-4"><article class="law-card card-shell h-100"><div class="law-rank">#10</div><h3>[169/2024] vs [170/2024]</h3><p class="law-burn">Dva skoro stejné zákony o veřejném zdraví. Jeden neplatný, druhý platný. Procesní klauniáda komplet.</p><ul><li>ideální zdroj špatných citací</li><li>skvělý materiál pro spor o aplikaci</li><li>legislativní déjà vu jako služba</li></ul></article></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="hall" class="section-shell alt-section">
+        <div class="container">
+          <div class="section-intro text-center mx-auto">
+            <span class="eyebrow">síň ostudy</span>
+            <h2>Nejlepší citace z manéže absurdity</h2>
+            <p>Tohle jsou ukázky, které by normálně měly mluvit samy za sebe. Jenže tady si o posměch vyloženě říkají.</p>
+          </div>
+          <div class="row g-4">
+            <div class="col-lg-6"><div class="quote-card card-shell h-100"><blockquote>"Obec … snížení maximální dovolené rychlosti na 60 kilometrů v hodině."</blockquote><p>Krásné. Jen by ještě chtělo vědět, kde ta obec jako přesně začíná, když značka nikde a hranice jak z mlžného fantasy románu.</p><span class="quote-source">[3/2018] + [32/2021] + [43/2021]</span></div></div>
+            <div class="col-lg-6"><div class="quote-card card-shell h-100"><blockquote>"… rozsudku s neprolomitelnou argumentací."</blockquote><p>Když chceš do zákona napsat trest smrti a zároveň z toho uděláš trailer na právní fantasy ságu.</p><span class="quote-source">[47/2021]</span></div></div>
+            <div class="col-lg-6"><div class="quote-card card-shell h-100"><blockquote>"Jakýkoli uveřejněný obsah … se stává zároveň vlastnictvím poskytovatele datového prostoru a provozovatele dané služby."</blockquote><p>Tohle už není zákon o internetu. To je majetkový hunger games pro každého, kdo něco postne.</p><span class="quote-source">[101/2023]</span></div></div>
+            <div class="col-lg-6"><div class="quote-card card-shell h-100"><blockquote>"Přičemž cena jednoho takového úkonu nesmí přesáhnout částku 400.000,- Korun (spodní hranice určena není)."</blockquote><p>Když si ani sazebník netroufne předstírat, že existují pravidla.</p><span class="quote-source">[78/2022]</span></div></div>
+            <div class="col-lg-6"><div class="quote-card card-shell h-100"><blockquote>"Na známke sa uvedie … názov obce, kde je pes evidovaný, a údaj o tom či je pes nebezpečným psom."</blockquote><p>Pes dostal víc administrativní péče než leckterá lidská agenda. Úctyhodné a zároveň úplně šílené.</p><span class="quote-source">[223/2024]</span></div></div>
+            <div class="col-lg-6"><div class="quote-card card-shell h-100"><blockquote>"… vážnost je založená na způsobu realizace … a rozsudku s neprolomitelnou argumentací."</blockquote><p>Když chceš v zákoně znít důležitě, ale náhodou vytvoříš trailer na právní fantasy thriller.</p><span class="quote-source">[47/2021]</span></div></div>
+            <div class="col-lg-6"><div class="quote-card card-shell h-100"><blockquote>"… pokutu až ve výši 10.000.000,- Kč za nepovolenou volební agitaci…"</blockquote><p>Deset mega za agitaci u volební místnosti. To už není regulace kampaně, to je právní orbital strike na člověka s letáčkem v ruce.</p><span class="quote-source">[120/2023]</span></div></div>
+            <div class="col-lg-6"><div class="quote-card card-shell h-100"><blockquote>"Usnesení o platnosti chybně uhrazených poplatků"</blockquote><p>Samostatný předpis na to, že lidi posílali platby blbě - třeba když jako příjemce netrefili přesně "Vláda San Andreas". To není stát, to je účetní groteska kvůli překlepům v názvu příjemce.</p><span class="quote-source">[30/2021]</span></div></div>
+            <div class="col-lg-6"><div class="quote-card card-shell h-100"><blockquote>"… budovy vrchního soudu v Las Venturas, která byla zničena teroristickým útokem."</blockquote><p>Jeden den soud, druhý den katastrofický spin-off po teroristickém útoku a nouzové stěhování justice. Čistá katastrofická opera bez špetky klidu.</p><span class="quote-source">[38/2021]</span></div></div>
+            <div class="col-lg-6"><div class="quote-card card-shell h-100"><blockquote>"I. rozhoduje navýšit platy pro kongresmany…"</blockquote><p>Když zákonodárci v právním cirkusu nezapomenou hlavně na vlastní kasičku. Klasika moci: kolem hoří manéž, ale hlavně že jede upgrade výplaty.</p><span class="quote-source">[158/2023]</span></div></div>
+          </div>
+        </div>
+      </section>
+
+            <section id="bonus" class="section-shell bonus-section">
+        <div class="container">
+          <div class="section-intro text-center mx-auto">
+            <span class="eyebrow">bonus freakshow</span>
+            <h2>Další čísla, která by normální právní řád radši zapřel</h2>
+            <p>Tady už nejde jen o díry. Tady sleduješ momenty, kdy se právní text utrhl ze řetězu a začal dělat ostudu úplně sám.</p>
+          </div>
+          <div class="row g-4">
+            <div class="col-lg-6 col-xl-3">
+              <article class="freak-card card-shell h-100">
+                <span class="freak-badge">[120/2023]</span>
+                <h3>10 mega za agitku</h3>
+                <p>Pokuta až deset milionů za nepovolenou volební agitaci je přesně ten moment, kdy si někdo spletl dohled nad volbami s trestáním ve stylu finanční gilotiny.</p>
+              </article>
+            </div>
+            <div class="col-lg-6 col-xl-3">
+              <article class="freak-card card-shell h-100">
+                <span class="freak-badge">[30/2021]</span>
+                <h3>Špatně poslané poplatky</h3>
+                <p>Samostatné usnesení o tom, že lidi platí blbě, je administrativní ekvivalent cedule "prosím nekrmte úředníka po půlnoci".</p>
+              </article>
+            </div>
+            <div class="col-lg-6 col-xl-3">
+              <article class="freak-card card-shell h-100">
+                <span class="freak-badge">[38/2021]</span>
+                <h3>Soud po teror útoku</h3>
+                <p>Když ti právo musí explicitně řešit, že soudní budova v Las Venturas lehla po teroristickém útoku, tak už nejsi ve státě - jsi v katastrofickém seriálu s razítkem.</p>
+              </article>
+            </div>
+            <div class="col-lg-6 col-xl-3">
+              <article class="freak-card card-shell h-100">
+                <span class="freak-badge">[158/2023]</span>
+                <h3>Platíčky pro kongres</h3>
+                <p>Jestli existuje nadčasový folklór moci, tak je to okamžik, kdy si zákonodárci uprostřed chaosu najdou čas hlavně na vlastní výplatní pásku.</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+<section id="evidence" class="section-shell">
+        <div class="container">
+          <div class="row g-4 align-items-stretch">
+            <div class="col-lg-5"><div class="evidence-panel card-shell h-100"><span class="eyebrow">forenzní tabule</span><h2>Proč je to směšné i bez přehánění</h2><p>Tohle není náhodný hejt. Tohle je přímý střet textu s realitou - gumové pojmy, nejasné hranice, přepálené sankce a předpisy, které místo pořádku vyrábějí jen další bordel.</p><div class="absurd-meter"><div class="meter-label d-flex justify-content-between"><span>Absurdometr</span><strong>98 / 100</strong></div><div class="progress absurd-progress" role="progressbar" aria-label="Absurdometr" aria-valuenow="98" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar" style="width: 98%"></div></div></div><div class="mini-badges d-flex flex-wrap gap-2 mt-4"><span class="badge-chip">gumové formulace</span><span class="badge-chip">procesní chaos</span><span class="badge-chip">technologické sci-fi</span><span class="badge-chip">rychlostní mlha</span><span class="badge-chip">meta-bordel</span></div></div></div>
+            <div class="col-lg-7"><div class="timeline-shell card-shell h-100"><span class="eyebrow">mapa katastrofy</span><div class="timeline-item"><div class="timeline-dot"></div><div><h3>Obce bez jasné operativní hranice</h3><p>Právně existují, ale bez jasného vyznačení v terénu je to výborný materiál pro hádku o 60 vs 90.</p></div></div><div class="timeline-item"><div class="timeline-dot"></div><div><h3>Policie s velmi širokým výkladem pravomocí</h3><p>Když je klíčové slovo "podezření", vždycky si koleduješ o kreativní aplikaci.</p></div></div><div class="timeline-item"><div class="timeline-dot"></div><div><h3>Technologie z budoucnosti, důkazy z mlhy</h3><p>Face recognition na statických radarech zní jako pitch deck, ne jako seriózně napsaný předpis.</p></div></div><div class="timeline-item"><div class="timeline-dot"></div><div><h3>Sankce ve stylu "a teď ho dobijte"</h3><p>Milionové pokuty a brutální maxima bez jemné škály často působí jako improvizace s kladivem.</p></div></div><div class="timeline-item mb-0"><div class="timeline-dot"></div><div><h3>Duplicitní nebo neplatné paralelní texty</h3><p>Když máš dvě skoro stejné normy a jedna je mrtvá, vzniká přesně ten druh chaosu, který si satira ani nemusí domýšlet.</p></div></div></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="roulette" class="section-shell alt-section">
+        <div class="container">
+          <div class="section-intro text-center mx-auto">
+            <span class="eyebrow">interaktivní číslo</span>
+            <h2>Ruleta legislativní absurdity</h2>
+            <p>Klikni a nech si vylosovat další moment, kdy se právní řád proměnil v kabaretní nehodu.</p>
+          </div>
+          <div class="roulette-box card-shell mx-auto text-center">
+            <div class="roulette-kicker">Kabinet okamžité ostudy</div>
+            <div class="roulette-strip-shell">
+              <div class="roulette-overlay roulette-overlay-left"></div>
+              <div class="roulette-overlay roulette-overlay-right"></div>
+              <div class="roulette-center-line" aria-hidden="true"></div>
+              <div class="roulette-needle" aria-hidden="true"></div>
+              <div id="rouletteViewport" class="roulette-viewport">
+                <div id="rouletteTrack" class="roulette-track"></div>
+              </div>
+            </div>
+            <p id="rouletteText" class="roulette-text" aria-live="polite">Klikni na tlačítko a nech si přitáhnout další paragrafický průšvih.</p>
+            <button id="rouletteBtn" class="btn circus-btn circus-btn-primary mt-3" type="button">Roztočit ruletu</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="faq" class="section-shell">
+        <div class="container">
+          <div class="section-intro text-center mx-auto"><span class="eyebrow">faq, bohužel ano</span><h2>Časté otázky návštěvníků manéže</h2></div>
+          <div class="accordion circus-accordion mx-auto" id="faqAccordion">
+            <div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqOne" aria-expanded="true" aria-controls="faqOne">Je tohle právní analýza?</button></h2><div id="faqOne" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion"><div class="accordion-body">Ne. Je to výsměšná vitrína postavená na reálně dohledaných textech a jejich nejkřiklavějších absurditách.</div></div></div>
+            <div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqTwo" aria-expanded="false" aria-controls="faqTwo">Proč je to tak ostré?</button></h2><div id="faqTwo" class="accordion-collapse collapse" data-bs-parent="#faqAccordion"><div class="accordion-body">Protože některé texty už dávno překročily hranici, kde si zaslouží jemnou kritiku. Tohle je roast, ne terapeutická skupina pro zraněné paragrafy.</div></div></div>
+            <div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqThree" aria-expanded="false" aria-controls="faqThree">Proč je FAQ tak krátké?</button></h2><div id="faqThree" class="accordion-collapse collapse" data-bs-parent="#faqAccordion"><div class="accordion-body">Protože jakmile by toho bylo víc, začalo by to připomínat skutečný úřední formulář. A to by byl přesně ten typ ironie, který už je moc smutný i na tenhle web.</div></div></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container text-center">
+        <img src="https://jackal1337.github.io/cirkussa/CirkusLogo.png" alt="Cirkussa.ic logo" class="footer-logo">
+        <p class="footer-main">Provozovatel webové stránky cirkussa.ic je PO Tixor, IČ 581</p>
+        <p class="footer-sub">Design&amp;Code by <a href="https://artic.leosight.cz/iris.ic/donnie" target="_top">Donato Ortiz</a></p>
+      </div>
+    </footer>
+
+        <div class="modal fade law-modal" id="lawResultModal" tabindex="-1" aria-labelledby="lawResultModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div>
+              <span id="modalCode" class="law-modal-code">Los #00</span>
+              <h2 class="modal-title" id="lawResultModalLabel">Vylosováno</h2>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <h3 id="modalLaw" class="law-modal-law"></h3>
+              <p id="modalLead" class="law-modal-lead"></p>
+              <ul id="modalBullets" class="law-modal-list"></ul>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn circus-btn circus-btn-ghost" data-bs-dismiss="modal">Zavřít</button>
+              <a href="#show" class="btn circus-btn circus-btn-primary" data-bs-dismiss="modal">Zpátky do manéže</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./script.js?v=16"></script>
+  </body>
 </html>
