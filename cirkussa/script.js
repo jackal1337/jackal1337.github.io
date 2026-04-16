@@ -108,6 +108,8 @@ const modalLaw = document.getElementById('modalLaw');
 const modalLead = document.getElementById('modalLead');
 const modalBullets = document.getElementById('modalBullets');
 const modalCode = document.getElementById('modalCode');
+const modalLabel = document.getElementById('modalLabel');
+const modalVerdict = document.getElementById('modalVerdict');
 
 let spinning = false;
 let currentCellIndex = 0;
@@ -241,11 +243,13 @@ function renderRouletteResult(item) {
 }
 
 function openLawModal(item) {
-  if (!modalElement || !modalLaw || !modalLead || !modalBullets || !modalCode || !window.bootstrap) return;
+  if (!modalElement || !modalLaw || !modalLead || !modalBullets || !modalCode || !modalLabel || !modalVerdict || !window.bootstrap) return;
   modalLaw.textContent = item.law;
   modalLead.textContent = item.text;
   modalCode.textContent = `Los #${item.code}`;
+  modalLabel.textContent = item.label;
   modalBullets.innerHTML = item.bullets.map((bullet) => `<li>${bullet}</li>`).join('');
+  modalVerdict.textContent = `Tahle položka tu je proto, že se tváří jako pravidlo, ale zní spíš jako nápad sepsaný ve chvíli, kdy už všem dávno došla trpělivost.`;
   if (!lawModal) lawModal = new window.bootstrap.Modal(modalElement);
   lawModal.show();
 }

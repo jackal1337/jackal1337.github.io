@@ -43,62 +43,6 @@
   pointer-events: none;
 }
 
-.law-modal .modal-content {
-  background: linear-gradient(180deg, rgba(24, 12, 16, .98), rgba(11, 8, 10, .98));
-  border: 1px solid rgba(255,255,255,.08);
-  box-shadow: 0 28px 80px rgba(0,0,0,.55);
-}
-
-.law-modal .modal-header,
-.law-modal .modal-footer {
-  border-color: rgba(255,255,255,.08);
-}
-
-.law-modal-code {
-  display: inline-flex;
-  border-radius: 999px;
-  padding: .35rem .7rem;
-  background: rgba(255, 211, 107, .12);
-  border: 1px solid rgba(255, 211, 107, .22);
-  color: var(--gold);
-  font-size: .75rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: .12em;
-  margin-bottom: .7rem;
-}
-
-.law-modal .modal-title,
-.law-modal-law {
-  color: #fff;
-}
-
-.law-modal .modal-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 2.1rem;
-  letter-spacing: .04em;
-}
-
-.law-modal-law {
-  font-size: 1.35rem;
-  margin-bottom: .85rem;
-}
-
-.law-modal-lead {
-  color: var(--muted);
-  font-size: 1.04rem;
-  margin-bottom: 1rem;
-}
-
-.law-modal-list {
-  margin: 0;
-  padding-left: 1.1rem;
-  color: #f6d9de;
-}
-
-.law-modal-list li + li {
-  margin-top: .45rem;
-}
 
 .roulette-segment-active{box-shadow:inset 0 0 0 2px rgba(255,211,107,.7),0 0 26px rgba(255,211,107,.25)}
 .roulette-segment-active::after{border-color:rgba(255,211,107,.65)}
@@ -236,5 +180,185 @@
   .roulette-box::before,
   .roulette-box::after {
     display: none;
+  }
+}
+
+
+.law-modal .modal-dialog {
+  max-width: 920px;
+}
+
+.law-modal .modal-content {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(24, 12, 16, .985), rgba(11, 8, 10, .985));
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow: 0 28px 80px rgba(0,0,0,.55);
+}
+
+.law-modal-orbit {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(18px);
+  pointer-events: none;
+}
+
+.law-modal-orbit-a {
+  width: 220px;
+  height: 220px;
+  top: -90px;
+  right: -40px;
+  background: radial-gradient(circle, rgba(255,38,74,.28), transparent 68%);
+}
+
+.law-modal-orbit-b {
+  width: 180px;
+  height: 180px;
+  bottom: -70px;
+  left: -30px;
+  background: radial-gradient(circle, rgba(255,211,107,.20), transparent 68%);
+}
+
+.law-modal .modal-header,
+.law-modal .modal-footer {
+  position: relative;
+  z-index: 1;
+  border-color: rgba(255,255,255,.08);
+}
+
+.law-modal .modal-header {
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.law-modal-heading {
+  max-width: calc(100% - 56px);
+}
+
+.law-modal-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .55rem;
+  margin-bottom: .85rem;
+}
+
+.law-modal-code,
+.law-modal-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: .35rem .72rem;
+  font-size: .75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+}
+
+.law-modal-code {
+  background: rgba(255, 211, 107, .12);
+  border: 1px solid rgba(255, 211, 107, .22);
+  color: var(--gold);
+}
+
+.law-modal-chip {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.10);
+  color: #ffd7de;
+}
+
+.law-modal .modal-title {
+  color: #fff;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.35rem;
+  letter-spacing: .04em;
+  line-height: .92;
+  margin-bottom: .45rem;
+}
+
+.law-modal-subtitle {
+  color: var(--muted);
+  margin: 0;
+  max-width: 640px;
+}
+
+.law-modal .modal-body {
+  position: relative;
+  z-index: 1;
+}
+
+.law-modal-hero-block {
+  padding: 1.15rem 1.2rem;
+  border-radius: 1.2rem;
+  background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+  border: 1px solid rgba(255,255,255,.07);
+  margin-bottom: 1rem;
+}
+
+.law-modal-law {
+  color: #fff;
+  font-size: 1.4rem;
+  margin-bottom: .8rem;
+}
+
+.law-modal-lead {
+  color: #f2dce0;
+  font-size: 1.02rem;
+  margin: 0;
+}
+
+.law-modal-grid {
+  display: grid;
+  grid-template-columns: 1.15fr .85fr;
+  gap: 1rem;
+}
+
+.law-modal-box {
+  padding: 1rem 1.1rem;
+  border-radius: 1.1rem;
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.07);
+}
+
+.law-modal-box-accent {
+  background: linear-gradient(180deg, rgba(255, 38, 74, .10), rgba(255, 211, 107, .08));
+  border-color: rgba(255, 211, 107, .16);
+}
+
+.law-modal-box h4 {
+  color: #fff;
+  font-size: .95rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: .85rem;
+}
+
+.law-modal-list {
+  margin: 0;
+  padding-left: 1.1rem;
+  color: #f6d9de;
+}
+
+.law-modal-list li + li {
+  margin-top: .45rem;
+}
+
+.law-modal-verdict {
+  margin: 0;
+  color: #ffe6ea;
+  line-height: 1.6;
+}
+
+@media (max-width: 767.98px) {
+  .law-modal .modal-title {
+    font-size: 1.95rem;
+  }
+
+  .law-modal-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .law-modal-heading {
+    max-width: 100%;
   }
 }
