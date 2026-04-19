@@ -1,0 +1,487 @@
+{
+  "settings": {
+    "site": {
+      "title": "ObjevujTo",
+      "tagline": "Obsahový atlas a průvodce po San Andreas",
+      "public_base_url": "https://jackal1337.github.io/objevujto"
+    },
+    "homepage": {
+      "hero": {
+        "title": "Jedinečný online průvodce po celém San Andreas",
+        "subtitle": "Objevujte města, okresy a tipy podle regionů, témat a doporučených kolekcí."
+      },
+      "featured_place_slugs": [
+        "montgomery",
+        "blueberry",
+        "palomino-creek"
+      ],
+      "featured_collection_slugs": [
+        "red-county-zaklad",
+        "prvni-vylet"
+      ],
+      "featured_region_slugs": [
+        "red-county",
+        "los-santos",
+        "whetstone"
+      ]
+    }
+  },
+  "users": [
+    {
+      "id": "user_admin",
+      "display_name": "Jackal",
+      "email": "admin@notjackal.eu",
+      "role": "admin",
+      "status": "active"
+    },
+    {
+      "id": "user_editor",
+      "display_name": "ObjevujTo Editor",
+      "email": "editor@notjackal.eu",
+      "role": "editor",
+      "status": "active"
+    },
+    {
+      "id": "user_author",
+      "display_name": "Red County Autor",
+      "email": "author@notjackal.eu",
+      "role": "author",
+      "status": "active"
+    }
+  ],
+  "categories": [
+    {
+      "id": "cat_towns",
+      "slug": "mesta-a-obce",
+      "title": "Města a obce",
+      "description": "Samostatná sídla a lokality vhodné k objevování.",
+      "sort_order": 1
+    },
+    {
+      "id": "cat_districts",
+      "slug": "mestske-ctvrti",
+      "title": "Městské čtvrti",
+      "description": "Výrazné městské oblasti s vlastním charakterem.",
+      "sort_order": 2
+    },
+    {
+      "id": "cat_routes",
+      "slug": "vyletni-trasy",
+      "title": "Výletní trasy",
+      "description": "Lokality a přesuny vhodné do tematických tras.",
+      "sort_order": 3
+    }
+  ],
+  "regions": [
+    {
+      "id": "region_red_county",
+      "slug": "red-county",
+      "title": "Red County",
+      "description": "Venkovský okres se směsí sídel, služeb a průmyslu.",
+      "sort_order": 1
+    },
+    {
+      "id": "region_los_santos",
+      "slug": "los-santos",
+      "title": "Los Santos",
+      "description": "Městský region pro hustší městské tipy a čtvrti.",
+      "sort_order": 2
+    },
+    {
+      "id": "region_whetstone",
+      "slug": "whetstone",
+      "title": "Whetstone",
+      "description": "Klidnější region s důrazem na atmosféru a přírodu.",
+      "sort_order": 3
+    }
+  ],
+  "tags": [
+    {
+      "id": "tag_urady",
+      "slug": "urady",
+      "title": "Úřady",
+      "description": "Státní instituce a veřejné služby.",
+      "sort_order": 1
+    },
+    {
+      "id": "tag_prumysl",
+      "slug": "prumysl",
+      "title": "Průmysl",
+      "description": "Průmyslové a logistické zázemí.",
+      "sort_order": 2
+    },
+    {
+      "id": "tag_gastro",
+      "slug": "gastro",
+      "title": "Gastro",
+      "description": "Tipy na zastávky s občerstvením.",
+      "sort_order": 3
+    },
+    {
+      "id": "tag_klid",
+      "slug": "klidna-zastavka",
+      "title": "Klidná zastávka",
+      "description": "Lokality vhodné pro pomalejší objevování.",
+      "sort_order": 4
+    },
+    {
+      "id": "tag_start",
+      "slug": "start-pro-novacky",
+      "title": "Start pro nováčky",
+      "description": "Dobrý vstupní bod pro první výpravy.",
+      "sort_order": 5
+    },
+    {
+      "id": "tag_priroda",
+      "slug": "priroda",
+      "title": "Příroda",
+      "description": "Klidnější nebo scenické lokality.",
+      "sort_order": 6
+    }
+  ],
+  "media": [
+    {
+      "id": "media_logo",
+      "kind": "image",
+      "title": "Logo ObjevujTo",
+      "url": "https://jackal1337.github.io/objevujto/assets/img/logo.png",
+      "alt": "Logo ObjevujTo"
+    },
+    {
+      "id": "media_map",
+      "kind": "image",
+      "title": "Mapa San Andreas",
+      "url": "https://jackal1337.github.io/objevujto/assets/img/map.jpg",
+      "alt": "Mapa San Andreas"
+    },
+    {
+      "id": "media_montgomery_hero",
+      "kind": "image",
+      "title": "Montgomery panorama",
+      "url": "https://jackal1337.github.io/objevujto/assets/img/img-montgomery/montgomery.jpg",
+      "alt": "Panorama Montgomery"
+    },
+    {
+      "id": "media_montgomery_detail",
+      "kind": "image",
+      "title": "Montgomery detail",
+      "url": "https://jackal1337.github.io/objevujto/assets/img/img-montgomery/mg1.jpg",
+      "alt": "Zástavba Montgomery"
+    },
+    {
+      "id": "media_blueberry_hero",
+      "kind": "image",
+      "title": "Blueberry panorama",
+      "url": "https://jackal1337.github.io/objevujto/assets/img/img-blueberry/blueberry.jpg",
+      "alt": "Panorama Blueberry"
+    },
+    {
+      "id": "media_blueberry_detail",
+      "kind": "image",
+      "title": "Blueberry detail",
+      "url": "https://jackal1337.github.io/objevujto/assets/img/img-blueberry/bb1.jpg",
+      "alt": "Střed obce Blueberry"
+    },
+    {
+      "id": "media_palomino_hero",
+      "kind": "image",
+      "title": "Palomino Creek panorama",
+      "url": "https://jackal1337.github.io/objevujto/assets/img/img-palomino/palomino.jpg",
+      "alt": "Palomino Creek z výšky"
+    },
+    {
+      "id": "media_palomino_detail",
+      "kind": "image",
+      "title": "Palomino Creek detail",
+      "url": "https://jackal1337.github.io/objevujto/assets/img/img-palomino/pc1.jpg",
+      "alt": "Ulice v Palomino Creek"
+    }
+  ],
+  "collections": [
+    {
+      "id": "collection_red_county",
+      "slug": "red-county-zaklad",
+      "title": "Red County základ",
+      "description": "První sada míst, která dává rychlý přehled o Red County.",
+      "featured": true,
+      "place_slugs": [
+        "montgomery",
+        "blueberry",
+        "palomino-creek"
+      ]
+    },
+    {
+      "id": "collection_first_trip",
+      "slug": "prvni-vylet",
+      "title": "První výlet po San Andreas",
+      "description": "Vyvážený mix města, venkova a klidnější zastávky.",
+      "featured": true,
+      "place_slugs": [
+        "montgomery",
+        "los-santos-market",
+        "angel-pine"
+      ]
+    }
+  ],
+  "places": [
+    {
+      "id": "place_montgomery",
+      "slug": "montgomery",
+      "title": "Montgomery",
+      "subtitle": "Obec ležící v samotném srdci Red County.",
+      "excerpt": "Klíčová vesnice Red County se silnou přítomností státních institucí.",
+      "short_description": "Montgomery je dobrý výchozí bod pro poznávání Red County díky koncentraci služeb i úřadů.",
+      "long_description": "Montgomery na první pohled působí nenápadně, ale při bližším zkoumání jde o jednu z nejdůležitějších obcí v Red County. Koncentrují se zde instituce, služby i každodenní provoz, takže je to ideální místo pro čtenáře, kteří chtějí pochopit rytmus regionu.\n\nJako obsahový uzel funguje Montgomery skvěle i pro budoucí atlasový model: má jasnou identitu, konkrétní služby a přirozené návaznosti na Blueberry i další části kraje.",
+      "highlights": [
+        "Silná přítomnost veřejných institucí",
+        "Výborný výchozí bod pro Red County",
+        "Přehledná orientace pro první návštěvu"
+      ],
+      "tips": [
+        "Začněte zde, pokud si chcete srovnat základní orientaci v regionu.",
+        "Montgomery dobře funguje jako první zastávka před dalším přesunem do okolních obcí."
+      ],
+      "warnings": [
+        "Ve špičce může působit rušněji než menší venkovské lokality."
+      ],
+      "category_id": "cat_towns",
+      "region_id": "region_red_county",
+      "tag_ids": [
+        "tag_urady",
+        "tag_start"
+      ],
+      "hero_image_id": "media_montgomery_hero",
+      "gallery_ids": [
+        "media_montgomery_detail"
+      ],
+      "related_place_slugs": [
+        "blueberry",
+        "palomino-creek"
+      ],
+      "featured": true,
+      "status": "published",
+      "author_id": "user_author",
+      "editor_id": "user_editor",
+      "created_at": "2026-04-19T00:00:00Z",
+      "updated_at": "2026-04-19T00:00:00Z",
+      "published_at": "2026-04-19T00:00:00Z"
+    },
+    {
+      "id": "place_blueberry",
+      "slug": "blueberry",
+      "title": "Blueberry",
+      "subtitle": "Obec s největším průmyslovým zaměřením.",
+      "excerpt": "Industriální vesnička s výrazným logistickým a restauračním zázemím.",
+      "short_description": "Blueberry kombinuje průmyslový provoz s každodenními službami a je vhodná pro obsah o infrastruktuře regionu.",
+      "long_description": "Blueberry je výrazně industriálnější než většina ostatních míst v Red County. Její charakter stojí na logistice, službách a praktické obslužnosti, což z ní dělá užitečný kontrast k poklidnějším lokalitám.\n\nPro budoucí atlas je Blueberry důležitá i jako ukázka místa, které má jasně definovaný tematický profil a dá se dobře obohatit o doporučené podniky, tipy i varování.",
+      "highlights": [
+        "Nejvýraznější průmyslový profil v Red County",
+        "Silné logistické zázemí",
+        "Dobrá kombinace služeb a provozu"
+      ],
+      "tips": [
+        "Hodí se do tematických kolekcí zaměřených na infrastrukturu a služby.",
+        "Při mapování obsahu sledujte rozdíl mezi denním provozem a klidnějšími hodinami."
+      ],
+      "warnings": [
+        "Atmosféra je praktičtější než vyloženě výletní; nečekejte romantickou zastávku."
+      ],
+      "category_id": "cat_towns",
+      "region_id": "region_red_county",
+      "tag_ids": [
+        "tag_prumysl",
+        "tag_gastro"
+      ],
+      "hero_image_id": "media_blueberry_hero",
+      "gallery_ids": [
+        "media_blueberry_detail"
+      ],
+      "related_place_slugs": [
+        "montgomery",
+        "palomino-creek"
+      ],
+      "featured": true,
+      "status": "published",
+      "author_id": "user_author",
+      "editor_id": "user_editor",
+      "created_at": "2026-04-19T00:00:00Z",
+      "updated_at": "2026-04-19T00:00:00Z",
+      "published_at": "2026-04-19T00:00:00Z"
+    },
+    {
+      "id": "place_palomino_creek",
+      "slug": "palomino-creek",
+      "title": "Palomino Creek",
+      "subtitle": "Obec ležící na východě Red County.",
+      "excerpt": "Klidnější obec vhodná pro pomalejší objevování a lokální zastávky.",
+      "short_description": "Palomino Creek slouží jako protipól k rušnějším částem Red County a hodí se pro klidnější itineráře.",
+      "long_description": "Palomino Creek je vhodná pro čtenáře, kteří nehledají jen instituce a provoz, ale i pomalejší rytmus a příjemnější atmosféru. Pro obsahový atlas je ideální jako místo, kde lze kombinovat krátké tipy, doporučené zastávky i praktické rady pro klidnější výlet.\n\nDo budoucna může fungovat také jako uzel pro články o lokálních podnicích, kratších trasách a doporučených návaznostech na další části Red County.",
+      "highlights": [
+        "Klidnější tempo než v centrálních bodech regionu",
+        "Dobré místo pro lokální doporučení",
+        "Silný potenciál pro rozšiřování obsahu"
+      ],
+      "tips": [
+        "Zařaďte ji do itinerářů pro čtenáře, kteří nechtějí jen rušné uzly.",
+        "Hodí se do kombinace s Montgomery jako kontrastní zastávka."
+      ],
+      "warnings": [
+        "V současném seed obsahu je potřeba doplnit více konkrétních lokálních tipů."
+      ],
+      "category_id": "cat_towns",
+      "region_id": "region_red_county",
+      "tag_ids": [
+        "tag_klid",
+        "tag_start"
+      ],
+      "hero_image_id": "media_palomino_hero",
+      "gallery_ids": [
+        "media_palomino_detail"
+      ],
+      "related_place_slugs": [
+        "montgomery",
+        "blueberry"
+      ],
+      "featured": true,
+      "status": "review",
+      "author_id": "user_author",
+      "editor_id": "user_editor",
+      "created_at": "2026-04-19T00:00:00Z",
+      "updated_at": "2026-04-19T00:00:00Z",
+      "published_at": null
+    },
+    {
+      "id": "place_dillimore",
+      "slug": "dillimore",
+      "title": "Dillimore",
+      "subtitle": "Menší sídlo vhodné jako průjezdní i orientační zastávka.",
+      "excerpt": "Praktická obec pro kratší zastavení v širším kontextu Red County.",
+      "short_description": "Dillimore se hodí do průvodce jako menší, rychle uchopitelná zastávka.",
+      "long_description": "Dillimore nemusí být hlavní hvězdou celého atlasu, ale právě taková místa jsou důležitá pro důvěryhodný průvodce. Umožňují čtenářům skládat si trasu z různě silných zastávek a neomezovat se jen na nejznámější body.\n\nV MVP stačí Dillimore držet jako stručnější entitu s prostorem na další doplnění redakčního obsahu.",
+      "highlights": [
+        "Vhodná krátká zastávka",
+        "Dobrý doplněk k Red County trasám"
+      ],
+      "tips": [
+        "Používejte ji v kratších kolekcích nebo jako doplňkový bod itineráře."
+      ],
+      "warnings": [
+        "Obsah je zatím stručnější a měl by projít dalším editorským rozšířením."
+      ],
+      "category_id": "cat_towns",
+      "region_id": "region_red_county",
+      "tag_ids": [
+        "tag_start"
+      ],
+      "hero_image_id": "media_map",
+      "gallery_ids": [],
+      "related_place_slugs": [
+        "montgomery",
+        "blueberry"
+      ],
+      "featured": false,
+      "status": "draft",
+      "author_id": "user_author",
+      "editor_id": "user_editor",
+      "created_at": "2026-04-19T00:00:00Z",
+      "updated_at": "2026-04-19T00:00:00Z",
+      "published_at": null
+    },
+    {
+      "id": "place_los_santos_market",
+      "slug": "los-santos-market",
+      "title": "Los Santos Market District",
+      "subtitle": "Rychlý vstup do městské části Los Santos s vyšší intenzitou provozu.",
+      "excerpt": "Městská čtvrť vhodná jako kontrast k venkovským lokalitám.",
+      "short_description": "Ukázková městská entita pro atlasový model mimo Red County.",
+      "long_description": "Aby se ObjevujTo nestalo jen katalogem vesnic, potřebuje od začátku podporovat i jiný typ míst. Tato seed entita reprezentuje městštější obsah, jinou hustotu provozu i jiná očekávání čtenářů.\n\nV produkční verzi se zde předpokládá postupné nahrazení a rozšíření konkrétnějšími lokalitami podle redakčního plánu.",
+      "highlights": [
+        "Zastoupení městského typu obsahu",
+        "Kontrast k Red County",
+        "Vhodné pro budoucí filtry podle charakteru lokality"
+      ],
+      "tips": [
+        "Používejte v kolekcích, které mají ukázat pestrost San Andreas."
+      ],
+      "warnings": [
+        "Seed obsah je zatím orientační a bude potřeba redakčně zpřesnit."
+      ],
+      "category_id": "cat_districts",
+      "region_id": "region_los_santos",
+      "tag_ids": [
+        "tag_gastro",
+        "tag_start"
+      ],
+      "hero_image_id": "media_map",
+      "gallery_ids": [],
+      "related_place_slugs": [
+        "montgomery",
+        "angel-pine"
+      ],
+      "featured": false,
+      "status": "draft",
+      "author_id": "user_admin",
+      "editor_id": "user_editor",
+      "created_at": "2026-04-19T00:00:00Z",
+      "updated_at": "2026-04-19T00:00:00Z",
+      "published_at": null
+    },
+    {
+      "id": "place_angel_pine",
+      "slug": "angel-pine",
+      "title": "Angel Pine",
+      "subtitle": "Klidnější zastávka ve Whetstone pro přírodněji laděné výlety.",
+      "excerpt": "Příjemná protiváha k hustším městským a institucionálním místům.",
+      "short_description": "Angel Pine rozšiřuje atlas o klidnější a scenickou polohu.",
+      "long_description": "Angel Pine má v seed modelu roli místa, které rozšiřuje tón celého webu. Ukazuje, že ObjevujTo nemá být jen seznam administrativně nebo logisticky významných bodů, ale atlas, který umí zachytit i atmosféru a pomalejší zastávky.\n\nJe to dobrý kandidát pro budoucí kolekce zaměřené na scenic route, odpočinek nebo méně rušné výpravy.",
+      "highlights": [
+        "Scenická a klidnější poloha",
+        "Dobrá protiváha k rušnějším lokalitám",
+        "Vhodné pro tematické kolekce"
+      ],
+      "tips": [
+        "Dávejte ji do výběrů pro čtenáře, kteří chtějí pomalejší tempo."
+      ],
+      "warnings": [
+        "Stejně jako další seed obsah potřebuje doplnit konkrétní lokální body."
+      ],
+      "category_id": "cat_routes",
+      "region_id": "region_whetstone",
+      "tag_ids": [
+        "tag_priroda",
+        "tag_klid"
+      ],
+      "hero_image_id": "media_map",
+      "gallery_ids": [],
+      "related_place_slugs": [
+        "palomino-creek",
+        "los-santos-market"
+      ],
+      "featured": false,
+      "status": "draft",
+      "author_id": "user_admin",
+      "editor_id": "user_editor",
+      "created_at": "2026-04-19T00:00:00Z",
+      "updated_at": "2026-04-19T00:00:00Z",
+      "published_at": null
+    }
+  ],
+  "editorial_notes": [
+    {
+      "id": "note_palomino_expand",
+      "place_slug": "palomino-creek",
+      "status": "review",
+      "note": "Doplnit 2 až 3 konkrétní lokální tipy a nahradit obecnější formulace přesnějšími body.",
+      "author_id": "user_editor",
+      "created_at": "2026-04-19T00:00:00Z"
+    },
+    {
+      "id": "note_dillimore_followup",
+      "place_slug": "dillimore",
+      "status": "draft",
+      "note": "Rozšířit obsah o konkrétní důvody návštěvy a vazby na okolní místa.",
+      "author_id": "user_editor",
+      "created_at": "2026-04-19T00:00:00Z"
+    }
+  ]
+}

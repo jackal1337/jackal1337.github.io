@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ObjevujTo Admin</title>
+  <link rel="stylesheet" href="/admin/admin.css">
+</head>
+<body>
+  <header class="shell-header">
+    <div>
+      <p class="eyebrow">ObjevujTo Admin MVP</p>
+      <h1>Obsahová správa</h1>
+      <p class="muted">Custom admin shell pro obsahový atlas a JSON API.</p>
+    </div>
+    <div id="session-box" class="session-box">Načítání relace…</div>
+  </header>
+
+  <main class="layout">
+    <section class="card" id="dashboard-card">
+      <div class="card-header">
+        <h2>Dashboard</h2>
+        <button id="refresh-dashboard" class="ghost-button">Obnovit</button>
+      </div>
+      <div id="dashboard-grid" class="stats-grid"></div>
+      <div class="split">
+        <div>
+          <h3>Stavy</h3>
+          <ul id="status-breakdown" class="plain-list"></ul>
+        </div>
+        <div>
+          <h3>Poslední změny</h3>
+          <ul id="recent-revisions" class="plain-list"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="two-column">
+      <section class="card">
+        <div class="card-header">
+          <h2>Místa</h2>
+          <button id="new-place" class="primary-button">Nové místo</button>
+        </div>
+        <div id="places-table" class="table-wrap"></div>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <h2>Editor místa</h2>
+          <button id="publish-place" class="ghost-button">Publikovat</button>
+        </div>
+        <form id="place-form" class="form-stack">
+          <input type="hidden" name="id">
+          <label><span>Název</span><input name="title" required></label>
+          <label><span>Slug</span><input name="slug"></label>
+          <label><span>Podtitul</span><input name="subtitle"></label>
+          <label><span>Excerpt</span><textarea name="excerpt" rows="2"></textarea></label>
+          <label><span>Krátký popis</span><textarea name="short_description" rows="3"></textarea></label>
+          <label><span>Dlouhý popis</span><textarea name="long_description" rows="6"></textarea></label>
+          <div class="grid-2">
+            <label><span>Kategorie</span><select name="category_id"></select></label>
+            <label><span>Region</span><select name="region_id"></select></label>
+          </div>
+          <div class="grid-2">
+            <label><span>Status</span>
+              <select name="status">
+                <option value="draft">draft</option>
+                <option value="review">review</option>
+                <option value="published">published</option>
+                <option value="archived">archived</option>
+              </select>
+            </label>
+            <label><span>Hero image</span><select name="hero_image_id"></select></label>
+          </div>
+          <div class="grid-2">
+            <label><span>Autor</span><select name="author_id"></select></label>
+            <label><span>Editor</span><select name="editor_id"></select></label>
+          </div>
+          <label class="checkbox"><input type="checkbox" name="featured"> <span>Zvýrazněné místo</span></label>
+          <label><span>Tagy (čárkou oddělená IDs)</span><input name="tag_ids"></label>
+          <label><span>Galerie (čárkou oddělená media IDs)</span><input name="gallery_ids"></label>
+          <label><span>Související místa (čárkou oddělené slugy)</span><input name="related_place_slugs"></label>
+          <label><span>Highlights (každý řádek = jedna položka)</span><textarea name="highlights" rows="4"></textarea></label>
+          <label><span>Tips (každý řádek = jedna položka)</span><textarea name="tips" rows="4"></textarea></label>
+          <label><span>Warnings (každý řádek = jedna položka)</span><textarea name="warnings" rows="4"></textarea></label>
+          <div class="actions">
+            <button class="primary-button" type="submit">Uložit</button>
+            <button class="ghost-button" type="button" id="reset-place-form">Vyčistit</button>
+          </div>
+        </form>
+        <section>
+          <div class="card-header compact">
+            <h3>JSON preview</h3>
+            <button id="refresh-preview" class="ghost-button">Načíst</button>
+          </div>
+          <pre id="place-preview" class="code-box">Vyberte nebo vytvořte místo.</pre>
+        </section>
+      </section>
+    </section>
+
+    <section class="two-column">
+      <section class="card">
+        <h2>Taxonomie</h2>
+        <div class="tabs">
+          <button class="tab-button is-active" data-taxonomy="categories">Kategorie</button>
+          <button class="tab-button" data-taxonomy="regions">Regiony</button>
+          <button class="tab-button" data-taxonomy="tags">Tagy</button>
+        </div>
+        <ul id="taxonomy-list" class="plain-list"></ul>
+        <form id="taxonomy-form" class="form-inline">
+          <input type="text" name="title" placeholder="Nová položka" required>
+          <input type="text" name="slug" placeholder="slug (volitelné)">
+          <button class="primary-button" type="submit">Přidat</button>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>Média</h2>
+        <ul id="media-list" class="plain-list media-list"></ul>
+        <form id="media-form" class="form-stack">
+          <label><span>Název</span><input name="title" required></label>
+          <label><span>URL</span><input name="url" required></label>
+          <label><span>Alt</span><input name="alt"></label>
+          <button class="primary-button" type="submit">Přidat médium</button>
+        </form>
+      </section>
+    </section>
+  </main>
+
+  <script src="/admin/admin.js" defer></script>
+</body>
+</html>
