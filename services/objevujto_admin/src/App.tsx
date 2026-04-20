@@ -71,6 +71,8 @@ type FormState = {
   warnings: string;
 };
 
+type EditorTab = 'content' | 'meta' | 'relations';
+
 const emptyForm = (): FormState => ({
   title: '',
   slug: '',
@@ -111,6 +113,25 @@ function parseLines(value: string): string[] {
   return value.split('\n').map((item) => item.trim()).filter(Boolean);
 }
 
+function formatTimestamp(value?: string | null): string {
+  if (!value) return '—';
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  return new Intl.DateTimeFormat('cs-CZ', {
+    dateStyle: 'medium',
+    timeStyle: 'short',
+  }).format(date);
+}
+
+function badgeTone(status: string): string {
+  switch (status) {
+    case 'published': return 'published';
+    case 'review': return 'review';
+    case 'archived': return 'archived';
+    default: return 'draft';
+  }
+}
+
 async function api<T>(path: string, init?: RequestInit): Promise<T> {
   const headers = new Headers(init?.headers || {});
   headers.set('Content-Type', 'application/json');
@@ -143,8 +164,24 @@ export default function App() {
   const [taxonomyDraft, setTaxonomyDraft] = useState({ title: '', slug: '' });
   const [mediaDraft, setMediaDraft] = useState({ title: '', url: '', alt: '' });
   const [devLogin, setDevLogin] = useState({ user: 'local_admin', role: 'admin', email: 'dev@local' });
+  const [placeQuery, setPlaceQuery] = useState('');
+  const [editorTab, setEditorTab] = useState<EditorTab>('content');
 
   const taxonomyMap = useMemo(() => ({ categories, regions, tags }), [categories, regions, tags]);
+  const filteredPlaces = useMemo(() => {
+    const query = placeQuery.trim().toLowerCase();
+    if (!query) return places;
+    return places.filter((place) =>
+      [place.title, place.slug, place.subtitle, place.region?.title, place.category?.title]
+        .filter(Boolean)
+        .some((value) => String(value).toLowerCase().includes(query)),
+    );
+  }, [placeQuery, places]);
+  const statusSummary = useMemo(() => {
+    const map = new Map<string, number>();
+    for (const item of dashboard?.status_breakdown || []) map.set(item.status, item.count);
+    return map;
+  }, [dashboard]);
 
   useEffect(() => {
     bootstrap().catch((error) => {
@@ -200,6 +237,7 @@ export default function App() {
     const payload = await api<{ item: PlaceDetail }>(`${adminApiBase}/places/${placeId}`);
     const item = payload.item;
     setSelectedPlace(item);
+    setEditorTab('content');
     setForm({
       id: item.id,
       title: item.title || '',
@@ -222,6 +260,12 @@ export default function App() {
       tips: item.tips.join('\n'),
       warnings: item.warnings.join('\n'),
     });
+  }
+
+  function startNewPlace() {
+    setSelectedPlace(null);
+    setForm(emptyForm());
+    setEditorTab('content');
   }
 
   async function handleSave(event: React.FormEvent) {
@@ -279,30 +323,48 @@ export default function App() {
     await loadMedia();
   }
 
+  const quickStats = [
+    { label: 'Místa', value: dashboard?.counts.places ?? 0, detail: `${statusSummary.get('published') ?? 0} publikováno` },
+    { label: 'Taxonomie', value: (dashboard?.counts.categories ?? 0) + (dashboard?.counts.regions ?? 0) + (dashboard?.counts.tags ?? 0), detail: 'kategorie, regiony, tagy' },
+    { label: 'Média', value: dashboard?.counts.media ?? 0, detail: 'asset knihovna' },
+  ];
+
   if (loading) {
-    return <div className="page-shell"><div className="loading-card">Načítám nový React admin…</div></div>;
+    return <div className="page-shell"><div className="loading-card">Načítám nový redakční cockpit…</div></div>;
   }
 
   if (!session?.authenticated) {
     return (
       <div className="page-shell auth-shell">
-        <section className="hero-card">
-          <div>
+        <section className="auth-layout">
+          <div className="auth-hero card">
             <p className="eyebrow">ObjevujTo Admin</p>
-            <h1>React admin pro obsahový atlas</h1>
-            <p className="muted">Přechod z provizorního adminu na udržitelnější UI vrstvu.</p>
-            <div className="button-row">
+            <h1>Redakční cockpit pro atlas San Andreas</h1>
+            <p className="lead">Nový React admin už není jen nouzový scaffold. Cíl je rychlá práce s místy, taxonomií a workflow, bez page-builder bordelu.</p>
+            <div className="auth-pill-row">
+              <span className="soft-pill">Places workflow</span>
+              <span className="soft-pill">Taxonomie</span>
+              <span className="soft-pill">Media library</span>
+              <span className="soft-pill">Preview-ready základ</span>
+            </div>
+            <div className="button-row auth-actions">
               <a className="button primary" href={session?.login_url}>Přihlásit přes auth.notjackal.eu</a>
             </div>
           </div>
-          <form className="card form-card" onSubmit={(event) => {
-            event.preventDefault();
-            localStorage.setItem('objevujto.devUser', devLogin.user);
-            localStorage.setItem('objevujto.devRole', devLogin.role);
-            localStorage.setItem('objevujto.devEmail', devLogin.email);
-            bootstrap().catch((error) => setNotice({ tone: 'error', text: error.message }));
-          }}>
-            <h2>Lokální dev login</h2>
+          <form
+            className="card auth-form"
+            onSubmit={(event) => {
+              event.preventDefault();
+              localStorage.setItem('objevujto.devUser', devLogin.user);
+              localStorage.setItem('objevujto.devRole', devLogin.role);
+              localStorage.setItem('objevujto.devEmail', devLogin.email);
+              bootstrap().catch((error) => setNotice({ tone: 'error', text: error.message }));
+            }}
+          >
+            <div>
+              <h2>Lokální dev login</h2>
+              <p className="muted">Pro rychlé ověření UI bez reálné session.</p>
+            </div>
             <label><span>Dev user</span><input value={devLogin.user} onChange={(event) => setDevLogin({ ...devLogin, user: event.target.value })} /></label>
             <label><span>Role</span><input value={devLogin.role} onChange={(event) => setDevLogin({ ...devLogin, role: event.target.value })} /></label>
             <label><span>E-mail</span><input value={devLogin.email} onChange={(event) => setDevLogin({ ...devLogin, email: event.target.value })} /></label>
@@ -314,50 +376,39 @@ export default function App() {
   }
 
   return (
-    <div className="page-shell">
-      <header className="topbar">
-        <div>
-          <p className="eyebrow">ObjevujTo Admin</p>
-          <h1>Content operations cockpit</h1>
-          <p className="muted">React admin nad Node/TypeScript API. Public frontend zůstává statický.</p>
-        </div>
-        <div className="user-chip">
-          <strong>{session.user?.display_name}</strong>
-          <span>{session.user?.role}</span>
-          <a href={session.logout_url}>Odhlásit</a>
-        </div>
-      </header>
-
-      {notice && <div className={`notice ${notice.tone}`}>{notice.text}</div>}
-
-      <section className="stats-grid">
-        {dashboard && Object.entries(dashboard.counts).map(([key, value]) => (
-          <article key={key} className="stat-card">
-            <span>{key}</span>
-            <strong>{value}</strong>
-          </article>
-        ))}
-      </section>
-
-      <main className="layout-grid">
-        <section className="card panel-left">
-          <div className="panel-head">
-            <div>
-              <h2>Místa</h2>
-              <p className="muted">Základní editorial workflow bez page-builder nesmyslů.</p>
-            </div>
-            <button className="button secondary" onClick={() => { setSelectedPlace(null); setForm(emptyForm()); }}>Nové místo</button>
+    <div className="app-shell">
+      <aside className="sidebar">
+        <div className="sidebar-brand">
+          <div className="brand-mark">OT</div>
+          <div>
+            <p className="eyebrow">ObjevujTo</p>
+            <h1>Admin</h1>
           </div>
+        </div>
 
-          <div className="places-list">
-            {places.map((place) => (
-              <button key={place.id} className={`place-row ${selectedPlace?.id === place.id ? 'active' : ''}`} onClick={() => openPlace(place.id).catch((error) => setNotice({ tone: 'error', text: error.message }))}>
+        <section className="sidebar-section">
+          <div className="sidebar-head">
+            <h2>Content</h2>
+            <button className="button secondary small" onClick={startNewPlace}>Nové</button>
+          </div>
+          <label className="search-field">
+            <span>Hledat místa</span>
+            <input placeholder="název, slug, region…" value={placeQuery} onChange={(event) => setPlaceQuery(event.target.value)} />
+          </label>
+          <div className="place-count">{filteredPlaces.length} / {places.length} míst</div>
+          <div className="places-list compact-scroll">
+            {filteredPlaces.map((place) => (
+              <button
+                key={place.id}
+                className={`place-row ${selectedPlace?.id === place.id ? 'active' : ''}`}
+                onClick={() => openPlace(place.id).catch((error) => setNotice({ tone: 'error', text: error.message }))}
+              >
                 <div>
                   <strong>{place.title}</strong>
                   <span>{place.slug}</span>
                 </div>
                 <div className="place-meta">
-                  <span className={`badge ${place.status}`}>{place.status}</span>
+                  <span className={`badge ${badgeTone(place.status)}`}>{place.status}</span>
                   <span>{place.region?.title || '—'}</span>
                 </div>
               </button>
@@ -365,88 +416,215 @@ export default function App() {
           </div>
         </section>
 
-        <section className="card panel-main">
-          <div className="panel-head">
-            <div>
-              <h2>{form.id ? 'Editor místa' : 'Nové místo'}</h2>
-              <p className="muted">Použitelné, ne přeplácané. Form-first admin pro redakční obsah.</p>
-            </div>
-            {form.id && <button className="button secondary" onClick={() => handlePublish().catch((error) => setNotice({ tone: 'error', text: error.message }))}>Publikovat</button>}
-          </div>
-
-          <form className="editor-grid" onSubmit={handleSave}>
-            <label><span>Název</span><input required value={form.title} onChange={(event) => setForm({ ...form, title: event.target.value })} /></label>
-            <label><span>Slug</span><input value={form.slug} onChange={(event) => setForm({ ...form, slug: event.target.value })} /></label>
-            <label className="span-2"><span>Podtitul</span><input value={form.subtitle} onChange={(event) => setForm({ ...form, subtitle: event.target.value })} /></label>
-            <label className="span-2"><span>Excerpt</span><textarea rows={2} value={form.excerpt} onChange={(event) => setForm({ ...form, excerpt: event.target.value })} /></label>
-            <label className="span-2"><span>Krátký popis</span><textarea rows={3} value={form.short_description} onChange={(event) => setForm({ ...form, short_description: event.target.value })} /></label>
-            <label className="span-2"><span>Dlouhý popis</span><textarea rows={7} value={form.long_description} onChange={(event) => setForm({ ...form, long_description: event.target.value })} /></label>
-
-            <label><span>Kategorie</span><select value={form.category_id} onChange={(event) => setForm({ ...form, category_id: event.target.value })}><option value="">—</option>{categories.map((item) => <option key={item.id} value={item.id}>{item.title}</option>)}</select></label>
-            <label><span>Region</span><select value={form.region_id} onChange={(event) => setForm({ ...form, region_id: event.target.value })}><option value="">—</option>{regions.map((item) => <option key={item.id} value={item.id}>{item.title}</option>)}</select></label>
-            <label><span>Status</span><select value={form.status} onChange={(event) => setForm({ ...form, status: event.target.value })}><option value="draft">draft</option><option value="review">review</option><option value="published">published</option><option value="archived">archived</option></select></label>
-            <label><span>Hero image</span><select value={form.hero_image_id} onChange={(event) => setForm({ ...form, hero_image_id: event.target.value })}><option value="">—</option>{media.map((item) => <option key={item.id} value={item.id}>{item.title}</option>)}</select></label>
-            <label><span>Autor</span><select value={form.author_id} onChange={(event) => setForm({ ...form, author_id: event.target.value })}><option value="">—</option>{users.map((item) => <option key={item.id} value={item.id}>{item.display_name}</option>)}</select></label>
-            <label><span>Editor</span><select value={form.editor_id} onChange={(event) => setForm({ ...form, editor_id: event.target.value })}><option value="">—</option>{users.map((item) => <option key={item.id} value={item.id}>{item.display_name}</option>)}</select></label>
-
-            <label className="checkbox-row"><input type="checkbox" checked={form.featured} onChange={(event) => setForm({ ...form, featured: event.target.checked })} /> <span>Zvýrazněné místo</span></label>
-            <div />
-            <label className="span-2"><span>Tag IDs</span><input value={form.tag_ids} onChange={(event) => setForm({ ...form, tag_ids: event.target.value })} /></label>
-            <label className="span-2"><span>Gallery IDs</span><input value={form.gallery_ids} onChange={(event) => setForm({ ...form, gallery_ids: event.target.value })} /></label>
-            <label className="span-2"><span>Related slugs</span><input value={form.related_place_slugs} onChange={(event) => setForm({ ...form, related_place_slugs: event.target.value })} /></label>
-            <label><span>Highlights</span><textarea rows={5} value={form.highlights} onChange={(event) => setForm({ ...form, highlights: event.target.value })} /></label>
-            <label><span>Tips</span><textarea rows={5} value={form.tips} onChange={(event) => setForm({ ...form, tips: event.target.value })} /></label>
-            <label className="span-2"><span>Warnings</span><textarea rows={4} value={form.warnings} onChange={(event) => setForm({ ...form, warnings: event.target.value })} /></label>
-
-            <div className="button-row span-2">
-              <button className="button primary" type="submit">Uložit</button>
-              <button className="button ghost" type="button" onClick={() => { setSelectedPlace(null); setForm(emptyForm()); }}>Vyčistit</button>
-            </div>
-          </form>
+        <section className="sidebar-section session-card">
+          <h3>Session</h3>
+          <strong>{session.user?.display_name}</strong>
+          <span className="muted">Role: {session.user?.role}</span>
+          <a href={session.logout_url}>Odhlásit</a>
         </section>
+      </aside>
 
-        <aside className="aside-stack">
-          <section className="card">
-            <div className="panel-head compact">
+      <div className="workspace">
+        <header className="workspace-hero card">
+          <div>
+            <p className="eyebrow">React admin · Node API</p>
+            <h2>{selectedPlace ? selectedPlace.title : 'Připrav nové místo'}</h2>
+            <p className="lead subtle">
+              {selectedPlace
+                ? selectedPlace.subtitle || selectedPlace.excerpt || 'Vybrané místo připravené k editaci.'
+                : 'Použitelnější redakční rozhraní pro ObjevujTo: obsah, metadata, vztahy a workflow na jednom místě.'}
+            </p>
+            <div className="hero-meta-row">
+              {selectedPlace ? (
+                <>
+                  <span className={`badge ${badgeTone(form.status)}`}>{form.status}</span>
+                  {selectedPlace.region && <span className="soft-pill">{selectedPlace.region.title}</span>}
+                  {selectedPlace.category && <span className="soft-pill">{selectedPlace.category.title}</span>}
+                  {selectedPlace.featured && <span className="soft-pill accent">featured</span>}
+                </>
+              ) : (
+                <>
+                  <span className="soft-pill accent">content atlas</span>
+                  <span className="soft-pill">workflow ready</span>
+                  <span className="soft-pill">plain public frontend</span>
+                </>
+              )}
+            </div>
+          </div>
+          <div className="hero-metrics">
+            {quickStats.map((stat) => (
+              <article key={stat.label} className="metric-card">
+                <span>{stat.label}</span>
+                <strong>{stat.value}</strong>
+                <small>{stat.detail}</small>
+              </article>
+            ))}
+          </div>
+        </header>
+
+        {notice && <div className={`notice ${notice.tone}`}>{notice.text}</div>}
+
+        <main className="workspace-grid">
+          <section className="editor-column card">
+            <div className="panel-head">
               <div>
-                <h3>Taxonomie</h3>
-                <p className="muted">Kategorie, regiony, tagy.</p>
+                <h2>{form.id ? 'Editor místa' : 'Nové místo'}</h2>
+                <p className="muted">Od perexu až po vztahy mezi místy. Žádné ručně psané HTML stránky jako zdroj pravdy.</p>
+              </div>
+              <div className="button-row">
+                {form.id && <button className="button secondary" onClick={() => handlePublish().catch((error) => setNotice({ tone: 'error', text: error.message }))}>Publikovat</button>}
+                <button className="button ghost" onClick={startNewPlace}>Vyčistit</button>
               </div>
             </div>
-            <div className="segmented">
-              {(['categories', 'regions', 'tags'] as const).map((key) => (
-                <button key={key} className={`segment ${taxonomyType === key ? 'active' : ''}`} onClick={() => setTaxonomyType(key)}>{key}</button>
+
+            <div className="editor-tabs">
+              {([
+                ['content', 'Obsah'],
+                ['meta', 'Metadata'],
+                ['relations', 'Vztahy'],
+              ] as Array<[EditorTab, string]>).map(([tab, label]) => (
+                <button key={tab} className={`segment ${editorTab === tab ? 'active' : ''}`} onClick={() => setEditorTab(tab)}>{label}</button>
               ))}
             </div>
-            <div className="mini-list">
-              {taxonomyMap[taxonomyType].map((item) => <div key={item.id} className="mini-row"><strong>{item.title}</strong><span>{item.slug}</span></div>)}
-            </div>
-            <form className="stack" onSubmit={handleAddTaxonomy}>
-              <label><span>Název</span><input value={taxonomyDraft.title} onChange={(event) => setTaxonomyDraft({ ...taxonomyDraft, title: event.target.value })} /></label>
-              <label><span>Slug</span><input value={taxonomyDraft.slug} onChange={(event) => setTaxonomyDraft({ ...taxonomyDraft, slug: event.target.value })} /></label>
-              <button className="button secondary" type="submit">Přidat</button>
+
+            <form className="editor-grid polished" onSubmit={handleSave}>
+              {editorTab === 'content' && (
+                <>
+                  <label><span>Název</span><input required value={form.title} onChange={(event) => setForm({ ...form, title: event.target.value })} /></label>
+                  <label><span>Slug</span><input placeholder="vygeneruje se při vytvoření" value={form.slug} onChange={(event) => setForm({ ...form, slug: event.target.value })} /></label>
+                  <label className="span-2"><span>Podtitul</span><input value={form.subtitle} onChange={(event) => setForm({ ...form, subtitle: event.target.value })} /></label>
+                  <label className="span-2"><span>Excerpt / listing perex</span><textarea rows={2} value={form.excerpt} onChange={(event) => setForm({ ...form, excerpt: event.target.value })} /></label>
+                  <label className="span-2"><span>Krátký popis</span><textarea rows={3} value={form.short_description} onChange={(event) => setForm({ ...form, short_description: event.target.value })} /></label>
+                  <label className="span-2"><span>Dlouhý popis</span><textarea rows={8} value={form.long_description} onChange={(event) => setForm({ ...form, long_description: event.target.value })} /></label>
+                  <label><span>Highlights</span><textarea rows={5} value={form.highlights} onChange={(event) => setForm({ ...form, highlights: event.target.value })} /></label>
+                  <label><span>Tipy</span><textarea rows={5} value={form.tips} onChange={(event) => setForm({ ...form, tips: event.target.value })} /></label>
+                  <label className="span-2"><span>Varování</span><textarea rows={4} value={form.warnings} onChange={(event) => setForm({ ...form, warnings: event.target.value })} /></label>
+                </>
+              )}
+
+              {editorTab === 'meta' && (
+                <>
+                  <label><span>Kategorie</span><select value={form.category_id} onChange={(event) => setForm({ ...form, category_id: event.target.value })}><option value="">—</option>{categories.map((item) => <option key={item.id} value={item.id}>{item.title}</option>)}</select></label>
+                  <label><span>Region</span><select value={form.region_id} onChange={(event) => setForm({ ...form, region_id: event.target.value })}><option value="">—</option>{regions.map((item) => <option key={item.id} value={item.id}>{item.title}</option>)}</select></label>
+                  <label><span>Status</span><select value={form.status} onChange={(event) => setForm({ ...form, status: event.target.value })}><option value="draft">draft</option><option value="review">review</option><option value="published">published</option><option value="archived">archived</option></select></label>
+                  <label><span>Hero image</span><select value={form.hero_image_id} onChange={(event) => setForm({ ...form, hero_image_id: event.target.value })}><option value="">—</option>{media.map((item) => <option key={item.id} value={item.id}>{item.title}</option>)}</select></label>
+                  <label><span>Autor</span><select value={form.author_id} onChange={(event) => setForm({ ...form, author_id: event.target.value })}><option value="">—</option>{users.map((item) => <option key={item.id} value={item.id}>{item.display_name}</option>)}</select></label>
+                  <label><span>Editor</span><select value={form.editor_id} onChange={(event) => setForm({ ...form, editor_id: event.target.value })}><option value="">—</option>{users.map((item) => <option key={item.id} value={item.id}>{item.display_name}</option>)}</select></label>
+                  <label className="checkbox-tile span-2"><input type="checkbox" checked={form.featured} onChange={(event) => setForm({ ...form, featured: event.target.checked })} /><span>Zvýrazněné místo pro homepage a kolekce</span></label>
+                  <label className="span-2"><span>Tag IDs</span><input placeholder="tag_prumysl, tag_gastro" value={form.tag_ids} onChange={(event) => setForm({ ...form, tag_ids: event.target.value })} /></label>
+                </>
+              )}
+
+              {editorTab === 'relations' && (
+                <>
+                  <label className="span-2"><span>Gallery IDs</span><input placeholder="media_blueberry_detail" value={form.gallery_ids} onChange={(event) => setForm({ ...form, gallery_ids: event.target.value })} /></label>
+                  <label className="span-2"><span>Related slugs</span><input placeholder="montgomery, palomino-creek" value={form.related_place_slugs} onChange={(event) => setForm({ ...form, related_place_slugs: event.target.value })} /></label>
+                  <div className="hint-panel span-2">
+                    <h3>Redakční tip</h3>
+                    <p>Vztahy drž záměrně úzké. Místo by mělo mít jasné sousedy a logické návaznosti, ne generický seznam všeho.</p>
+                  </div>
+                </>
+              )}
+
+              <div className="save-bar span-2">
+                <div>
+                  <strong>{form.title || 'Nepojmenované místo'}</strong>
+                  <span>Poslední lokální změny ještě nejsou uložené do API.</span>
+                </div>
+                <button className="button primary" type="submit">Uložit změny</button>
+              </div>
             </form>
           </section>
 
-          <section className="card">
-            <div className="panel-head compact">
-              <div>
-                <h3>Média</h3>
-                <p className="muted">MVP správa assetů podle URL.</p>
+          <aside className="inspector-column">
+            <section className="card overview-card">
+              <div className="panel-head compact">
+                <div>
+                  <h3>Přehled workflow</h3>
+                  <p className="muted">Kde teď redakce stojí.</p>
+                </div>
               </div>
-            </div>
-            <div className="mini-list media-list">
-              {media.slice(0, 8).map((item) => <div key={item.id} className="mini-row"><strong>{item.title}</strong><span>{item.id}</span></div>)}
-            </div>
-            <form className="stack" onSubmit={handleAddMedia}>
-              <label><span>Název</span><input value={mediaDraft.title} onChange={(event) => setMediaDraft({ ...mediaDraft, title: event.target.value })} /></label>
-              <label><span>URL</span><input value={mediaDraft.url} onChange={(event) => setMediaDraft({ ...mediaDraft, url: event.target.value })} /></label>
-              <label><span>Alt</span><input value={mediaDraft.alt} onChange={(event) => setMediaDraft({ ...mediaDraft, alt: event.target.value })} /></label>
-              <button className="button secondary" type="submit">Přidat médium</button>
-            </form>
-          </section>
-        </aside>
-      </main>
+              <div className="status-stack">
+                {['draft', 'review', 'published', 'archived'].map((status) => (
+                  <div key={status} className="status-row">
+                    <span className={`badge ${badgeTone(status)}`}>{status}</span>
+                    <strong>{statusSummary.get(status) ?? 0}</strong>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <section className="card">
+              <div className="panel-head compact">
+                <div>
+                  <h3>Poslední aktivita</h3>
+                  <p className="muted">Rychlý signál, co se v obsahu děje.</p>
+                </div>
+              </div>
+              <div className="mini-list compact-scroll short">
+                {(dashboard?.recent_revisions || []).slice(0, 6).map((item) => (
+                  <div key={item.id} className="mini-row revision-row">
+                    <strong>{item.action}</strong>
+                    <span>{item.entity_id}</span>
+                    <small>{formatTimestamp(item.created_at)}</small>
+                  </div>
+                ))}
+                {!dashboard?.recent_revisions?.length && <div className="empty-state">Zatím bez revizí.</div>}
+              </div>
+            </section>
+
+            <section className="card">
+              <div className="panel-head compact">
+                <div>
+                  <h3>Taxonomie</h3>
+                  <p className="muted">Kategorie, regiony a tagy bez přepínání do jiné appky.</p>
+                </div>
+              </div>
+              <div className="segmented">
+                {(['categories', 'regions', 'tags'] as const).map((key) => (
+                  <button key={key} className={`segment ${taxonomyType === key ? 'active' : ''}`} onClick={() => setTaxonomyType(key)}>{key}</button>
+                ))}
+              </div>
+              <div className="mini-list compact-scroll short">
+                {taxonomyMap[taxonomyType].map((item) => (
+                  <div key={item.id} className="mini-row">
+                    <strong>{item.title}</strong>
+                    <span>{item.slug}</span>
+                  </div>
+                ))}
+              </div>
+              <form className="stack compact-form" onSubmit={handleAddTaxonomy}>
+                <label><span>Název</span><input value={taxonomyDraft.title} onChange={(event) => setTaxonomyDraft({ ...taxonomyDraft, title: event.target.value })} /></label>
+                <label><span>Slug</span><input value={taxonomyDraft.slug} onChange={(event) => setTaxonomyDraft({ ...taxonomyDraft, slug: event.target.value })} /></label>
+                <button className="button secondary" type="submit">Přidat položku</button>
+              </form>
+            </section>
+
+            <section className="card">
+              <div className="panel-head compact">
+                <div>
+                  <h3>Média</h3>
+                  <p className="muted">MVP knihovna assetů přes URL metadata.</p>
+                </div>
+              </div>
+              <div className="mini-list compact-scroll short media-preview-list">
+                {media.slice(0, 8).map((item) => (
+                  <div key={item.id} className="mini-row">
+                    <strong>{item.title}</strong>
+                    <span>{item.id}</span>
+                  </div>
+                ))}
+              </div>
+              <form className="stack compact-form" onSubmit={handleAddMedia}>
+                <label><span>Název</span><input value={mediaDraft.title} onChange={(event) => setMediaDraft({ ...mediaDraft, title: event.target.value })} /></label>
+                <label><span>URL</span><input value={mediaDraft.url} onChange={(event) => setMediaDraft({ ...mediaDraft, url: event.target.value })} /></label>
+                <label><span>Alt</span><input value={mediaDraft.alt} onChange={(event) => setMediaDraft({ ...mediaDraft, alt: event.target.value })} /></label>
+                <button className="button secondary" type="submit">Přidat médium</button>
+              </form>
+            </section>
+          </aside>
+        </main>
+      </div>
     </div>
   );
 }

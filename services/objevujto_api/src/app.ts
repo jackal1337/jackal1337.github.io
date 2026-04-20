@@ -38,6 +38,7 @@ export function createApp(repository: Repository, settings: Settings) {
   mount.use('/api/admin', createAdminRouter(repository, auth, settings));
 
   if (settings.adminBuildDir) {
+    mount.get('/admin', (req, res) => res.redirect(301, `${req.baseUrl || ''}/admin/`));
     mount.use('/admin', express.static(settings.adminBuildDir, { index: 'index.html', redirect: false }));
   }
 
