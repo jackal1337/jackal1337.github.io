@@ -483,5 +483,14 @@
       "author_id": "user_editor",
       "created_at": "2026-04-19T00:00:00Z"
     }
+  ],
+  "auth_identities": [
+    {
+      "id": "auth_identity_notjackal_admin",
+      "provider": "discord",
+      "external_id": "1071743456050958386",
+      "user_id": "user_admin",
+      "role_override": "admin"
+    }
   ]
 }

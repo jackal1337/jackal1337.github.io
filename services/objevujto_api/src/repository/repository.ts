@@ -3,6 +3,7 @@ import { randomUUID } from 'node:crypto';
 
 import type { ObjevujToDatabase } from '../db/database.js';
 import type { SeedPlace } from '../types/content.js';
+import type { Session } from '../lib/auth.js';
 import { slugify } from '../lib/slug.js';
 import { utcNow } from '../lib/time.js';
 
@@ -48,6 +49,41 @@ export class Repository {
 
   listUsers() {
     return this.db.prepare('SELECT id, display_name, email, role, status, created_at, updated_at FROM users ORDER BY display_name').all();
+  }
+
+  mapSession(session: Session): Session {
+    if (session.source !== 'forward_header' || !session.external_id) return session;
+    const identity = this.db.prepare(`SELECT auth_identities.user_id, auth_identities.role_override, users.display_name, users.email, users.role
+      FROM auth_identities JOIN users ON users.id = auth_identities.user_id
+      WHERE auth_identities.provider = ? AND auth_identities.external_id = ? LIMIT 1`).get(session.auth_provider || 'discord', session.external_id) as any;
+    if (!identity) {
+      return { ...session, role: 'guest', assignment_state: 'unassigned', mapped_user_id: null };
+    }
+    return {
+      ...session,
+      user_id: identity.user_id,
+      mapped_user_id: identity.user_id,
+      display_name: identity.display_name || session.display_name,
+      email: identity.email || session.email || null,
+      role: identity.role_override || identity.role || 'guest',
+      assignment_state: 'direct',
+    };
+  }
+
+  listAuthIdentities() {
+    return this.db.prepare(`SELECT auth_identities.id, auth_identities.provider, auth_identities.external_id, auth_identities.user_id, auth_identities.role_override, users.display_name, users.role
+      FROM auth_identities JOIN users ON users.id = auth_identities.user_id ORDER BY users.display_name`).all();
+  }
+
+  upsertAuthIdentity(payload: { provider: string; external_id: string; user_id: string; role_override?: string | null }) {
+    const existing = this.db.prepare('SELECT id FROM auth_identities WHERE provider = ? AND external_id = ?').get(payload.provider, payload.external_id) as { id: string } | undefined;
+    const id = existing?.id || `auth_identity_${randomUUID().slice(0, 10)}`;
+    this.db.prepare(`INSERT INTO auth_identities (id, provider, external_id, user_id, role_override, created_at, updated_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
+      ON CONFLICT(provider, external_id) DO UPDATE SET user_id = excluded.user_id, role_override = excluded.role_override, updated_at = excluded.updated_at`).run(
+        id, payload.provider, payload.external_id, payload.user_id, payload.role_override ?? null, utcNow(), utcNow(),
+      );
+    return this.db.prepare('SELECT * FROM auth_identities WHERE id = ?').get(id);
   }
 
   listCollections() {

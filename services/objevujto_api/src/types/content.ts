@@ -60,6 +60,15 @@ export interface SeedPlace {
   published_at?: string | null;
 }
 
+
+export interface SeedAuthIdentity {
+  id: string;
+  provider: string;
+  external_id: string;
+  user_id: string;
+  role_override?: string | null;
+}
+
 export interface SeedEditorialNote {
   id: string;
   place_slug: string;
@@ -78,5 +87,6 @@ export interface SeedPayload {
   media: SeedMedia[];
   collections: SeedCollection[];
   places: SeedPlace[];
+  auth_identities?: SeedAuthIdentity[];
   editorial_notes: SeedEditorialNote[];
 }

@@ -19,3 +19,16 @@ npm run dev
 npm run build
 npm test
 ```
+
+
+## Auth role mapping
+
+Forward-auth sessions from `auth.notjackal.eu` are no longer granted admin access by default.
+The API now maps external identities (currently Discord IDs from `X-Auth-User-Id`) to local ObjevujTo users via the `auth_identities` table.
+
+Behavior:
+- mapped identity -> local user + local role
+- unmapped identity -> authenticated but `guest`, denied admin data routes
+
+A seed mapping for the primary owner account is included in `services/objevujto_backend/data/seed_content.json`.
+The React admin also exposes a basic access-mapping panel for admins.

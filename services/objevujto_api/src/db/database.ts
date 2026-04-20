@@ -17,11 +17,29 @@ export class ObjevujToDatabase {
     this.db.exec(SCHEMA_SQL);
     if (settings.allowSeedOnStartup) {
       this.seedIfEmpty();
+      this.ensureAuthIdentitiesSeeded();
     }
   }
 
   close(): void {
     this.db.close();
+  }
+
+  ensureAuthIdentitiesSeeded(): void {
+    const payload = JSON.parse(fs.readFileSync(this.settings.seedPath, 'utf8')) as SeedPayload;
+    const identities = payload.auth_identities || [];
+    if (!identities.length) return;
+    const count = this.db.prepare('SELECT COUNT(*) as count FROM auth_identities').get() as { count: number };
+    if (count.count > 0) return;
+
+    const stamp = utcNow();
+    const tx = this.db.transaction(() => {
+      for (const identity of identities) {
+        this.db.prepare('INSERT OR IGNORE INTO auth_identities (id, provider, external_id, user_id, role_override, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)')
+          .run(identity.id, identity.provider, identity.external_id, identity.user_id, identity.role_override ?? null, stamp, stamp);
+      }
+    });
+    tx();
   }
 
   seedIfEmpty(): void {
@@ -33,7 +51,7 @@ export class ObjevujToDatabase {
 
   loadSeed(payload: SeedPayload): void {
     const run = this.db.transaction(() => {
-      for (const table of ['collection_places', 'place_related', 'place_gallery', 'place_tags', 'editorial_notes', 'revisions', 'places', 'collections', 'media', 'tags', 'regions', 'categories', 'users', 'settings']) {
+      for (const table of ['collection_places', 'place_related', 'place_gallery', 'place_tags', 'editorial_notes', 'revisions', 'places', 'collections', 'media', 'auth_identities', 'tags', 'regions', 'categories', 'users', 'settings']) {
         this.db.prepare(`DELETE FROM ${table}`).run();
       }
 
@@ -45,6 +63,11 @@ export class ObjevujToDatabase {
       for (const user of payload.users || []) {
         this.db.prepare(`INSERT INTO users (id, display_name, email, role, status, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)`)
           .run(user.id, user.display_name, user.email ?? null, user.role, user.status, stamp, stamp);
+      }
+
+      for (const identity of payload.auth_identities || []) {
+        this.db.prepare(`INSERT INTO auth_identities (id, provider, external_id, user_id, role_override, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)`)
+          .run(identity.id, identity.provider, identity.external_id, identity.user_id, identity.role_override ?? null, stamp, stamp);
       }
 
       for (const [table, items] of [['categories', payload.categories], ['regions', payload.regions], ['tags', payload.tags]] as const) {

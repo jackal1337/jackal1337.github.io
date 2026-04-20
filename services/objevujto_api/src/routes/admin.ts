@@ -9,7 +9,8 @@ export function createAdminRouter(repository: Repository, auth: AuthAdapter, set
   const router = Router();
 
   router.get('/session', (req, res) => {
-    const session = auth.resolveSession(req);
+    const rawSession = auth.resolveSession(req);
+    const session = rawSession ? repository.mapSession(rawSession) : null;
     res.json({
       authenticated: Boolean(session),
       user: session,
@@ -21,7 +22,10 @@ export function createAdminRouter(repository: Repository, auth: AuthAdapter, set
 
   router.use((req, _res, next) => {
     try {
-      const session = auth.requireSession(req);
+      const session = repository.mapSession(auth.requireSession(req));
+      if (session.role === 'guest') {
+        throw new HttpError(403, 'Account is authenticated but not assigned to an ObjevujTo role yet');
+      }
       (req as any).session = session;
       next();
     } catch (error) {
@@ -66,6 +70,12 @@ export function createAdminRouter(repository: Repository, auth: AuthAdapter, set
   router.get('/media', (_req, res) => res.json({ items: repository.listMedia() }));
   router.post('/media', (req, res) => res.status(201).json({ item: repository.createMedia(req.body) }));
   router.get('/users', (_req, res) => res.json({ items: repository.listUsers() }));
+  router.get('/auth-identities', (_req, res) => res.json({ items: repository.listAuthIdentities() }));
+  router.post('/auth-identities', (req, res) => {
+    const session = (req as any).session;
+    auth.requireRole(session, ['admin']);
+    res.status(201).json({ item: repository.upsertAuthIdentity(req.body) });
+  });
 
   return router;
 }

@@ -12,7 +12,7 @@ import type { Settings } from '../src/config/settings.js';
 
 const seedPath = path.resolve('/root/jackal1337.github.io/services/objevujto_backend/data/seed_content.json');
 
-function makeSettings(): Settings {
+function makeSettings(overrides: Partial<Settings> = {}): Settings {
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'objevujto-api-'));
   return {
     host: '127.0.0.1',
@@ -29,6 +29,7 @@ function makeSettings(): Settings {
     allowSeedOnStartup: true,
     publicCorsOrigins: ['https://jackal1337.github.io'],
     adminBuildDir: '',
+    ...overrides,
   };
 }
 
@@ -87,5 +88,35 @@ test('admin update preserves related place integrity', async () => {
     });
   assert.equal(updateResponse.status, 200);
   assert.equal(updateResponse.body.item.id, 'place_blueberry');
+  database.close();
+});
+
+test('forward-auth session maps known Discord identity to local admin user', async () => {
+  const settings = makeSettings({ authMode: 'forward_header', authDefaultRole: 'guest' });
+  const database = new ObjevujToDatabase(settings);
+  const app = createApp(new Repository(database), settings);
+
+  const response = await request(app)
+    .get('/objevujto/api/admin/session')
+    .set('X-Auth-User-Id', '1071743456050958386')
+    .set('X-Auth-User', 'notjackal.');
+
+  assert.equal(response.status, 200);
+  assert.equal(response.body.user.role, 'admin');
+  assert.equal(response.body.user.mapped_user_id, 'user_admin');
+  database.close();
+});
+
+test('forward-auth user without mapping is denied admin data routes', async () => {
+  const settings = makeSettings({ authMode: 'forward_header', authDefaultRole: 'guest' });
+  const database = new ObjevujToDatabase(settings);
+  const app = createApp(new Repository(database), settings);
+
+  const response = await request(app)
+    .get('/objevujto/api/admin/places')
+    .set('X-Auth-User-Id', '000000000000000000')
+    .set('X-Auth-User', 'unknown-user');
+
+  assert.equal(response.status, 403);
   database.close();
 });

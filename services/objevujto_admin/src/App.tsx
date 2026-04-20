@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 
 type Session = {
   authenticated: boolean;
-  user: { user_id: string; display_name: string; role: string; email?: string | null } | null;
+  user: { user_id: string; display_name: string; role: string; email?: string | null; external_id?: string | null; mapped_user_id?: string | null; assignment_state?: 'direct' | 'fallback' | 'unassigned'; source?: 'stub' | 'forward_header' } | null;
   login_url: string;
   logout_url: string;
   auth_mode: string;
@@ -13,6 +13,16 @@ type TaxonomyItem = { id: string; slug: string; title: string; description?: str
 type MediaItem = { id: string; title: string; url: string; alt?: string | null };
 
 type UserItem = { id: string; display_name: string; role: string };
+
+type AuthIdentity = {
+  id: string;
+  provider: string;
+  external_id: string;
+  user_id: string;
+  role_override?: string | null;
+  display_name?: string;
+  role?: string;
+};
 
 type PlaceSummary = {
   id: string;
@@ -156,6 +166,7 @@ export default function App() {
   const [tags, setTags] = useState<TaxonomyItem[]>([]);
   const [media, setMedia] = useState<MediaItem[]>([]);
   const [users, setUsers] = useState<UserItem[]>([]);
+  const [authIdentities, setAuthIdentities] = useState<AuthIdentity[]>([]);
   const [selectedPlace, setSelectedPlace] = useState<PlaceDetail | null>(null);
   const [form, setForm] = useState<FormState>(emptyForm());
   const [notice, setNotice] = useState<Notice>(null);
@@ -163,6 +174,7 @@ export default function App() {
   const [taxonomyType, setTaxonomyType] = useState<'categories' | 'regions' | 'tags'>('categories');
   const [taxonomyDraft, setTaxonomyDraft] = useState({ title: '', slug: '' });
   const [mediaDraft, setMediaDraft] = useState({ title: '', url: '', alt: '' });
+  const [identityDraft, setIdentityDraft] = useState({ external_id: '', user_id: '', role_override: '' });
   const [devLogin, setDevLogin] = useState({ user: 'local_admin', role: 'admin', email: 'dev@local' });
   const [placeQuery, setPlaceQuery] = useState('');
   const [editorTab, setEditorTab] = useState<EditorTab>('content');
@@ -198,7 +210,7 @@ export default function App() {
       setLoading(false);
       return;
     }
-    await Promise.all([loadDashboard(), loadTaxonomies(), loadMedia(), loadUsers(), loadPlaces()]);
+    await Promise.all([loadDashboard(), loadTaxonomies(), loadMedia(), loadUsers(), loadPlaces(), loadAuthIdentities()]);
     setLoading(false);
   }
 
@@ -231,6 +243,28 @@ export default function App() {
   async function loadPlaces() {
     const payload = await api<{ items: PlaceSummary[] }>(`${adminApiBase}/places`);
     setPlaces(payload.items);
+  }
+
+  async function loadAuthIdentities() {
+    if (session?.user?.role !== 'admin') return;
+    const payload = await api<{ items: AuthIdentity[] }>(`${adminApiBase}/auth-identities`);
+    setAuthIdentities(payload.items);
+  }
+
+  async function handleAddIdentity(event: React.FormEvent) {
+    event.preventDefault();
+    await api(`${adminApiBase}/auth-identities`, {
+      method: 'POST',
+      body: JSON.stringify({
+        provider: 'discord',
+        external_id: identityDraft.external_id,
+        user_id: identityDraft.user_id,
+        role_override: identityDraft.role_override || null,
+      }),
+    });
+    setIdentityDraft({ external_id: '', user_id: '', role_override: '' });
+    setNotice({ tone: 'success', text: 'Mapování přístupu bylo uloženo.' });
+    await loadAuthIdentities();
   }
 
   async function openPlace(placeId: string) {
@@ -370,6 +404,33 @@ export default function App() {
             <label><span>E-mail</span><input value={devLogin.email} onChange={(event) => setDevLogin({ ...devLogin, email: event.target.value })} /></label>
             <button className="button secondary" type="submit">Použít dev session</button>
           </form>
+        </section>
+      </div>
+    );
+  }
+
+  if (session.user?.role === 'guest') {
+    return (
+      <div className="page-shell auth-shell">
+        <section className="auth-layout">
+          <div className="auth-hero card">
+            <p className="eyebrow">ObjevujTo Admin</p>
+            <h1>Přihlášení proběhlo, ale účet ještě není přiřazený</h1>
+            <p className="lead">Tvoje auth session je validní, ale v ObjevujTo zatím nemáš přiřazenou interní roli. Potřebuješ mapování Discord identity na lokálního uživatele.</p>
+            <div className="auth-pill-row">
+              <span className="soft-pill accent">external id: {session.user?.external_id || '—'}</span>
+              <span className="soft-pill">stav: {session.user?.assignment_state || 'unassigned'}</span>
+            </div>
+          </div>
+          <div className="card auth-form">
+            <h2>Co teď</h2>
+            <p className="muted">Admin musí přidat mapování identity do ObjevujTo access layer. Po přiřazení stačí refresh.</p>
+            <div className="mini-list">
+              <div className="mini-row"><strong>Discord identity</strong><span>{session.user?.external_id || '—'}</span></div>
+              <div className="mini-row"><strong>Zobrazené jméno</strong><span>{session.user?.display_name || '—'}</span></div>
+              <div className="mini-row"><strong>Logout</strong><a href={session.logout_url}>Odhlásit</a></div>
+            </div>
+          </div>
         </section>
       </div>
     );
@@ -622,6 +683,32 @@ export default function App() {
                 <button className="button secondary" type="submit">Přidat médium</button>
               </form>
             </section>
+            {session.user?.role === 'admin' && (
+              <section className="card">
+                <div className="panel-head compact">
+                  <div>
+                    <h3>Team access</h3>
+                    <p className="muted">Mapování Discord identity na interní roli.</p>
+                  </div>
+                </div>
+                <div className="mini-list compact-scroll short">
+                  {authIdentities.map((item) => (
+                    <div key={item.id} className="mini-row">
+                      <strong>{item.display_name || item.user_id}</strong>
+                      <span>{item.external_id}</span>
+                      <small>{item.role_override || item.role || '—'}</small>
+                    </div>
+                  ))}
+                  {!authIdentities.length && <div className="empty-state">Zatím bez explicitních mapování.</div>}
+                </div>
+                <form className="stack compact-form" onSubmit={handleAddIdentity}>
+                  <label><span>Discord external id</span><input value={identityDraft.external_id} onChange={(event) => setIdentityDraft({ ...identityDraft, external_id: event.target.value })} /></label>
+                  <label><span>Lokální user</span><select value={identityDraft.user_id} onChange={(event) => setIdentityDraft({ ...identityDraft, user_id: event.target.value })}><option value="">—</option>{users.map((item) => <option key={item.id} value={item.id}>{item.display_name}</option>)}</select></label>
+                  <label><span>Role override</span><select value={identityDraft.role_override} onChange={(event) => setIdentityDraft({ ...identityDraft, role_override: event.target.value })}><option value="">bez override</option><option value="admin">admin</option><option value="editor">editor</option><option value="author">author</option></select></label>
+                  <button className="button secondary" type="submit">Přidat access mapping</button>
+                </form>
+              </section>
+            )}
           </aside>
         </main>
       </div>

@@ -9,6 +9,11 @@ export interface Session {
   display_name: string;
   role: string;
   email?: string | null;
+  source: 'stub' | 'forward_header';
+  external_id?: string | null;
+  auth_provider?: string | null;
+  mapped_user_id?: string | null;
+  assignment_state?: 'direct' | 'fallback' | 'unassigned';
 }
 
 export class AuthAdapter {
@@ -24,15 +29,24 @@ export class AuthAdapter {
         display_name: user.replaceAll('_', ' '),
         role: req.header('X-Objevujto-Dev-Role') || cookies.objevujto_dev_role || 'admin',
         email: req.header('X-Objevujto-Dev-Email') || cookies.objevujto_dev_email || null,
+        source: 'stub',
+        assignment_state: 'fallback',
       };
     }
-    const userId = req.header('X-Authenticated-User') || req.header('X-Auth-User-Id') || req.header('X-Auth-User');
-    if (!userId) return null;
+
+    const externalId = req.header('X-Auth-User-Id') || req.header('X-Authenticated-User') || null;
+    const displayName = req.header('X-Auth-User') || req.header('X-Authenticated-Name') || externalId;
+    if (!externalId || !displayName) return null;
+
     return {
-      user_id: userId,
-      display_name: req.header('X-Authenticated-Name') || req.header('X-Auth-User') || userId,
-      role: req.header('X-Authenticated-Role') || req.header('X-Auth-Role') || this.settings.authDefaultRole,
+      user_id: externalId,
+      external_id: externalId,
+      auth_provider: 'discord',
+      display_name: displayName,
+      role: req.header('X-Authenticated-Role') || req.header('X-Auth-Role') || 'guest',
       email: req.header('X-Authenticated-Email') || null,
+      source: 'forward_header',
+      assignment_state: 'unassigned',
     };
   }
 
