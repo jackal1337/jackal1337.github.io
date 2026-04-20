@@ -1,0 +1,41 @@
+services:
+  objevujto-node:
+    build:
+      context: ..
+      dockerfile: objevujto_api/Dockerfile
+    container_name: objevujto-node
+    restart: unless-stopped
+    environment:
+      OBJEVUJTO_BACKEND_HOST: 0.0.0.0
+      OBJEVUJTO_BACKEND_PORT: 8788
+      OBJEVUJTO_BACKEND_DB: /app/runtime/objevujto.sqlite3
+      OBJEVUJTO_BACKEND_SEED: /app/seed_content.json
+      OBJEVUJTO_BASE_PATH: /objevujto
+      OBJEVUJTO_AUTH_MODE: forward_header
+      OBJEVUJTO_AUTH_DEFAULT_ROLE: admin
+      OBJEVUJTO_AUTH_BASE_URL: https://auth.notjackal.eu
+      OBJEVUJTO_PUBLIC_BASE_URL: https://jackal1337.github.io/objevujto
+      OBJEVUJTO_ADMIN_BASE_URL: https://notjackal.eu/objevujto/admin
+      OBJEVUJTO_PUBLIC_API_BASE_URL: https://notjackal.eu/objevujto/api/public
+      OBJEVUJTO_PUBLIC_CORS_ORIGINS: https://jackal1337.github.io,https://notjackal.eu
+      OBJEVUJTO_ADMIN_BUILD_DIR: /app/admin-dist
+    volumes:
+      - ./runtime:/app/runtime
+    networks:
+      - traefik-public
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.objevujto-admin.rule=Host(`notjackal.eu`) && (PathPrefix(`/objevujto/admin`) || PathPrefix(`/objevujto/api/admin`))"
+      - "traefik.http.routers.objevujto-admin.priority=420"
+      - "traefik.http.routers.objevujto-admin.entrypoints=websecure"
+      - "traefik.http.routers.objevujto-admin.tls.certresolver=cloudflare"
+      - "traefik.http.routers.objevujto-admin.middlewares=discord-auth@file"
+      - "traefik.http.routers.objevujto-public.rule=Host(`notjackal.eu`) && (PathPrefix(`/objevujto`) || Path(`/objevujto`))"
+      - "traefik.http.routers.objevujto-public.priority=320"
+      - "traefik.http.routers.objevujto-public.entrypoints=websecure"
+      - "traefik.http.routers.objevujto-public.tls.certresolver=cloudflare"
+      - "traefik.http.services.objevujto.loadbalancer.server.port=8788"
+
+networks:
+  traefik-public:
+    external: true
