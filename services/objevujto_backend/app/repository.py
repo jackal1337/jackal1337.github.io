@@ -409,41 +409,88 @@ class Repository:
 
     def _upsert_place(self, connection, data: dict[str, Any], *, replace: bool) -> None:
         if replace:
+            connection.execute(
+                """
+                UPDATE places SET
+                    slug = ?,
+                    title = ?,
+                    subtitle = ?,
+                    excerpt = ?,
+                    short_description = ?,
+                    long_description = ?,
+                    highlights_json = ?,
+                    tips_json = ?,
+                    warnings_json = ?,
+                    category_id = ?,
+                    region_id = ?,
+                    hero_image_id = ?,
+                    featured = ?,
+                    status = ?,
+                    author_id = ?,
+                    editor_id = ?,
+                    created_at = ?,
+                    updated_at = ?,
+                    published_at = ?
+                WHERE id = ?
+                """,
+                (
+                    data["slug"],
+                    data["title"],
+                    data.get("subtitle"),
+                    data.get("excerpt"),
+                    data.get("short_description"),
+                    data.get("long_description"),
+                    json.dumps(data.get("highlights", []), ensure_ascii=False),
+                    json.dumps(data.get("tips", []), ensure_ascii=False),
+                    json.dumps(data.get("warnings", []), ensure_ascii=False),
+                    data.get("category_id"),
+                    data.get("region_id"),
+                    data.get("hero_image_id"),
+                    1 if data.get("featured") else 0,
+                    data.get("status"),
+                    data.get("author_id"),
+                    data.get("editor_id"),
+                    data.get("created_at"),
+                    data.get("updated_at"),
+                    data.get("published_at"),
+                    data["id"],
+                ),
+            )
             connection.execute("DELETE FROM place_tags WHERE place_id = ?", (data["id"],))
             connection.execute("DELETE FROM place_gallery WHERE place_id = ?", (data["id"],))
             connection.execute("DELETE FROM place_related WHERE place_id = ?", (data["id"],))
-            connection.execute("DELETE FROM places WHERE id = ?", (data["id"],))
-        connection.execute(
-            """
-            INSERT INTO places (
-                id, slug, title, subtitle, excerpt, short_description, long_description,
-                highlights_json, tips_json, warnings_json, category_id, region_id,
-                hero_image_id, featured, status, author_id, editor_id, created_at, updated_at, published_at
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            """,
-            (
-                data["id"],
-                data["slug"],
-                data["title"],
-                data.get("subtitle"),
-                data.get("excerpt"),
-                data.get("short_description"),
-                data.get("long_description"),
-                json.dumps(data.get("highlights", []), ensure_ascii=False),
-                json.dumps(data.get("tips", []), ensure_ascii=False),
-                json.dumps(data.get("warnings", []), ensure_ascii=False),
-                data.get("category_id"),
-                data.get("region_id"),
-                data.get("hero_image_id"),
-                1 if data.get("featured") else 0,
-                data.get("status"),
-                data.get("author_id"),
-                data.get("editor_id"),
-                data.get("created_at"),
-                data.get("updated_at"),
-                data.get("published_at"),
-            ),
-        )
+        else:
+            connection.execute(
+                """
+                INSERT INTO places (
+                    id, slug, title, subtitle, excerpt, short_description, long_description,
+                    highlights_json, tips_json, warnings_json, category_id, region_id,
+                    hero_image_id, featured, status, author_id, editor_id, created_at, updated_at, published_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    data["id"],
+                    data["slug"],
+                    data["title"],
+                    data.get("subtitle"),
+                    data.get("excerpt"),
+                    data.get("short_description"),
+                    data.get("long_description"),
+                    json.dumps(data.get("highlights", []), ensure_ascii=False),
+                    json.dumps(data.get("tips", []), ensure_ascii=False),
+                    json.dumps(data.get("warnings", []), ensure_ascii=False),
+                    data.get("category_id"),
+                    data.get("region_id"),
+                    data.get("hero_image_id"),
+                    1 if data.get("featured") else 0,
+                    data.get("status"),
+                    data.get("author_id"),
+                    data.get("editor_id"),
+                    data.get("created_at"),
+                    data.get("updated_at"),
+                    data.get("published_at"),
+                ),
+            )
         for tag_id in data.get("tag_ids", []):
             connection.execute("INSERT INTO place_tags (place_id, tag_id) VALUES (?, ?)", (data["id"], tag_id))
         for index, media_id in enumerate(data.get("gallery_ids", []), start=1):
