@@ -1,3 +1,7 @@
+const pathParts = window.location.pathname.split('/').filter(Boolean);
+const basePath = pathParts.length && pathParts[pathParts.length - 1] === 'admin' ? `/${pathParts.slice(0, -1).join('/')}` : '';
+const adminApiBase = `${basePath}/api/admin`;
+
 const state = {
   selectedPlaceId: null,
   taxonomyType: 'categories',
@@ -9,6 +13,7 @@ const state = {
 };
 
 const qs = (selector) => document.querySelector(selector);
+const qsAll = (selector) => Array.from(document.querySelectorAll(selector));
 const byName = (form, name) => form.elements.namedItem(name);
 
 function devHeaders() {
@@ -197,21 +202,21 @@ function formToPayload() {
 }
 
 async function loadSession() {
-  state.session = await request('/api/admin/session');
+  state.session = await request(`${adminApiBase}/session`);
   renderSession();
 }
 
 async function loadDashboard() {
   if (!state.session?.authenticated) return;
-  renderDashboard(await request('/api/admin/dashboard', { headers: devHeaders() }));
+  renderDashboard(await request(`${adminApiBase}/dashboard`));
 }
 
 async function loadTaxonomies() {
   if (!state.session?.authenticated) return;
   const [categories, regions, tags] = await Promise.all([
-    request('/api/admin/categories', { headers: devHeaders() }),
-    request('/api/admin/regions', { headers: devHeaders() }),
-    request('/api/admin/tags', { headers: devHeaders() })
+    request(`${adminApiBase}/categories`),
+    request(`${adminApiBase}/regions`),
+    request(`${adminApiBase}/tags`)
   ]);
   state.taxonomies = { categories: categories.items, regions: regions.items, tags: tags.items };
   renderTaxonomy();
@@ -220,25 +225,25 @@ async function loadTaxonomies() {
 
 async function loadMedia() {
   if (!state.session?.authenticated) return;
-  state.media = (await request('/api/admin/media', { headers: devHeaders() })).items;
+  state.media = (await request(`${adminApiBase}/media`)).items;
   renderMedia();
   updateSelectOptions();
 }
 
 async function loadUsers() {
   if (!state.session?.authenticated) return;
-  state.users = (await request('/api/admin/users', { headers: devHeaders() })).items;
+  state.users = (await request(`${adminApiBase}/users`)).items;
   updateSelectOptions();
 }
 
 async function loadPlaces() {
   if (!state.session?.authenticated) return;
-  state.places = (await request('/api/admin/places', { headers: devHeaders() })).items;
+  state.places = (await request(`${adminApiBase}/places`)).items;
   renderPlaces();
 }
 
 async function openPlace(placeId) {
-  const payload = await request(`/api/admin/places/${placeId}`, { headers: devHeaders() });
+  const payload = await request(`${adminApiBase}/places/${placeId}`);
   fillPlaceForm(payload.item);
 }
 
@@ -266,7 +271,7 @@ qs('#refresh-preview').addEventListener('click', async () => {
 qs('#publish-place').addEventListener('click', async () => {
   if (!state.selectedPlaceId) return alert('Nejprve vyberte místo.');
   try {
-    await request(`/api/admin/places/${state.selectedPlaceId}/publish`, { method: 'POST', headers: devHeaders() });
+    await request(`${adminApiBase}/places/${state.selectedPlaceId}/publish`, { method: 'POST' });
     await Promise.all([loadPlaces(), loadDashboard()]);
     await openPlace(state.selectedPlaceId);
   } catch (error) {
@@ -293,7 +298,7 @@ qs('#taxonomy-form').addEventListener('submit', async (event) => {
       title: form.elements.title.value.trim(),
       slug: form.elements.slug.value.trim() || undefined
     };
-    await request(`/api/admin/${state.taxonomyType}`, { method: 'POST', headers: devHeaders(), body: JSON.stringify(payload) });
+    await request(`${adminApiBase}/${state.taxonomyType}`, { method: 'POST', body: JSON.stringify(payload) });
     form.reset();
     await loadTaxonomies();
   } catch (error) {
@@ -309,7 +314,7 @@ qs('#media-form').addEventListener('submit', async (event) => {
       url: form.elements.url.value.trim(),
       alt: form.elements.alt.value.trim()
     };
-    await request('/api/admin/media', { method: 'POST', headers: devHeaders(), body: JSON.stringify(payload) });
+    await request(`${adminApiBase}/media`, { method: 'POST', body: JSON.stringify(payload) });
     form.reset();
     await loadMedia();
   } catch (error) {
@@ -320,18 +325,14 @@ qs('#place-form').addEventListener('submit', async (event) => {
   event.preventDefault();
   try {
     const payload = formToPayload();
-    const targetPath = state.selectedPlaceId ? `/api/admin/places/${state.selectedPlaceId}` : '/api/admin/places';
+    const targetPath = state.selectedPlaceId ? `${adminApiBase}/places/${state.selectedPlaceId}` : `${adminApiBase}/places`;
     const method = state.selectedPlaceId ? 'PUT' : 'POST';
-    const response = await request(targetPath, { method, headers: devHeaders(), body: JSON.stringify(payload) });
+    const response = await request(targetPath, { method, body: JSON.stringify(payload) });
     fillPlaceForm(response.item);
     await Promise.all([loadPlaces(), loadDashboard()]);
   } catch (error) {
     alert(error.message);
   }
 });
-
-function qsAll(selector) {
-  return Array.from(document.querySelectorAll(selector));
-}
 
 bootstrap();

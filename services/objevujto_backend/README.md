@@ -83,3 +83,26 @@ Canonical seed content lives in:
 - `data/seed_content.json`
 
 This seed replaces the old hardcoded-per-page model and acts as the first structured migration source for existing ObjevujTo content.
+
+
+## Docker deploy (current notjackal.eu host)
+
+The current host stack discovered on 2026-04-20 is Docker + Traefik on the `traefik-public` network.
+This service now includes a ready deploy bundle:
+
+- `Dockerfile`
+- `docker-compose.yml`
+- Traefik path-prefix labels for `https://notjackal.eu/objevujto`
+- admin protection through `discord-auth@file`
+
+Expected production path layout:
+- public API: `/objevujto/api/public/*`
+- admin UI: `/objevujto/admin`
+- admin API: `/objevujto/api/admin/*`
+
+Current auth integration mode on the host is expected to be:
+- `OBJEVUJTO_AUTH_MODE=forward_header`
+- headers from Traefik ForwardAuth (`X-Auth-User`, `X-Auth-User-Id`)
+
+Current MVP deploy defaults every authenticated user to the configured `OBJEVUJTO_AUTH_DEFAULT_ROLE`.
+The compose file currently sets that to `admin` so the admin MVP is usable immediately; replace this with real role mapping as soon as auth/user-role integration is added.

@@ -37,12 +37,12 @@ class AuthAdapter:
             email = headers.get("X-Objevujto-Dev-Email") or cookies.get("objevujto_dev_email")
             return Session(user_id=user, display_name=user.replace("_", " ").title(), role=role, email=email)
         if mode == "forward_header":
-            user = headers.get("X-Authenticated-User")
+            user = headers.get("X-Authenticated-User") or headers.get("X-Auth-User-Id") or headers.get("X-Auth-User")
             if not user:
                 return None
-            role = headers.get("X-Authenticated-Role", "author")
+            role = headers.get("X-Authenticated-Role") or headers.get("X-Auth-Role") or self.settings.auth_default_role
             email = headers.get("X-Authenticated-Email")
-            name = headers.get("X-Authenticated-Name", user)
+            name = headers.get("X-Authenticated-Name") or headers.get("X-Auth-User") or user
             return Session(user_id=user, display_name=name, role=role, email=email)
         return None
 
@@ -57,9 +57,9 @@ class AuthAdapter:
             raise AuthError(HTTPStatus.FORBIDDEN, "Insufficient permissions")
 
     def login_url(self, return_to: str) -> str:
-        query = urlencode({"return_to": return_to})
-        return f"{self.settings.auth_base_url.rstrip('/')}/login?{query}"
+        query = urlencode({"redirect_url": return_to})
+        return f"{self.settings.auth_base_url.rstrip('/')}/api/auth/login?{query}"
 
     def logout_url(self, return_to: str) -> str:
-        query = urlencode({"return_to": return_to})
-        return f"{self.settings.auth_base_url.rstrip('/')}/logout?{query}"
+        query = urlencode({"redirect": return_to})
+        return f"{self.settings.auth_base_url.rstrip('/')}/api/auth/logout-redirect?{query}"

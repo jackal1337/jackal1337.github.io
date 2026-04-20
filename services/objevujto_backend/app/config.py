@@ -9,6 +9,7 @@ APP_DIR = Path(__file__).resolve().parent
 STATIC_DIR = APP_DIR / "static"
 DEFAULT_ALLOWED_PUBLIC_ORIGINS = [
     "https://jackal1337.github.io",
+    "https://notjackal.eu",
     "http://127.0.0.1:5500",
     "http://localhost:5500",
     "http://127.0.0.1:4173",
@@ -23,7 +24,9 @@ class Settings:
     database_path: Path = Path(os.getenv("OBJEVUJTO_BACKEND_DB", BASE_DIR / "data" / "objevujto.sqlite3"))
     seed_path: Path = Path(os.getenv("OBJEVUJTO_BACKEND_SEED", BASE_DIR / "data" / "seed_content.json"))
     auth_mode: str = os.getenv("OBJEVUJTO_AUTH_MODE", "stub")
+    auth_default_role: str = os.getenv("OBJEVUJTO_AUTH_DEFAULT_ROLE", "author")
     auth_base_url: str = os.getenv("OBJEVUJTO_AUTH_BASE_URL", "https://auth.notjackal.eu")
+    base_path: str = os.getenv("OBJEVUJTO_BASE_PATH", "/objevujto")
     public_base_url: str = os.getenv("OBJEVUJTO_PUBLIC_BASE_URL", "https://jackal1337.github.io/objevujto")
     admin_base_url: str = os.getenv("OBJEVUJTO_ADMIN_BASE_URL", "https://notjackal.eu/objevujto/admin")
     public_api_base_url: str = os.getenv("OBJEVUJTO_PUBLIC_API_BASE_URL", "https://notjackal.eu/objevujto/api/public")

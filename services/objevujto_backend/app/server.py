@@ -5,7 +5,6 @@ import mimetypes
 from http import HTTPStatus
 from http.cookies import SimpleCookie
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
-from pathlib import Path
 from typing import Any
 from urllib.parse import parse_qs, urlparse
 
@@ -24,7 +23,8 @@ def json_response(handler: BaseHTTPRequestHandler, payload: Any, status: int = H
         for key, value in headers.items():
             handler.send_header(key, value)
     handler.end_headers()
-    handler.wfile.write(body)
+    if handler.command != "HEAD":
+        handler.wfile.write(body)
 
 
 class ObjevujToServer(ThreadingHTTPServer):
@@ -40,13 +40,21 @@ class ObjevujToRequestHandler(BaseHTTPRequestHandler):
     server: ObjevujToServer
 
     def do_OPTIONS(self) -> None:  # noqa: N802
+        parsed = urlparse(self.path)
+        path = self._normalize_path(parsed.path.rstrip("/") or "/")
         self.send_response(HTTPStatus.NO_CONTENT)
-        self._write_cors_headers(public=self.path.startswith("/api/public/"))
+        self._write_cors_headers(public=path.startswith("/api/public/"))
         self.send_header("Access-Control-Allow-Methods", "GET,POST,PUT,OPTIONS")
-        self.send_header("Access-Control-Allow-Headers", "Content-Type, X-Objevujto-Dev-User, X-Objevujto-Dev-Role, X-Objevujto-Dev-Email, X-Authenticated-User, X-Authenticated-Role, X-Authenticated-Email, X-Authenticated-Name")
+        self.send_header(
+            "Access-Control-Allow-Headers",
+            "Content-Type, X-Objevujto-Dev-User, X-Objevujto-Dev-Role, X-Objevujto-Dev-Email, X-Authenticated-User, X-Authenticated-Role, X-Authenticated-Email, X-Authenticated-Name, X-Auth-User, X-Auth-User-Id, X-Auth-Role",
+        )
         self.end_headers()
 
     def do_GET(self) -> None:  # noqa: N802
+        self._dispatch_request("GET")
+
+    def do_HEAD(self) -> None:  # noqa: N802
         self._dispatch_request("GET")
 
     def do_POST(self) -> None:  # noqa: N802
@@ -58,12 +66,27 @@ class ObjevujToRequestHandler(BaseHTTPRequestHandler):
     def log_message(self, format: str, *args) -> None:  # noqa: A003
         return
 
+    def _normalize_path(self, path: str) -> str:
+        base_path = (self.server.settings.base_path or "").rstrip("/")
+        if base_path and path == base_path:
+            return "/"
+        if base_path and path.startswith(f"{base_path}/"):
+            stripped = path[len(base_path) :]
+            return stripped.rstrip("/") or "/"
+        return path
+
     def _dispatch_request(self, method: str) -> None:
         parsed = urlparse(self.path)
-        path = parsed.path.rstrip("/") or "/"
+        raw_path = parsed.path.rstrip("/") or "/"
+        path = self._normalize_path(raw_path)
         query = {key: values[-1] for key, values in parse_qs(parsed.query).items()}
 
         try:
+            if path == "/admin" and not parsed.path.endswith("/"):
+                self.send_response(HTTPStatus.MOVED_PERMANENTLY)
+                self.send_header("Location", f"{parsed.path}/")
+                self.end_headers()
+                return
             if path == "/health":
                 return json_response(self, {"ok": True})
             if path.startswith("/api/public"):
@@ -74,13 +97,13 @@ class ObjevujToRequestHandler(BaseHTTPRequestHandler):
                 return json_response(self, payload, headers=self._cors_headers(public=False))
             if path == "/admin" or path.startswith("/admin/"):
                 return self._serve_static_admin(path)
-            return self._not_found(f"Unknown path: {path}")
+            return self._not_found(f"Unknown path: {raw_path}")
         except AuthError as error:
-            return json_response(self, {"error": error.message}, status=error.status, headers=self._cors_headers(public=path.startswith('/api/public')))
+            return json_response(self, {"error": error.message}, status=error.status, headers=self._cors_headers(public=path.startswith("/api/public")))
         except FileNotFoundError:
             return self._not_found("File not found")
         except ValueError as error:
-            return json_response(self, {"error": str(error)}, status=HTTPStatus.BAD_REQUEST, headers=self._cors_headers(public=path.startswith('/api/public')))
+            return json_response(self, {"error": str(error)}, status=HTTPStatus.BAD_REQUEST, headers=self._cors_headers(public=path.startswith("/api/public")))
 
     def _handle_public_api(self, method: str, path: str, query: dict[str, str]) -> Any:
         if method != "GET":
@@ -95,7 +118,7 @@ class ObjevujToRequestHandler(BaseHTTPRequestHandler):
                 "category": query.get("category"),
                 "tag": query.get("tag"),
                 "q": query.get("q"),
-                "featured": query.get("featured") == "1" or query.get("featured") == "true",
+                "featured": query.get("featured") in {"1", "true", "True"},
             }
             return repo.list_places(filters, include_unpublished=False, page=int(query.get("page", "1")), limit=int(query.get("limit", "12")))
         if path.startswith("/api/public/places/"):
@@ -115,6 +138,7 @@ class ObjevujToRequestHandler(BaseHTTPRequestHandler):
         return self._not_found_json("Public endpoint not found")
 
     def _handle_admin_api(self, method: str, path: str, query: dict[str, str]) -> Any:
+        del query
         repo = self.server.repository
         auth = self.server.auth
         headers = {key: value for key, value in self.headers.items()}
@@ -214,7 +238,8 @@ class ObjevujToRequestHandler(BaseHTTPRequestHandler):
         self.send_header("Content-Type", mime_type or "text/plain; charset=utf-8")
         self.send_header("Content-Length", str(len(content)))
         self.end_headers()
-        self.wfile.write(content)
+        if self.command != "HEAD":
+            self.wfile.write(content)
 
     def _json_body(self) -> dict[str, Any]:
         length = int(self.headers.get("Content-Length", "0") or 0)
