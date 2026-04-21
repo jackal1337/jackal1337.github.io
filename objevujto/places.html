@@ -10,32 +10,37 @@
 <body>
   <header class="site-nav" data-site-nav></header>
   <main class="site-shell">
-    <section class="page-hero section">
+    <section class="page-hero section page-hero--listing">
       <span class="eyebrow">Atlas míst</span>
       <h1>Místa a lokality</h1>
-      <p>Přehled obcí, čtvrtí i výletních zastávek na jednom místě. Stačí si vybrat region nebo téma, které tě zrovna zajímá.</p>
+      <p>Přehled obcí, čtvrtí i výletních zastávek na jednom místě. Vyber si region, kategorii nebo téma a projdi si místa podle toho, co tě láká nejvíc.</p>
     </section>
 
-    <section class="section">
-      <form class="filter-panel" data-filters-form>
-        <div class="section-head">
+    <section class="section listing-layout">
+      <aside class="filter-panel filter-panel--sticky">
+        <div class="section-head section-head--compact">
           <div>
             <h2>Filtry</h2>
             <p data-places-summary>Načítám výsledky…</p>
           </div>
-          <button class="button button--ghost" type="submit">Použít filtry</button>
         </div>
-        <div class="filter-grid">
+        <form class="filter-stack" data-filters-form>
           <input class="input" type="search" name="q" placeholder="Hledat podle názvu nebo tématu">
           <select class="select" name="region"></select>
           <select class="select" name="category"></select>
           <select class="select" name="tag"></select>
+          <button class="button button--primary" type="submit">Použít filtry</button>
+        </form>
+        <div class="filter-note">
+          <strong>Tip:</strong>
+          <p>Začni regionem a pak si výběr zúž podle typu místa nebo tématu.</p>
         </div>
-      </form>
-    </section>
+      </aside>
 
-    <section class="section">
-      <div class="card-grid" data-places-list></div>
+      <div class="listing-content">
+        <div class="active-filters" data-active-filters></div>
+        <div class="listing-grid" data-places-list></div>
+      </div>
     </section>
   </main>
 

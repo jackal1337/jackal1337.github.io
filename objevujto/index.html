@@ -9,56 +9,71 @@
 </head>
 <body>
   <header class="site-nav" data-site-nav></header>
-  <section class="hero">
+
+  <section class="hero hero--editorial">
     <div class="site-shell">
-      <div class="hero-panel">
-        <div class="hero-copy">
-          <span class="eyebrow">Obsahový atlas</span>
+      <div class="hero-panel hero-panel--editorial">
+        <div class="hero-copy hero-copy--editorial">
+          <span class="eyebrow">Průvodce po San Andreas</span>
           <h1 data-hero-title>Načítám…</h1>
-          <p data-hero-subtitle></p>
+          <p class="hero-lead" data-hero-subtitle></p>
           <div class="hero-actions">
-            <a class="button button--primary" href="places.html">Procházet místa</a>
-            <a class="button button--ghost" href="index_.html">Archiv původní verze</a>
-          </div>
-          <div class="info-grid">
-            <article class="info-card">
-              <h3>Každé místo má svůj příběh</h3>
-              <p>Od výrazných obcí po menší zastávky – každé místo má vlastní charakter, tipy i souvislosti.</p>
-            </article>
-            <article class="info-card">
-              <h3>Objevování podle regionů i témat</h3>
-              <p>Místa můžeš procházet podle části mapy, atmosféry nebo typu výletu, který zrovna hledáš.</p>
-            </article>
-            <article class="info-card">
-              <h3>Přehledně a bez zdržování</h3>
-              <p>Web má být rychlý a příjemný na procházení, ať jen hledáš inspiraci, nebo plánuješ celý výlet.</p>
-            </article>
+            <a class="button button--primary" href="places.html">Začít objevovat</a>
+            <a class="button button--ghost" href="places.html?region=red-county">Red County</a>
           </div>
         </div>
-        <div class="hero-media">
+        <div class="hero-media hero-media--editorial">
           <img src="assets/img/optimized/map-1600.webp" alt="Mapa San Andreas" fetchpriority="high" decoding="async">
+          <div class="hero-overlay-card">
+            <span class="eyebrow eyebrow--soft">Dnešní tip</span>
+            <strong data-hero-highlight-title>Načítám tip…</strong>
+            <p data-hero-highlight-text>Krátké doporučení pro první zastávku.</p>
+            <a class="hero-overlay-link" data-hero-highlight-link href="places.html">Zobrazit detail</a>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <main class="site-shell">
+    <section class="section section--compact">
+      <div class="info-strip" data-home-highlights>
+        <article class="info-card info-card--pill">
+          <h3>Rychlá orientace</h3>
+          <p>Vybraná místa, regiony a tematické kolekce pro první přehled.</p>
+        </article>
+        <article class="info-card info-card--pill">
+          <h3>Tipy i souvislosti</h3>
+          <p>Ke každému místu patří krátký kontext, doporučení i návaznosti.</p>
+        </article>
+        <article class="info-card info-card--pill">
+          <h3>Na klidný browse</h3>
+          <p>Přehledně, lehce a bez zbytečného hluku kolem.</p>
+        </article>
+      </div>
+    </section>
+
     <section class="section">
-      <div class="section-head">
+      <div class="section-head section-head--split">
         <div>
-          <h2>Zvýrazněná místa</h2>
-          <p>Výběr míst, která stojí za pozornost jako první zastávka i jako inspirace pro další objevování.</p>
+          <span class="eyebrow eyebrow--soft">Zvýrazněná místa</span>
+          <h2>Kde začít</h2>
+          <p>Výběr lokalit, které fungují jako první zastávka, orientační bod i inspirace pro delší výlet.</p>
         </div>
         <a class="button button--ghost" href="places.html">Všechny lokality</a>
       </div>
-      <div class="card-grid" data-featured-places></div>
+      <div class="spotlight-layout">
+        <div class="spotlight-main" data-featured-spotlight></div>
+        <div class="spotlight-side" data-featured-places></div>
+      </div>
     </section>
 
     <section class="section">
       <div class="section-head">
         <div>
-          <h2>Doporučené kolekce</h2>
-          <p>Kurátorské výběry pro delší výlet, první orientaci nebo tematické objevování.</p>
+          <span class="eyebrow eyebrow--soft">Kolekce</span>
+          <h2>Tematické výběry</h2>
+          <p>Kurátorské trasy a sady míst pro rychlou inspiraci podle nálady nebo části mapy.</p>
         </div>
       </div>
       <div class="collection-list" data-featured-collections></div>
@@ -67,11 +82,12 @@
     <section class="section">
       <div class="section-head">
         <div>
-          <h2>Regiony</h2>
-          <p>Místo catch-all „ostatní“ stránky můžeš procházet obsah podle částí mapy.</p>
+          <span class="eyebrow eyebrow--soft">Regiony</span>
+          <h2>Objevuj podle mapy</h2>
+          <p>Každý region má jinou atmosféru. Stačí si vybrat, kam se chceš vydat.</p>
         </div>
       </div>
-      <div class="inline-actions" data-featured-regions></div>
+      <div class="region-grid" data-featured-regions></div>
     </section>
   </main>
 

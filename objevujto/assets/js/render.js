@@ -35,7 +35,7 @@ export function renderAppShell(activePath = '/') {
           <img src="${SITE_BASE}/assets/img/logo.png" alt="ObjevujTo logo">
           <span class="brand-copy">
             <strong>ObjevujTo</strong>
-            <small>atlas San Andreas</small>
+            <small>průvodce San Andreas</small>
           </span>
         </a>
         <nav class="nav-links" aria-label="Hlavní navigace">
@@ -51,10 +51,10 @@ export function renderAppShell(activePath = '/') {
       <div class="site-shell footer-panel">
         <div>
           <strong>ObjevujTo</strong>
-          <p>Obsahový atlas a průvodce po San Andreas. Inspirace pro objevování zajímavých míst, regionů a výletních zastávek.</p>
+          <p>Průvodce po zajímavých místech, zastávkách a částech San Andreas pro klidné objevování i delší výlet.</p>
         </div>
         <div class="footer-links">
-          <a href="${SITE_BASE}/places.html">Procházet místa</a>
+          <a href="${SITE_BASE}/places.html">Všechna místa</a>
           <a href="${SITE_BASE}/index_.html">Archiv původní verze</a>
         </div>
       </div>
@@ -93,6 +93,27 @@ export function placeCard(place) {
   `;
 }
 
+export function spotlightCard(place) {
+  const imageUrl = optimizedImageUrl(place.hero_image?.url || '');
+  return `
+    <article class="surface-card spotlight-card">
+      <a class="spotlight-media" href="${SITE_BASE}/place.html?slug=${encodeURIComponent(place.slug)}">
+        ${imageUrl ? `<img src="${escapeAttribute(imageUrl)}" alt="${escapeAttribute(place.hero_image?.alt || place.title)}" loading="eager" decoding="async">` : ''}
+      </a>
+      <div class="spotlight-body">
+        <div class="meta-pills">
+          ${place.region ? `<span class="pill">${escapeHtml(place.region.title)}</span>` : ''}
+          ${place.category ? `<span class="pill pill--muted">${escapeHtml(place.category.title)}</span>` : ''}
+        </div>
+        <h3><a href="${SITE_BASE}/place.html?slug=${encodeURIComponent(place.slug)}">${escapeHtml(place.title)}</a></h3>
+        ${place.subtitle ? `<p class="spotlight-subtitle">${escapeHtml(place.subtitle)}</p>` : ''}
+        <p class="spotlight-copy">${escapeHtml(place.excerpt || place.short_description || '')}</p>
+        <a class="button button--primary" href="${SITE_BASE}/place.html?slug=${encodeURIComponent(place.slug)}">Přečíst detail</a>
+      </div>
+    </article>
+  `;
+}
+
 export function collectionCard(collection) {
   return `
     <article class="surface-card collection-card">
@@ -106,8 +127,25 @@ export function collectionCard(collection) {
   `;
 }
 
-export function regionPill(region) {
-  return `<a class="pill pill--region" href="${SITE_BASE}/places.html?region=${encodeURIComponent(region.slug)}">${escapeHtml(region.title)}</a>`;
+export function regionCard(region) {
+  return `
+    <a class="surface-card region-card" href="${SITE_BASE}/places.html?region=${encodeURIComponent(region.slug)}">
+      <span class="eyebrow eyebrow--soft">Region</span>
+      <h3>${escapeHtml(region.title)}</h3>
+      <p>${escapeHtml(region.description || 'Další místa a zastávky z této části mapy.')}</p>
+      <span class="region-link">Projít region →</span>
+    </a>
+  `;
+}
+
+export function activeFilterPills(filters = {}) {
+  const labels = [];
+  if (filters.region) labels.push(`Region: ${escapeHtml(filters.region)}`);
+  if (filters.category) labels.push(`Kategorie: ${escapeHtml(filters.category)}`);
+  if (filters.tag) labels.push(`Tag: ${escapeHtml(filters.tag)}`);
+  if (filters.q) labels.push(`Hledání: ${escapeHtml(filters.q)}`);
+  if (!labels.length) return '<div class="active-filters__empty">Aktuálně bez aktivních filtrů.</div>';
+  return labels.map((label) => `<span class="pill pill--muted">${label}</span>`).join('');
 }
 
 export function listItems(items) {
@@ -126,6 +164,10 @@ export function richText(paragraphs) {
 
 export function breadcrumbs(items) {
   return `<nav class="breadcrumbs" aria-label="Breadcrumb">${items.map((item) => `<span><a href="${escapeAttribute(item.href)}">${escapeHtml(item.title)}</a></span>`).join('')}</nav>`;
+}
+
+export function detailFact(label, value) {
+  return `<div class="fact-row"><span>${escapeHtml(label)}</span><strong>${escapeHtml(value || '—')}</strong></div>`;
 }
 
 export function escapeHtml(value = '') {
