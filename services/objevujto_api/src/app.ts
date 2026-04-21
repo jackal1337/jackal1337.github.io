@@ -44,6 +44,8 @@ export function createApp(repository: Repository, settings: Settings) {
 
   app.use(mount);
   if (settings.basePath && settings.basePath !== '/') {
+    const target = settings.publicBaseUrl.endsWith('/') ? settings.publicBaseUrl : `${settings.publicBaseUrl}/`;
+    app.get([settings.basePath, `${settings.basePath}/`], (_req, res) => res.redirect(302, target));
     app.use(settings.basePath, mount);
   }
 
