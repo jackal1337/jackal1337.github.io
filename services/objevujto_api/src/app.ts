@@ -38,14 +38,17 @@ export function createApp(repository: Repository, settings: Settings) {
   mount.use('/api/admin', createAdminRouter(repository, auth, settings));
 
   if (settings.adminBuildDir) {
-    mount.get('/admin', (req, res) => res.redirect(301, `${req.baseUrl || ''}/admin/`));
-    mount.use('/admin', express.static(settings.adminBuildDir, { index: 'index.html', redirect: false }));
+    const adminIndex = path.resolve(settings.adminBuildDir, 'index.html');
+    mount.get('/admin/', (_req, res) => res.sendFile(adminIndex));
+    mount.use('/admin/assets', express.static(path.resolve(settings.adminBuildDir, 'assets'), { redirect: false }));
   }
 
   app.use(mount);
   if (settings.basePath && settings.basePath !== '/') {
     const target = settings.publicBaseUrl.endsWith('/') ? settings.publicBaseUrl : `${settings.publicBaseUrl}/`;
-    app.get([settings.basePath, `${settings.basePath}/`], (_req, res) => res.redirect(302, target));
+    const escapedBasePath = settings.basePath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    app.get(new RegExp(`^${escapedBasePath}/admin$`), (_req, res) => res.redirect(301, `${settings.basePath}/admin/`));
+    app.get(new RegExp(`^${escapedBasePath}/?$`), (_req, res) => res.redirect(302, target));
     app.use(settings.basePath, mount);
   }
 
