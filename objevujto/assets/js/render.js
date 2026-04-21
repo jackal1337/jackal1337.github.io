@@ -54,8 +54,8 @@ export function renderAppShell(activePath = '/') {
           <p>Průvodce po zajímavých místech, zastávkách a částech San Andreas pro klidné objevování i delší výlet.</p>
         </div>
         <div class="footer-links">
-          <a href="${SITE_BASE}/places.html">Všechna místa</a>
-          <a href="${SITE_BASE}/index_.html">Archiv původní verze</a>
+          <a href="${SITE_BASE}/places.html?group=core-towns">Tři hlavní obce</a>
+          <a href="${SITE_BASE}/places.html?group=others">Další části San Andreas</a>
         </div>
       </div>
     `;
@@ -114,6 +114,23 @@ export function spotlightCard(place) {
   `;
 }
 
+export function gatewayCard(entry) {
+  const imageUrl = optimizedImageUrl(entry.image || '');
+  return `
+    <a class="surface-card gateway-card" href="${entry.href}">
+      <div class="gateway-card__media">
+        ${imageUrl ? `<img src="${escapeAttribute(imageUrl)}" alt="${escapeAttribute(entry.alt || entry.title)}" loading="lazy" decoding="async">` : ''}
+      </div>
+      <div class="gateway-card__body">
+        <span class="eyebrow eyebrow--soft">${escapeHtml(entry.kicker || 'Místo')}</span>
+        <h3>${escapeHtml(entry.title)}</h3>
+        <p>${escapeHtml(entry.text)}</p>
+        <span class="gateway-card__link">${escapeHtml(entry.linkLabel || 'Prozkoumat →')}</span>
+      </div>
+    </a>
+  `;
+}
+
 export function collectionCard(collection) {
   return `
     <article class="surface-card collection-card">
@@ -140,12 +157,26 @@ export function regionCard(region) {
 
 export function activeFilterPills(filters = {}) {
   const labels = [];
+  if (filters.group === 'core-towns') labels.push('Výběr: Montgomery, Blueberry, Palomino Creek');
+  if (filters.group === 'others') labels.push('Výběr: Další části San Andreas');
   if (filters.region) labels.push(`Region: ${escapeHtml(filters.region)}`);
   if (filters.category) labels.push(`Kategorie: ${escapeHtml(filters.category)}`);
   if (filters.tag) labels.push(`Tag: ${escapeHtml(filters.tag)}`);
   if (filters.q) labels.push(`Hledání: ${escapeHtml(filters.q)}`);
   if (!labels.length) return '<div class="active-filters__empty">Aktuálně bez aktivních filtrů.</div>';
   return labels.map((label) => `<span class="pill pill--muted">${label}</span>`).join('');
+}
+
+export function listingSection(title, description, cardsHtml) {
+  return `
+    <section class="listing-section">
+      <div class="listing-section__head">
+        <h2>${escapeHtml(title)}</h2>
+        <p>${escapeHtml(description)}</p>
+      </div>
+      <div class="card-grid">${cardsHtml}</div>
+    </section>
+  `;
 }
 
 export function listItems(items) {
