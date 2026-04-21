@@ -34,7 +34,7 @@ async function loadPlaces() {
       ? places.items.map(placeCard).join('')
       : '<div class="message-box">Tomuto filtru zatím neodpovídá žádné publikované místo.</div>';
   } catch (error) {
-    renderMessage(listEl, `Nepodařilo se načíst listing. ${error.message}`, 'error');
+    renderMessage(listEl, `Nepodařilo se načíst přehled míst. ${error.message}`, 'error');
   }
 }
 

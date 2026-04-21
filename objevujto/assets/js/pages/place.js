@@ -92,7 +92,7 @@ async function init() {
       </div>
     `;
   } catch (error) {
-    renderMessage(heroEl, `Nepodařilo se načíst detail místa. ${error.message}`, 'error');
+    renderMessage(heroEl, `Nepodařilo se načíst stránku místa. ${error.message}`, 'error');
     contentEl.innerHTML = '';
   }
 }

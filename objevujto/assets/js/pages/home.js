@@ -33,9 +33,9 @@ async function init() {
 
     featuredRegionsEl.innerHTML = sitePayload.homepage.featured_regions.length
       ? sitePayload.homepage.featured_regions.map(regionPill).join('')
-      : '<div class="message-box">Regiony budou doplněny spolu s backendem.</div>';
+      : '<div class="message-box">Další regiony budeme postupně doplňovat.</div>';
   } catch (error) {
-    const message = `Nepodařilo se načíst veřejná data. ${error.message}`;
+    const message = `Nepodařilo se načíst obsah stránky. ${error.message}`;
     renderMessage(featuredPlacesEl, message, 'error');
     renderMessage(featuredCollectionsEl, message, 'error');
     renderMessage(featuredRegionsEl, message, 'error');
