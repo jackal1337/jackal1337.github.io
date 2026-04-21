@@ -12,17 +12,31 @@
   <section class="hero">
     <div class="site-shell">
       <div class="hero-panel">
-        <div>
+        <div class="hero-copy">
           <span class="eyebrow">Obsahový atlas</span>
           <h1 data-hero-title>Načítám…</h1>
           <p data-hero-subtitle></p>
           <div class="hero-actions">
             <a class="button button--primary" href="places.html">Procházet místa</a>
-            <a class="button button--ghost" href="index_.html">Otevřít legacy demo</a>
+            <a class="button button--ghost" href="index_.html">Původní demo</a>
+          </div>
+          <div class="info-grid">
+            <article class="info-card">
+              <h3>Jedno místo = jedna entita</h3>
+              <p>Žádné ručně psané HTML stránky jako zdroj pravdy. Veřejná část čte data z API.</p>
+            </article>
+            <article class="info-card">
+              <h3>Regiony, tagy, kolekce</h3>
+              <p>Místa se dají skládat podle témat a částí San Andreas, ne jen podle jedné navigační stránky.</p>
+            </article>
+            <article class="info-card">
+              <h3>Rychlejší načítání</h3>
+              <p>Frontend používá menší optimalizované obrázky, aby se to konečně načítalo jako normální web.</p>
+            </article>
           </div>
         </div>
         <div class="hero-media">
-          <img src="assets/img/map.jpg" alt="Mapa San Andreas">
+          <img src="assets/img/optimized/map-1600.webp" alt="Mapa San Andreas" fetchpriority="high" decoding="async">
         </div>
       </div>
     </div>
@@ -33,7 +47,7 @@
       <div class="section-head">
         <div>
           <h2>Zvýrazněná místa</h2>
-          <p>Homepage už nečte ručně psané HTML, ale data z veřejného JSON API.</p>
+          <p>První vrstva atlasu: výrazná místa, která mají smysl jako orientační body i jako redakční highlighty.</p>
         </div>
         <a class="button button--ghost" href="places.html">Všechny lokality</a>
       </div>
@@ -44,7 +58,7 @@
       <div class="section-head">
         <div>
           <h2>Doporučené kolekce</h2>
-          <p>Kurátorské výběry připravené pro budoucí homepage moduly a tematické landingy.</p>
+          <p>Kurátorské výběry pro delší výlet, první orientaci nebo tematické objevování.</p>
         </div>
       </div>
       <div class="collection-list" data-featured-collections></div>
@@ -54,7 +68,7 @@
       <div class="section-head">
         <div>
           <h2>Regiony</h2>
-          <p>První krok k regionální navigaci bez catch-all stránky typu „Ostatní“.</p>
+          <p>Místo catch-all „ostatní“ stránky můžeš procházet obsah podle částí mapy.</p>
         </div>
       </div>
       <div class="inline-actions" data-featured-regions></div>

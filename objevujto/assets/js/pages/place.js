@@ -1,5 +1,5 @@
 import { getPlace } from '../api.js';
-import { breadcrumbs, listItems, placeCard, renderAppShell, renderMessage, richText, setDocumentTitle } from '../render.js';
+import { breadcrumbs, listItems, optimizedImageUrl, placeCard, renderAppShell, renderMessage, richText, setDocumentTitle } from '../render.js';
 
 const params = new URLSearchParams(window.location.search);
 const slug = params.get('slug');
@@ -37,7 +37,7 @@ async function init() {
               </div>
             </div>
             <div class="hero-media">
-              ${item.hero_image?.url ? `<img src="${item.hero_image.url}" alt="${item.hero_image.alt || item.title}">` : ''}
+              ${item.hero_image?.url ? `<img src="${optimizedImageUrl(item.hero_image.url)}" alt="${item.hero_image.alt || item.title}" fetchpriority="high" decoding="async">` : ''}
             </div>
           </div>
         </div>
@@ -65,7 +65,7 @@ async function init() {
           </section>
           <section class="detail-section">
             <h2>Galerie</h2>
-            ${item.gallery?.length ? `<div class="gallery-grid">${item.gallery.map((media) => `<figure><img src="${media.url}" alt="${media.alt || media.title || item.title}"><figcaption>${media.title || ''}</figcaption></figure>`).join('')}</div>` : '<p class="muted">Galerie zatím obsahuje jen hero médium.</p>'}
+            ${item.gallery?.length ? `<div class="gallery-grid">${item.gallery.map((media) => `<figure><img src="${optimizedImageUrl(media.url)}" alt="${media.alt || media.title || item.title}" loading="lazy" decoding="async"><figcaption>${media.title || ''}</figcaption></figure>`).join('')}</div>` : '<p class="muted">Galerie zatím obsahuje jen hero médium.</p>'}
           </section>
         </div>
         <aside class="section-stack">
