@@ -41,7 +41,7 @@ export function renderAppShell(activePath = '/') {
         <nav class="nav-links" aria-label="Hlavní navigace">
           <a class="nav-link ${activePath === '/' ? 'is-active' : ''}" href="${SITE_BASE}/index.html">Domů</a>
           <a class="nav-link ${activePath === '/places' ? 'is-active' : ''}" href="${SITE_BASE}/places.html">Místa</a>
-          <a class="nav-link ${activePath === '/legacy' ? 'is-active' : ''}" href="${SITE_BASE}/index_.html">Původní demo</a>
+          <a class="nav-link ${activePath === '/legacy' ? 'is-active' : ''}" href="${SITE_BASE}/index_.html">Archiv</a>
         </nav>
       </div>
     `;
@@ -51,11 +51,11 @@ export function renderAppShell(activePath = '/') {
       <div class="site-shell footer-panel">
         <div>
           <strong>ObjevujTo</strong>
-          <p>Obsahový atlas a průvodce po San Andreas. Veřejná část běží staticky na GitHub Pages, obsah bere z externího backendu.</p>
+          <p>Obsahový atlas a průvodce po San Andreas. Inspirace pro objevování zajímavých míst, regionů a výletních zastávek.</p>
         </div>
         <div class="footer-links">
           <a href="${SITE_BASE}/places.html">Procházet místa</a>
-          <a href="${SITE_BASE}/index_.html">Původní demo</a>
+          <a href="${SITE_BASE}/index_.html">Archiv původní verze</a>
         </div>
       </div>
     `;
