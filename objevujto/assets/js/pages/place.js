@@ -4,6 +4,15 @@ import { breadcrumbs, detailFact, listItems, optimizedImageUrl, placeCard, rende
 const params = new URLSearchParams(window.location.search);
 const slug = params.get('slug');
 
+function deriveVisitSummary(item) {
+  const tone = [];
+  if (item.region?.title) tone.push(`patří do oblasti ${item.region.title}`);
+  if (item.category?.title) tone.push(`spadá mezi ${item.category.title.toLowerCase()}`);
+  if (item.tags?.length) tone.push(`nejvíc vyniká tématy ${item.tags.slice(0, 2).map((tag) => tag.title).join(' a ')}`);
+  if (!tone.length) return 'Místo, které stojí za klidnější zastávku a vlastní objevování.';
+  return `Místo, které ${tone.join(', ')}.`;
+}
+
 async function init() {
   renderAppShell();
   const heroEl = document.querySelector('[data-place-hero]');
@@ -19,6 +28,7 @@ async function init() {
   try {
     const payload = await getPlace(slug);
     const { item } = payload;
+    const visitSummary = deriveVisitSummary(item);
     setDocumentTitle(item.title);
 
     heroEl.innerHTML = `
@@ -49,28 +59,50 @@ async function init() {
       <div class="detail-content-grid">
         <div class="section-stack">
           <section class="detail-section detail-section--intro">
-            <h2>Přehled místa</h2>
+            <div class="section-head section-head--compact">
+              <div>
+                <span class="eyebrow eyebrow--soft">První dojem</span>
+                <h2>Proč sem jít</h2>
+              </div>
+            </div>
+            <p class="guide-intro">${visitSummary}</p>
             <div class="rich-text">${richText(item.long_description || item.short_description || '')}</div>
           </section>
           <div class="detail-panels-grid">
             <section class="detail-section detail-section--tone">
-              <h3>Co stojí za pozornost</h3>
+              <div class="section-head section-head--compact">
+                <div>
+                  <span class="eyebrow eyebrow--soft">To hlavní</span>
+                  <h3>Co stojí za pozornost</h3>
+                </div>
+              </div>
               ${listItems(item.highlights)}
             </section>
             <section class="detail-section detail-section--tone">
-              <h3>Tipy na návštěvu</h3>
+              <div class="section-head section-head--compact">
+                <div>
+                  <span class="eyebrow eyebrow--soft">Na cestu</span>
+                  <h3>Tipy na návštěvu</h3>
+                </div>
+              </div>
               ${listItems(item.tips)}
             </section>
           </div>
           <section class="detail-section detail-section--warning">
-            <h3>Na co si dát pozor</h3>
+            <div class="section-head section-head--compact">
+              <div>
+                <span class="eyebrow eyebrow--soft">Pozor</span>
+                <h3>Na co myslet předem</h3>
+              </div>
+            </div>
             ${item.warnings?.length ? listItems(item.warnings) : '<p class="muted">Bez zvláštních varování.</p>'}
           </section>
           <section class="detail-section">
             <div class="section-head section-head--compact">
               <div>
+                <span class="eyebrow eyebrow--soft">Další pohledy</span>
                 <h2>Galerie</h2>
-                <p>Další pohledy a detaily, které dokreslují atmosféru místa.</p>
+                <p>Další záběry a detaily, které pomáhají nasát atmosféru místa ještě před cestou.</p>
               </div>
             </div>
             ${item.gallery?.length ? `<div class="gallery-grid">${item.gallery.map((media) => `<figure><img src="${optimizedImageUrl(media.url)}" alt="${media.alt || media.title || item.title}" loading="lazy" decoding="async"><figcaption>${media.title || ''}</figcaption></figure>`).join('')}</div>` : '<p class="muted">Galerie zatím obsahuje jen hlavní fotografii.</p>'}
@@ -78,7 +110,12 @@ async function init() {
         </div>
         <aside class="section-stack">
           <section class="detail-section detail-section--aside">
-            <h3>Rychlá fakta</h3>
+            <div class="section-head section-head--compact">
+              <div>
+                <span class="eyebrow eyebrow--soft">Rychlá orientace</span>
+                <h3>Přehled</h3>
+              </div>
+            </div>
             <div class="detail-facts">
               ${detailFact('Region', item.region?.title || '—')}
               ${detailFact('Kategorie', item.category?.title || '—')}
@@ -87,7 +124,12 @@ async function init() {
             </div>
           </section>
           <section class="detail-section detail-section--aside">
-            <h3>Související místa</h3>
+            <div class="section-head section-head--compact">
+              <div>
+                <span class="eyebrow eyebrow--soft">Pokračuj dál</span>
+                <h3>Související místa</h3>
+              </div>
+            </div>
             <div class="related-grid">
               ${item.related_places?.length ? item.related_places.map(placeCard).join('') : '<p class="muted">Zatím bez souvisejících míst.</p>'}
             </div>

@@ -508,6 +508,15 @@ textarea:focus {
 .detail-section--warning {
   background: linear-gradient(180deg, rgba(171,109,45,.08), rgba(171,109,45,.03)), var(--surface);
 }
+.guide-intro {
+  margin: 0 0 1rem;
+  padding: 1rem 1.05rem;
+  border-radius: var(--radius-md);
+  background: var(--surface-muted);
+  color: var(--text);
+  line-height: 1.7;
+  font-weight: 600;
+}
 .detail-section--aside { background: var(--surface-strong); }
 .rich-text p,
 .list-block { color: var(--muted); line-height: 1.72; }
