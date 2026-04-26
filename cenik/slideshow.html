@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <style>
+    :root {
+      --hold-duration: 5600ms;
+      --fade-duration: 1500ms;
+      --ease-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
+      --stage-bg: #050505;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: var(--stage-bg);
+    }
+
+    body {
+      position: fixed;
+      inset: 0;
+      cursor: none;
+      user-select: none;
+      font-family: sans-serif;
+    }
+
+    .slideshow {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: var(--stage-bg);
+      contain: layout paint size;
+      isolation: isolate;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      opacity: 0;
+      overflow: hidden;
+      transform: translate3d(0, 0, 0);
+      transition: opacity var(--fade-duration) var(--ease-soft);
+      will-change: opacity;
+    }
+
+    .slide::before {
+      content: "";
+      position: absolute;
+      inset: -4%;
+      z-index: 0;
+      background-image: var(--image);
+      background-position: center;
+      background-size: cover;
+      filter: blur(18px) saturate(1.18) brightness(0.72);
+      opacity: 0.78;
+      transform: scale(1.08);
+      will-change: transform;
+    }
+
+    .slide.is-active {
+      z-index: 2;
+      opacity: 1;
+    }
+
+    .slide.is-leaving {
+      z-index: 1;
+      opacity: 0;
+    }
+
+    .slide__image {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      pointer-events: none;
+      user-select: none;
+      -webkit-user-drag: none;
+      backface-visibility: hidden;
+      transform:
+        translate3d(var(--from-x), var(--from-y), 0)
+        scale(var(--from-scale));
+      will-change: transform, filter;
+    }
+
+    .slide.is-active .slide__image {
+      animation: cinematic-drift calc(var(--hold-duration) + var(--fade-duration)) var(--ease-soft) forwards;
+    }
+
+    .slide.is-active::before {
+      animation: background-drift calc(var(--hold-duration) + var(--fade-duration)) linear forwards;
+    }
+
+    .motion-a {
+      --from-scale: 1.035;
+      --to-scale: 1.095;
+      --from-x: -0.8%;
+      --to-x: 0.8%;
+      --from-y: -0.5%;
+      --to-y: 0.5%;
+    }
+
+    .motion-b {
+      --from-scale: 1.09;
+      --to-scale: 1.035;
+      --from-x: 0.9%;
+      --to-x: -0.7%;
+      --from-y: 0.5%;
+      --to-y: -0.4%;
+    }
+
+    .motion-c {
+      --from-scale: 1.045;
+      --to-scale: 1.11;
+      --from-x: 0.7%;
+      --to-x: -0.8%;
+      --from-y: -0.6%;
+      --to-y: 0.3%;
+    }
+
+    .motion-d {
+      --from-scale: 1.1;
+      --to-scale: 1.04;
+      --from-x: -0.7%;
+      --to-x: 0.6%;
+      --from-y: 0.4%;
+      --to-y: -0.5%;
+    }
+
+    .motion-e {
+      --from-scale: 1.04;
+      --to-scale: 1.085;
+      --from-x: 0.4%;
+      --to-x: -0.4%;
+      --from-y: 0.7%;
+      --to-y: -0.6%;
+    }
+
+    .motion-f {
+      --from-scale: 1.085;
+      --to-scale: 1.045;
+      --from-x: -0.5%;
+      --to-x: 0.7%;
+      --from-y: -0.3%;
+      --to-y: 0.6%;
+    }
+
+    .slideshow::before,
+    .slideshow::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    .slideshow::before {
+      background:
+        linear-gradient(90deg, rgba(0, 0, 0, 0.35), transparent 16%, transparent 84%, rgba(0, 0, 0, 0.35)),
+        radial-gradient(circle at center, transparent 48%, rgba(0, 0, 0, 0.32) 100%);
+      mix-blend-mode: multiply;
+    }
+
+    .slideshow::after {
+      opacity: 0.2;
+      background:
+        linear-gradient(105deg, transparent 0%, transparent 38%, rgba(255, 255, 255, 0.24) 48%, transparent 58%, transparent 100%);
+      transform: translateX(-120%);
+      animation: soft-sweep 11500ms linear infinite;
+    }
+
+    @keyframes cinematic-drift {
+      from {
+        filter: saturate(1.02) contrast(1.02);
+        transform:
+          translate3d(var(--from-x), var(--from-y), 0)
+          scale(var(--from-scale));
+      }
+
+      to {
+        filter: saturate(1.08) contrast(1.04);
+        transform:
+          translate3d(var(--to-x), var(--to-y), 0)
+          scale(var(--to-scale));
+      }
+    }
+
+    @keyframes background-drift {
+      from {
+        transform: scale(1.08) translate3d(0, 0, 0);
+      }
+
+      to {
+        transform: scale(1.13) translate3d(-0.6%, 0.4%, 0);
+      }
+    }
+
+    @keyframes soft-sweep {
+      0%,
+      54% {
+        transform: translateX(-120%);
+      }
+
+      100% {
+        transform: translateX(120%);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="slideshow" aria-label="Fullscreen slideshow">
+    <section class="slide motion-a is-active" style="--image: url('1.jpg');">
+      <img class="slide__image" src="1.jpg" alt="" width="1000" height="500" decoding="async" draggable="false">
+    </section>
+
+    <section class="slide motion-b" style="--image: url('2.jpg');">
+      <img class="slide__image" src="2.jpg" alt="" width="1000" height="500" decoding="async" draggable="false">
+    </section>
+
+    <section class="slide motion-c" style="--image: url('3.jpg');">
+      <img class="slide__image" src="3.jpg" alt="" width="1000" height="500" decoding="async" draggable="false">
+    </section>
+
+    <section class="slide motion-d" style="--image: url('4.jpg');">
+      <img class="slide__image" src="4.jpg" alt="" width="1000" height="500" decoding="async" draggable="false">
+    </section>
+
+    <section class="slide motion-e" style="--image: url('5.jpg');">
+      <img class="slide__image" src="5.jpg" alt="" width="1000" height="500" decoding="async" draggable="false">
+    </section>
+
+    <section class="slide motion-f" style="--image: url('6.jpg');">
+      <img class="slide__image" src="6.jpg" alt="" width="1000" height="500" decoding="async" draggable="false">
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const HOLD_DURATION = 5600;
+      const FADE_DURATION = 1500;
+      const slides = Array.from(document.querySelectorAll(".slide"));
+
+      if (slides.length <= 1) {
+        return;
+      }
+
+      let activeIndex = 0;
+      let timerId = 0;
+
+      const cleanupLeavingState = (slide) => {
+        window.setTimeout(() => {
+          slide.classList.remove("is-leaving");
+        }, FADE_DURATION);
+      };
+
+      const restartActiveAnimation = (slide) => {
+        slide.classList.remove("is-active");
+        void slide.offsetWidth;
+        slide.classList.add("is-active");
+      };
+
+      const showNextSlide = () => {
+        const previousSlide = slides[activeIndex];
+        activeIndex = (activeIndex + 1) % slides.length;
+        const nextSlide = slides[activeIndex];
+
+        previousSlide.classList.remove("is-active");
+        previousSlide.classList.add("is-leaving");
+        nextSlide.classList.remove("is-leaving");
+        restartActiveAnimation(nextSlide);
+        cleanupLeavingState(previousSlide);
+
+        timerId = window.setTimeout(showNextSlide, HOLD_DURATION);
+      };
+
+      const preloadImages = () => {
+        slides.forEach((slide) => {
+          const image = slide.querySelector("img");
+
+          if (!image) {
+            return;
+          }
+
+          const preload = new Image();
+          preload.src = image.currentSrc || image.src;
+        });
+      };
+
+      preloadImages();
+      timerId = window.setTimeout(showNextSlide, HOLD_DURATION);
+
+      window.addEventListener("beforeunload", () => {
+        window.clearTimeout(timerId);
+      });
+    })();
+  </script>
+</body>
+</html>
