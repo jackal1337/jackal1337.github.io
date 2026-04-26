@@ -7,7 +7,7 @@
   <style>
     :root {
       --hold-duration: 5600ms;
-      --fade-duration: 1500ms;
+      --fade-duration: 1400ms;
       --ease-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
       --stage-bg: #050505;
     }
@@ -58,15 +58,13 @@
     .slide::before {
       content: "";
       position: absolute;
-      inset: -4%;
+      inset: -6%;
       z-index: 0;
       background-image: var(--image);
       background-position: center;
       background-size: cover;
       filter: blur(18px) saturate(1.18) brightness(0.72);
       opacity: 0.78;
-      transform: scale(1.08);
-      will-change: transform;
     }
 
     .slide.is-active {
@@ -92,72 +90,7 @@
       user-select: none;
       -webkit-user-drag: none;
       backface-visibility: hidden;
-      transform:
-        translate3d(var(--from-x), var(--from-y), 0)
-        scale(var(--from-scale));
-      will-change: transform, filter;
-    }
-
-    .slide.is-active .slide__image {
-      animation: cinematic-drift calc(var(--hold-duration) + var(--fade-duration)) var(--ease-soft) forwards;
-    }
-
-    .slide.is-active::before {
-      animation: background-drift calc(var(--hold-duration) + var(--fade-duration)) linear forwards;
-    }
-
-    .motion-a {
-      --from-scale: 1.035;
-      --to-scale: 1.095;
-      --from-x: -0.8%;
-      --to-x: 0.8%;
-      --from-y: -0.5%;
-      --to-y: 0.5%;
-    }
-
-    .motion-b {
-      --from-scale: 1.09;
-      --to-scale: 1.035;
-      --from-x: 0.9%;
-      --to-x: -0.7%;
-      --from-y: 0.5%;
-      --to-y: -0.4%;
-    }
-
-    .motion-c {
-      --from-scale: 1.045;
-      --to-scale: 1.11;
-      --from-x: 0.7%;
-      --to-x: -0.8%;
-      --from-y: -0.6%;
-      --to-y: 0.3%;
-    }
-
-    .motion-d {
-      --from-scale: 1.1;
-      --to-scale: 1.04;
-      --from-x: -0.7%;
-      --to-x: 0.6%;
-      --from-y: 0.4%;
-      --to-y: -0.5%;
-    }
-
-    .motion-e {
-      --from-scale: 1.04;
-      --to-scale: 1.085;
-      --from-x: 0.4%;
-      --to-x: -0.4%;
-      --from-y: 0.7%;
-      --to-y: -0.6%;
-    }
-
-    .motion-f {
-      --from-scale: 1.085;
-      --to-scale: 1.045;
-      --from-x: -0.5%;
-      --to-x: 0.7%;
-      --from-y: -0.3%;
-      --to-y: 0.6%;
+      transform: translate3d(0, 0, 0);
     }
 
     .slideshow::before,
@@ -184,32 +117,6 @@
       animation: soft-sweep 11500ms linear infinite;
     }
 
-    @keyframes cinematic-drift {
-      from {
-        filter: saturate(1.02) contrast(1.02);
-        transform:
-          translate3d(var(--from-x), var(--from-y), 0)
-          scale(var(--from-scale));
-      }
-
-      to {
-        filter: saturate(1.08) contrast(1.04);
-        transform:
-          translate3d(var(--to-x), var(--to-y), 0)
-          scale(var(--to-scale));
-      }
-    }
-
-    @keyframes background-drift {
-      from {
-        transform: scale(1.08) translate3d(0, 0, 0);
-      }
-
-      to {
-        transform: scale(1.13) translate3d(-0.6%, 0.4%, 0);
-      }
-    }
-
     @keyframes soft-sweep {
       0%,
       54% {
@@ -225,27 +132,27 @@
 
 <body>
   <main class="slideshow" aria-label="Fullscreen slideshow">
-    <section class="slide motion-a is-active" style="--image: url('1.jpg');">
+    <section class="slide is-active" style="--image: url('1.jpg');">
       <img class="slide__image" src="1.jpg" alt="" width="1000" height="500" decoding="async" draggable="false">
     </section>
 
-    <section class="slide motion-b" style="--image: url('2.jpg');">
+    <section class="slide" style="--image: url('2.jpg');">
       <img class="slide__image" src="2.jpg" alt="" width="1000" height="500" decoding="async" draggable="false">
     </section>
 
-    <section class="slide motion-c" style="--image: url('3.jpg');">
+    <section class="slide" style="--image: url('3.jpg');">
       <img class="slide__image" src="3.jpg" alt="" width="1000" height="500" decoding="async" draggable="false">
     </section>
 
-    <section class="slide motion-d" style="--image: url('4.jpg');">
+    <section class="slide" style="--image: url('4.jpg');">
       <img class="slide__image" src="4.jpg" alt="" width="1000" height="500" decoding="async" draggable="false">
     </section>
 
-    <section class="slide motion-e" style="--image: url('5.jpg');">
+    <section class="slide" style="--image: url('5.jpg');">
       <img class="slide__image" src="5.jpg" alt="" width="1000" height="500" decoding="async" draggable="false">
     </section>
 
-    <section class="slide motion-f" style="--image: url('6.jpg');">
+    <section class="slide" style="--image: url('6.jpg');">
       <img class="slide__image" src="6.jpg" alt="" width="1000" height="500" decoding="async" draggable="false">
     </section>
   </main>
@@ -271,12 +178,6 @@
         }, FADE_DURATION);
       };
 
-      const restartActiveAnimation = (slide) => {
-        slide.classList.remove("is-active");
-        void slide.offsetWidth;
-        slide.classList.add("is-active");
-      };
-
       const showNextSlide = () => {
         const previousSlide = slides[activeIndex];
         activeIndex = (activeIndex + 1) % slides.length;
@@ -285,7 +186,7 @@
         previousSlide.classList.remove("is-active");
         previousSlide.classList.add("is-leaving");
         nextSlide.classList.remove("is-leaving");
-        restartActiveAnimation(nextSlide);
+        nextSlide.classList.add("is-active");
         cleanupLeavingState(previousSlide);
 
         timerId = window.setTimeout(showNextSlide, HOLD_DURATION);
