@@ -7,8 +7,8 @@
 
   <style>
     :root {
-      --hold-duration: 7200ms;
-      --fade-duration: 1600ms;
+      --hold-duration: 11000ms;
+      --fade-duration: 2200ms;
       --ease-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
       --stage-bg: #050505;
     }
@@ -162,8 +162,8 @@
     (() => {
       "use strict";
 
-      const HOLD_DURATION = 7200;
-      const FADE_DURATION = 1600;
+      const HOLD_DURATION = 11000;
+      const FADE_DURATION = 2200;
       const slides = Array.from(document.querySelectorAll(".slide"));
 
       if (slides.length <= 1) {
