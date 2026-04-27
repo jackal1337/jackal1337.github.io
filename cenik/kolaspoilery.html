@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Kola Spoilery Slideshow</title>
+
+  <style>
+    :root {
+      --hold-duration: 7200ms;
+      --fade-duration: 1600ms;
+      --ease-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
+      --stage-bg: #050505;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: var(--stage-bg);
+    }
+
+    body {
+      position: fixed;
+      inset: 0;
+      cursor: none;
+      user-select: none;
+      font-family: sans-serif;
+    }
+
+    .slideshow {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: var(--stage-bg);
+      contain: layout paint size;
+      isolation: isolate;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      opacity: 0;
+      overflow: hidden;
+      transform: translate3d(0, 0, 0);
+      transition: opacity var(--fade-duration) var(--ease-soft);
+      will-change: opacity;
+    }
+
+    .slide::before {
+      content: "";
+      position: absolute;
+      inset: -6%;
+      z-index: 0;
+      background-image: var(--image);
+      background-position: center;
+      background-size: cover;
+      filter: blur(18px) saturate(1.18) brightness(0.72);
+      opacity: 0.78;
+    }
+
+    .slide.is-active {
+      z-index: 2;
+      opacity: 1;
+    }
+
+    .slide.is-leaving {
+      z-index: 1;
+      opacity: 0;
+    }
+
+    .slide__image {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      pointer-events: none;
+      user-select: none;
+      -webkit-user-drag: none;
+      backface-visibility: hidden;
+      transform: translate3d(0, 0, 0);
+    }
+
+    .slideshow::before,
+    .slideshow::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    .slideshow::before {
+      background:
+        linear-gradient(90deg, rgba(0, 0, 0, 0.35), transparent 16%, transparent 84%, rgba(0, 0, 0, 0.35)),
+        radial-gradient(circle at center, transparent 48%, rgba(0, 0, 0, 0.32) 100%);
+      mix-blend-mode: multiply;
+    }
+
+    .slideshow::after {
+      opacity: 0.2;
+      background:
+        linear-gradient(105deg, transparent 0%, transparent 38%, rgba(255, 255, 255, 0.24) 48%, transparent 58%, transparent 100%);
+      transform: translateX(-120%);
+      animation: soft-sweep 11500ms linear infinite;
+    }
+
+    @keyframes soft-sweep {
+      0%,
+      54% {
+        transform: translateX(-120%);
+      }
+
+      100% {
+        transform: translateX(120%);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="slideshow" aria-label="Kola spoilery slideshow">
+    <section class="slide is-active" style="--image: url('kolaspoilery/kola.jpeg');">
+      <img class="slide__image" src="kolaspoilery/kola.jpeg" alt="" width="1000" height="500" decoding="async" draggable="false">
+    </section>
+
+    <section class="slide" style="--image: url('kolaspoilery/spoilery.jpg');">
+      <img class="slide__image" src="kolaspoilery/spoilery.jpg" alt="" width="1000" height="500" decoding="async" draggable="false">
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const HOLD_DURATION = 7200;
+      const FADE_DURATION = 1600;
+      const slides = Array.from(document.querySelectorAll(".slide"));
+
+      if (slides.length <= 1) {
+        return;
+      }
+
+      let activeIndex = 0;
+      let timerId = 0;
+
+      const cleanupLeavingState = (slide) => {
+        window.setTimeout(() => {
+          slide.classList.remove("is-leaving");
+        }, FADE_DURATION);
+      };
+
+      const showNextSlide = () => {
+        const previousSlide = slides[activeIndex];
+        activeIndex = (activeIndex + 1) % slides.length;
+        const nextSlide = slides[activeIndex];
+
+        previousSlide.classList.remove("is-active");
+        previousSlide.classList.add("is-leaving");
+        nextSlide.classList.remove("is-leaving");
+        nextSlide.classList.add("is-active");
+        cleanupLeavingState(previousSlide);
+
+        timerId = window.setTimeout(showNextSlide, HOLD_DURATION);
+      };
+
+      const preloadImages = () => {
+        slides.forEach((slide) => {
+          const image = slide.querySelector("img");
+
+          if (!image) {
+            return;
+          }
+
+          const preload = new Image();
+          preload.src = image.currentSrc || image.src;
+        });
+      };
+
+      preloadImages();
+      timerId = window.setTimeout(showNextSlide, HOLD_DURATION);
+
+      window.addEventListener("beforeunload", () => {
+        window.clearTimeout(timerId);
+      });
+    })();
+  </script>
+</body>
+</html>
